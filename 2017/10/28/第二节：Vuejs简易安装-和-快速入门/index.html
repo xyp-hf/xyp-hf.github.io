@@ -89,7 +89,7 @@
     </p>
   <p class="article-time">
     <time datetime="2017-10-28T10:30:07.000Z" itemprop="datePublished">2017-10-28</time>
-    Update date:<time datetime="2017-10-28T10:40:57.900Z" itemprop="dateModified">2017-10-28</time>
+    Update date:<time datetime="2017-10-28T10:48:01.396Z" itemprop="dateModified">2017-10-28</time>
     
   </p>
 </header>
@@ -106,6 +106,8 @@
 <p>假设，我们现在要把js对象中的某个变量的值渲染在页面上，传统的做法，就是先用getElementById获取到DOM节点对象，再innerHTML设置它的内容。</p>
 <p>现在，在Vue.js中，你需要这样做：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&lt;div id=<span class="string">"app"</span>&gt;</div><div class="line">  公众号：&#123;&#123; name &#125;&#125;</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;script&gt;</div><div class="line">    <span class="built_in">let</span> vm = new Vue(&#123;</div><div class="line">        el:<span class="string">"#app"</span>,</div><div class="line">        data:&#123;</div><div class="line">           name:<span class="string">"web前端教程"</span>,</div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
+<p>我们通过new Vue&#40; &#41;创建一个实例vm，参数是一个json对象，属性el提供一个在页面上存在的DOM 元素&#40;id=’app’&#41;，表明这个实例是关联指定的DOM节点。</p>
+<p>在DOM节点上，我们就可以使用双大括号&#123;&#123;  &#125;的语法来渲染Vue实例对象data中已经存在的属性值，如上面案例中的name属性的值“web前端教程”就会被渲染到页面中，替换&#123;&#123; name &#125;&#125; 显示效果为：“web前端教程”。</p>
 
     </div>
     <footer>
