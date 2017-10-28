@@ -1,0 +1,506 @@
+
+
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script type="text/javascript" src="http://tajs.qq.com/stats?sId=" charset="UTF-8"></script>
+  <script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+  
+  <title>git命令行入门 | xyp-hf</title>
+  <meta name="author" content="xyp-hf">
+  
+  <meta name="description" content="HTML|CSS|HTML5|CSS3|JavaScript|JQuery|Angular.js|vue.js|React.js">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="git命令行入门"/>
+  <meta property="og:site_name" content="xyp-hf"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  <link href="/imgs/favicon.ico" rel="icon" type="image/x-ico">
+  <link rel="alternate" href="/atom.xml" title="xyp-hf" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <script src="//libs.baidu.com/jquery/1.8.0/jquery.min.js"></script>
+</head>
+
+
+<body>
+  <header><div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/imgs/logo.png" alt="xyp-hf" title="xyp-hf"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name">xyp-hf</h1>
+				<h2 class="blog-motto">Web前端工程师</h2>
+			</div>
+			<nav class="animated">
+				<ul>
+					
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li> <a href="/atom.xml">RSS</a> </li>
+				</ul>
+			</nav>			
+</div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header class="article-info clearfix">
+  <h1 itemprop="name">
+	git命令行入门
+  </h1>
+  <p class="article-author">By
+    
+      <a href="http://xyp-hf.github.io" title="xyp-hf">xyp-hf</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2017-10-27T12:54:28.529Z" itemprop="datePublished">2017-10-27</time>
+    Update date:<time datetime="2017-10-27T12:54:28.581Z" itemprop="dateModified">2017-10-27</time>
+    
+  </p>
+</header>
+    <div class="entry">
+		
+        <p>欢迎访问CSDN博客专栏<a href="http://blog.csdn.net/column/details/17503.html" target="_blank" rel="external">CSDN专栏 Java全栈之路</a>,<a href="https://github.com/xyp-hf" target="_blank" rel="external">Github主页</a>。</p>
+<p>###开始：</p>
+<pre><code>git config --global user.name &quot;Github用户名&quot;
+git config --global user.email &quot;邮箱地址&quot;
+</code></pre><p>###git config –global 参数，有了这个参数，表示你这台机器上所有的Git仓库都会使用这个配置，当然你也可以对某个仓库指定的不同的用户名和邮箱。</p>
+<p>###创建版本库：</p>
+<p>###选择盘及路径：</p>
+<pre><code>cd D:
+</code></pre><p>###选择路径：</p>
+<pre><code>cd www
+</code></pre><p>###创建版本库:</p>
+<pre><code>mkdir testgit
+</code></pre><p>###取得路径:</p>
+<pre><code>cd testgit
+</code></pre><p>###显示当前目录：</p>
+<pre><code>pwd
+</code></pre><p>###把目录编程git可管理的仓库</p>
+<pre><code>git init   //testgit目录下会多一个隐藏的.git文件
+</code></pre><h3 id="在testgit目录下新建记事本，命名：文件名"><a href="#在testgit目录下新建记事本，命名：文件名" class="headerlink" title="在testgit目录下新建记事本，命名：文件名"></a>在testgit目录下新建记事本，命名：文件名</h3><h3 id="添加到暂存区"><a href="#添加到暂存区" class="headerlink" title="添加到暂存区"></a>添加到暂存区</h3><pre><code>git add &quot;文件名&quot;
+</code></pre><p>###提交到仓库</p>
+<pre><code>git commit -m &apos;本次提交的注释&apos;
+</code></pre><p>###查看是否有文件未提交，查看状态</p>
+<pre><code>git status
+</code></pre><p>###查看文件改了什么</p>
+<pre><code>git diff 文件名
+</code></pre><p>###版本回退</p>
+<p>###查看提交的版本及版本号:</p>
+<pre><code>git log    
+</code></pre><p>###查看提交的版本及版本号:</p>
+<pre><code>git log --pretty=oneline
+</code></pre><p>###版本回退：</p>
+<p>###回到上一个版本：</p>
+<pre><code>git reset --hard HEAD^
+</code></pre><p>###回退到上上个版本:</p>
+<pre><code>git reset --hard HEAD^^
+</code></pre><p>###回到前100个版本</p>
+<pre><code>git reset  --hard HEAD~100
+</code></pre><p>###查看版本的内容：</p>
+<pre><code>cat 文件名
+</code></pre><p>###获取版本号:</p>
+<pre><code>git reflog
+</code></pre><p>###恢复之前指定的版本号：</p>
+<pre><code>git reset --hard 之前的版本号
+</code></pre><p>###将git提交到版本库:</p>
+<p>###第一步：将文件添加到暂存区</p>
+<pre><code>git add 文件名
+</code></pre><p>###第二步：把暂存区所有内容提交到当前分支上</p>
+<pre><code>git commit &quot;-m&quot; &quot;注释&quot;
+</code></pre><p>###撤销修改和删除文件</p>
+<p>###修改：</p>
+<p>###第一：如果我知道要删掉那些内容的话，直接手动更改去掉那些需要的文件，然后add添加到暂存区，最后commit掉。</p>
+<p>###第二：我可以按以前的方法直接恢复到上一个版本。使用</p>
+<pre><code>git reset  –hard HEAD^
+</code></pre><p>###修改：</p>
+<p>###将文件在工作区的修改全部撤销</p>
+<pre><code>git checkout -- 文件名
+</code></pre><p>###删除：</p>
+<p>###添加文件：</p>
+<pre><code>git add 文件名
+</code></pre><p>###删除文件：</p>
+<pre><code>rm 文件名
+</code></pre><p>###恢复文件：</p>
+<pre><code>git checkout -- b.txt
+</code></pre><p>###提交：</p>
+<pre><code>git commit -m &quot;注释&quot;
+</code></pre><p>###远程仓库：</p>
+<p>###在了解之前，先注册github账号，由于你的本地Git仓库和github仓库之间的传输是通过SSH加密的，所以需要一点设置：</p>
+<p>###第一步：创建SSH Key。在用户主目录下，看看有没有.ssh目录，如果有，再看看这个目录下有没有id_rsa和id_rsa.pub这两个文件，如果有的话，直接跳过此如下命令，如果没有的话，打开命令行，输入如下命令：</p>
+<pre><code>ssh-keygen -t rsa -C &quot;你的邮箱&quot;
+</code></pre><p>###id_rsa是私钥，不能泄露出去，id_rsa.pub是公钥，可以放心地告诉任何人。</p>
+<p>###第二步：登录github,打开” settings”中的SSH Keys页面，然后点击</p>
+<p>###“Add SSH Key”,填上任意title，在Key文本框里黏贴id_rsa.pub文件的内容。</p>
+<p>###点击 Add Key，你就应该可以看到已经添加的key。</p>
+<p>###远程仓库同步：</p>
+<p>###创建新仓库：</p>
+<p>###第一步：登录github上，然后在右上角找到“create a new repo…”创建一个</p>
+<p>###新的仓库</p>
+<p>###第二步：在Repository name填入testgit，其他保持默认设置，点击</p>
+<p>###“Create repository”按钮，就成功地创建了一个新的Git仓库：</p>
+<p>###第三步：链接上远程仓库：</p>
+<pre><code>git remote add origin 仓库地址
+</code></pre><p>###第四步：将本地仓库分支master内容推送到远程仓库</p>
+<pre><code>git push -u origin master
+</code></pre><p>###由于远程库是空的，我们第一次推送master分支时，加上了 –u参数，Git不但会把本地的master分支内容推送的远程新的master分支，还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令。推送成功后，可以立刻在github页面中看到远程库的内容已经和本地一模一样了，上面的要输入github的用户</p>
+<p>###名和密码如下所示：</p>
+<p>###简化后本地提交：</p>
+<pre><code>git push origin master
+</code></pre><p>###远程仓库克隆到本地：</p>
+<p>###克隆到本地：</p>
+<pre><code>git clone 远程仓库地址
+</code></pre><p>###创建与合并分支：</p>
+<p>###创建并切换分支：</p>
+<pre><code>git checkout -b 分支名称
+</code></pre><p>###查看当前分支名称：//当前分支前面会打*号</p>
+<pre><code>git branch
+</code></pre><p>###git checkout 命令加上 –b参数表示创建并切换，相当于如下2条命令</p>
+<pre><code>git branch 分支名称 创建分支
+git checkout 分支名称 切换分支
+</code></pre><p>###合并分支：</p>
+<p>###将分支1合并到当前分支上：</p>
+<pre><code>git merge 分支1
+</code></pre><p>###删除分支：</p>
+<pre><code>git branch -d 分支1
+</code></pre><p>###总结创建与合并分支命令如下：</p>
+<pre><code>查看分支：git branch
+创建分支：git branch name
+切换分支：git checkout name
+创建+切换分支：git checkout –b name
+合并某分支到当前分支：git merge name
+删除分支：git branch –d name
+</code></pre><p>###解决冲突</p>
+<p>###分支管理策略</p>
+<p>###创建一个 分支名称 分支;</p>
+<pre><code>git checkout -b 分支名称
+</code></pre><p>###修改 文件内容</p>
+<p>###添加到暂存区</p>
+<pre><code>git add 文件名称
+
+git commit -m &quot;注释&quot;
+</code></pre><p>###切换回主分支</p>
+<pre><code>git checkout 要切换到的分支名称
+</code></pre><p>###合并dev分支:禁用”Fast forward”模式</p>
+<pre><code>git merge –no-ff  -m “注释” dev
+</code></pre><p>###删除分支：</p>
+<pre><code>git branch -d 分支名称
+</code></pre><p>###查看历史注释及版本号：</p>
+<pre><code>git log --graph -- prstty = oneline --abbrev-commit
+</code></pre><p>###分支策略：首先master主分支应该是非常稳定的，也就是用来发布新版本，一般情况下不允许在上面干活，干活一般情况下在新建的dev分支上干活，干完后，比如上要发布，或者说dev分支代码稳定后可以合并到主分支master上来。</p>
+<p>###bug分支：</p>
+<p>###隐藏当前工作现场:</p>
+<pre><code>git stash
+</code></pre><p>###查看状态：</p>
+<pre><code>git status
+</code></pre><p>###创建临时分支</p>
+<pre><code>git checkout -b issue-404
+</code></pre><p>###修改bug文件</p>
+<pre><code>git add 文件名
+
+git commit -m &quot;注释：修复了404bug&quot;
+</code></pre><p>###切换回主分支</p>
+<pre><code>git checkout 主分支名称
+</code></pre><p>###将bug修复分支合并到主分支</p>
+<pre><code>git merge --no-ff -m &quot;merge bug fix 404&quot; issue-404
+</code></pre><p>###查看修改后的分支</p>
+<pre><code>cat 文件名
+</code></pre><p>###删除临时分支：</p>
+<pre><code>git branch -d issue-404
+</code></pre><p>###回到原来工作分支：</p>
+<pre><code>git checkout 分支名称
+
+git status
+</code></pre><p>###查看工作现场：</p>
+<pre><code>git stash list
+</code></pre><p>###Git把stash内容存在某个地方了，但是需要恢复一下，可以使用</p>
+<p>###如下2个方法：</p>
+<pre><code>git stash apply恢复，恢复后，stash内容并不删除，你需要使
+用命令git stash drop来删除。
+另一种方式是使用git stash pop,恢复的同时把stash内容也删除了。
+</code></pre><p>###多人协作：</p>
+<p>###查看远程库的信息：</p>
+<pre><code>gir remote
+</code></pre><p>###查看远程库详细信息</p>
+<pre><code>git remote -v
+</code></pre><p>###把该分支上所有本地提交到远程库中</p>
+<pre><code>git push origin 分支名称
+</code></pre><p>###git pull把最新的提交从origin/dev抓下来，然后在本地合并，解决冲突，再推送</p>
+<p>###因此：多人协作工作模式一般是这样的：</p>
+<p>###首先，可以试图用git push origin branch-name推送自己的修改.</p>
+<p>###如果推送失败，则因为远程分支比你的本地更新早，需要先用git pull试图合并。</p>
+<p>###如果合并有冲突，则需要解决冲突，并在本地提交。再用git push origin branch-name推送。</p>
+<p>###gulp的使用入门</p>
+<p>###去github下载jQuery源码</p>
+<pre><code>git clone git://github.com/jquery/jquery.git
+
+mkdir 文件名 创建文件目录
+
+node -v //查看版本号
+
+npm -v 查看npm版本号
+
+cd 定位目录路径
+
+dir 列出文件列表
+cls 清空命令提示符窗口内容
+</code></pre><p>###：node插件名称。例：npm install gulp-less –save-dev</p>
+<p>###-g：全局安装</p>
+<p>###–save：将保存配置信息至package.json（package.json是nodejs项目配置文件）；</p>
+<p>###-dev：保存至package.json的devDependencies节点，不指定-dev将保存至dependencies节点；一般保存在dependencies的像这些express/ejs/body-parser等等。</p>
+<p>###使用npm卸载插件：npm uninstall [-g] [–save-dev]</p>
+<p>###选装cnpm</p>
+<p>###npm install cnpm -g –registry=<a href="https://registry.npm.taobao.org" target="_blank" rel="external">https://registry.npm.taobao.org</a></p>
+<p>###7.1、安装：定位目录命令后提示符执行cnpm install –save-dev；</p>
+<p>###7.2、本示例以gulp-less为例（编译less文件），命令提示符执行cnpm install gulp-less –save-dev；</p>
+<p>###11.1、安装nodejs；</p>
+<p>###11.2、新建package.json文件；</p>
+<p>###11.3、全局和本地安装gulp；</p>
+<p>###11.4、安装gulp插件；</p>
+<p>###11.5、新建gulpfile.js文件；</p>
+<p>###11.6、通过命令提示符运行gulp任务。</p>
+<pre><code>使用npm卸载插件：npm uninstall [-g] [–save-dev] PS：不要直接删除本地插件包
+删除全部插件：npm uninstall gulp-less gulp-uglify gulp-concat ……???太麻烦
+借助rimraf：npm install rimraf -g 用法：rimraf node_modules
+使用npm更新插件：npm update [-g] [–save-dev]
+更新全部插件：npm update [–save-dev]
+查看npm帮助：npm help
+当前目录已安装插件：npm list
+
+npm install -g gulp
+</code></pre>
+    </div>
+    <footer>
+        
+        
+		<div class="bdsharebuttonbox">
+	<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+	<a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
+	<a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a>
+	<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="bds_more" data-cmd="more"></a>
+	<a href="#" class="bds_count" data-cmd="count"></a>
+</div>
+<script>
+window._bd_share_config=
+{
+	"common":{
+		"bdSnsKey":{},
+		"bdText":"",
+		"bdMini":"2",
+		"bdMiniList":false,
+		"bdPic":"",
+		"bdStyle":"0",
+		"bdSize":"24"
+	},
+	"share":{},
+	"image":{
+		"viewList":["qzone","tsina","tqq","renren","weixin","fbook","twi"],
+		"viewText":"分享到：",
+		"viewSize":"24"
+	},
+	"selectShare":{
+		"bdContainerClass":null,
+		"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin","fbook","twi"]
+	}
+};
+with(document)0[
+	(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)
+];
+</script>    
+        <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+ <nav id="pagination" >
+    
+    <a href="/2017/10/27/JavaScript数组常用操作大全/" class="alignleft prev" title="JavaScript数组常用操作大全">JavaScript数组常用操作大全</a>
+    
+    
+    <a href="/2017/10/27/背景透明，文字不透明的做法/" class="alignright next" title="背景透明，文字不透明的做法">背景透明，文字不透明的做法</a>
+    
+    <div class="clearfix"></div>
+</nav>
+
+
+
+	
+	<section id="comment">
+		<!-- 多说评论框 start -->
+		<div class="ds-thread" data-thread-key="2017/10/27/git命令行入门/" data-title="git命令行入门" data-url="http://xyp-hf.github.io/2017/10/27/git命令行入门/"></div>
+		<!-- 多说评论框 end -->
+		<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+		<script type="text/javascript">
+		var duoshuoQuery = {short_name:""};
+		(function() {
+			var ds = document.createElement('script');
+			ds.type = 'text/javascript';ds.async = true;
+			ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+			ds.charset = 'UTF-8';
+			(document.getElementsByTagName('head')[0] 
+			 || document.getElementsByTagName('body')[0]).appendChild(ds);
+		})();
+		</script>
+		<!-- 多说公共JS代码 end -->
+	</section>
+	
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:xyp-hf.github.io">
+  </form>
+</div>
+
+  
+
+  
+<div class="widget tagcloud">
+  <h3 class="title">Tag Cloud</h3>
+  <div class="entry">
+    <a href="/tags/Vue-js/" style="font-size: 10px;">Vue.js</a>
+  </div>
+</div>
+
+
+  <iframe width="100%" height="140" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=1&speed=0&skin=1&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1923610190&verifier=6af5ad6a&colors=fafafa,fafafa,666666,0082cb,ecfbfd&dpc=1"></iframe>
+
+  <div class="widget tag">
+<h3 class="title">友情链接</h3>
+<ul class="entry">
+<li><a href="http://blog.csdn.net/xyphf" title="我的CSDN" target="_blank">我的CSDN</a></li>
+<li><a href="https://xyp-hf.github.io/" title="我的Github" target="_blank">我的Github</a></li>
+<li><a href="http://blog.csdn.net/column/details/17503.html" title="Java全栈之路 技术专栏" target="_blank">Java全栈之路 技术专栏</a></li>
+</ul>
+</div>
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer"><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> 欢迎来到我的Github博客空间 <br/>
+			每天进步一点点, 星星之火可燎原</p>
+	</section>
+	 
+	<div class="social-font clearfix">
+		
+		<a href="http://weibo.com/gushi120" target="_blank" title="weibo"></a>
+		
+		
+		
+		<a href="https://github.com/xyp-hf" target="_blank" title="github"></a>
+		
+		
+		
+		
+		<a href="mailto:2766588380@qq.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/huangjunhui/concise" target="_blank" title="Concise">Concise</a> © 2017 
+		
+		<a href="http://xyp-hf.github.io/about" target="_blank" title="xyp-hf">xyp-hf</a>
+		
+		</p>
+</div>
+</footer>
+  <script src="//libs.baidu.com/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/counter.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+<div id="totop" style="position:fixed;bottom:100px;right:10px;cursor: pointer;">
+<a title="返回顶部"><img src="/imgs/scrollup.png"/></a>
+</div>
+<script src="/js/totop.js"></script>
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</body>
+</html>
+
+
