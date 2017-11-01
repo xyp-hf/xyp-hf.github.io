@@ -15,7 +15,7 @@
 	})();
 	</script>
   
-  <title>8、Oracle的外连接 | xyp-hf</title>
+  <title>11、Oracle的分组 | xyp-hf</title>
   <meta name="author" content="xyp-hf">
   
   <meta name="description" content="HTML|CSS|HTML5|CSS3|JavaScript|JQuery|Angular.js|vue.js|React.js">
@@ -23,7 +23,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="8、Oracle的外连接"/>
+  <meta property="og:title" content="11、Oracle的分组"/>
   <meta property="og:site_name" content="xyp-hf"/>
 
   
@@ -81,73 +81,55 @@
   <div class="post-content">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-	8、Oracle的外连接
+	11、Oracle的分组
   </h1>
   <p class="article-author">By
     
       <a href="http://xyp-hf.github.io" title="xyp-hf">xyp-hf</a>
     </p>
   <p class="article-time">
-    <time datetime="2017-11-01T22:43:44.000Z" itemprop="datePublished">2017-11-02</time>
-    Update date:<time datetime="2017-11-01T22:56:52.836Z" itemprop="dateModified">2017-11-02</time>
+    <time datetime="2017-11-01T23:24:12.000Z" itemprop="datePublished">2017-11-02</time>
+    Update date:<time datetime="2017-11-01T23:37:43.570Z" itemprop="dateModified">2017-11-02</time>
     
   </p>
 </header>
     <div class="entry">
 		
-        <h3 id="1、外连接的特点"><a href="#1、外连接的特点" class="headerlink" title="1、外连接的特点"></a>1、外连接的特点</h3><pre><code>外连接的结果集 等于 内连接的结果集  加上 匹配不上的记录
-一个也不能少
-</code></pre><h3 id="2、如何实现"><a href="#2、如何实现" class="headerlink" title="2、如何实现"></a>2、如何实现</h3><pre><code>(+) (+)的意思是 (+)所在的字段 对面的表的数据全部被匹配出来。
-
-找出所有的普通员工?
-    select distinct  m.id,m.first_name
-         from  s_emp  e,s_emp  m
-                 where  e.manager_id(+) = m.id and e.manager_id is  null;
-</code></pre><h3 id="3、显示每个部门的名字-和-对应的地区的名字"><a href="#3、显示每个部门的名字-和-对应的地区的名字" class="headerlink" title="3、显示每个部门的名字 和 对应的地区的名字"></a>3、显示每个部门的名字 和 对应的地区的名字</h3><pre><code>   select d.name,r.name
-      from   s_dept d,s_region r
-             where  d.region_id = r.id;
-
-公司为了发展 增加了新的部门  
-insert  into  s_dept values(100,&apos;test100&apos;,null);
-commit; 
-----------------------------------------------------------------------
-显示每个部门的名字 和 对应的地区的名字   没有地区编号的部门也要显示
-    select d.name,r.name
-      from   s_dept d,s_region r
-             where  d.region_id = r.id(+);
-</code></pre><h3 id="4、显示每个员工的-first-name-salary-以及-工资对应的工资级别"><a href="#4、显示每个员工的-first-name-salary-以及-工资对应的工资级别" class="headerlink" title="4、显示每个员工的 first_name salary  以及 工资对应的工资级别"></a>4、显示每个员工的 first_name salary  以及 工资对应的工资级别</h3><pre><code>      select first_name,salary,grade    
-            from  s_emp,salgrade 
-                where  salary  between  losal  and hisal;
-
-    给 id  大于 23 的人涨工资   涨成 12500
-    update  s_emp  set salary=12500  where  id &gt; 23;
-      commit;
-----------------------------------------------------------------------
-    使用外连接  找回那些超出统计范围的员工
-    select first_name,salary,grade    
-            from  s_emp,salgrade 
-                    where  salary  between  losal(+)  and hisal(+); 
-</code></pre><h3 id="5、显示s-emp-表中所有的领导"><a href="#5、显示s-emp-表中所有的领导" class="headerlink" title="5、显示s_emp 表中所有的领导?"></a>5、显示s_emp 表中所有的领导?</h3><pre><code>    select  distinct m.id,m.first_name      
-        from  s_emp  e,s_emp m
-                where e.manager_id = m.id;
-----------------------------------------------------------------------
-显示s_emp  表中所有的普通员工
-     select  distinct m.id,m.first_name      
-           from  s_emp  e,s_emp m
-                 where e.manager_id(+) = m.id and  e.manager_id is null;
-
-(+)  的意思  (+) 所在字段的表的对面的表的数据全部被匹配出来 
-本质上 数据是通过 null 记录进行的匹配
-</code></pre><h3 id="6、表连接的总结"><a href="#6、表连接的总结" class="headerlink" title="6、表连接的总结"></a>6、表连接的总结</h3><pre><code>内连接   符合连接条件的数据被选中 不符合的被过滤掉
-        等值连接     员工和对应的部门   部门和对应的地区 
-        非等值连接   工资 和工资级别
-        自连接         谁是领导
-
-外连接   外连接的结果集 等于 内连接的结果集 加上匹配不上的记录 
-        (+)  (+)所在的字段的表的对面的表的数据全部被匹配出来  本质上使用null 记录     
-        自连接     谁是普通员工
-        等值连接   找出新增的部门
-        非等值连接  找出超出工资统计范围的员工 
+        <h3 id="1、分组的概念"><a href="#1、分组的概念" class="headerlink" title="1、分组的概念"></a>1、分组的概念</h3><pre><code>分组 就按照一定的标准 把数据分成若干部分
+</code></pre><h3 id="2、语法格式"><a href="#2、语法格式" class="headerlink" title="2、语法格式"></a>2、语法格式</h3><pre><code>select  字段       
+     from  表名 
+             where  条件  
+                     group  by  分组标准    having   组函数的过滤条件
+                             order  by  排序标准 排序方式;
+</code></pre><h3 id="3、"><a href="#3、" class="headerlink" title="3、"></a>3、</h3><pre><code>举例
+按照部门编号分组  统计部门的人数 
+select dept_id,count(id)     
+       from  s_emp   
+              group by dept_id;
+------------------------------------------------------------------------------------------
+    显示人数大于2 的部门
+    select dept_id,count(id)     
+           from  s_emp   
+                  group by dept_id   having  count(id) &gt; 2; 
+------------------------------------------------------------------------------------------
+</code></pre><h3 id="4、"><a href="#4、" class="headerlink" title="4、"></a>4、</h3><pre><code>按照部门编号分组 统计每个部门的平均工资  显示平均工资大于1400 的部门
+    select dept_id,avg(salary)     
+           from  s_emp   
+                  group by dept_id   having  avg(salary) &gt; 1400;   
+</code></pre><h3 id="5、sql语句的执行顺序"><a href="#5、sql语句的执行顺序" class="headerlink" title="5、sql语句的执行顺序"></a>5、sql语句的执行顺序</h3><pre><code>from     where     group  by   having   select   order by 
+</code></pre><h3 id="6、按照部门编号分组-统计每个部门的工资和-显示工资和大于3000的部门"><a href="#6、按照部门编号分组-统计每个部门的工资和-显示工资和大于3000的部门" class="headerlink" title="6、按照部门编号分组 统计每个部门的工资和   显示工资和大于3000的部门"></a>6、按照部门编号分组 统计每个部门的工资和   显示工资和大于3000的部门</h3><pre><code>select dept_id,sum(salary) 
+   from s_emp   
+           group by dept_id having sum(salary) &gt; 3000;
+</code></pre><h3 id="7、在-6-的基础上-显示每个部门的名字"><a href="#7、在-6-的基础上-显示每个部门的名字" class="headerlink" title="7、在 6 的基础上 显示每个部门的名字"></a>7、在 6 的基础上 显示每个部门的名字</h3><pre><code>     select dept_id,sum(salary),max(name)
+             from s_emp,s_dept where dept_id = s_dept.id  
+                     group by  dept_id   having  sum(salary) &gt; 3000;
+------------------------------------------------------------------------------------------
+结论:在分组语句中  select 后的字段要么是分组标准  要么是经过合适的组函数处理过的 
+</code></pre><h3 id="8、"><a href="#8、" class="headerlink" title="8、"></a>8、</h3><pre><code>按照地区编号分组  统计每个地区中部门个数  并显示地区名
+      select  region_id,count(d.id),max(r.name)  name
+            from s_dept  d, s_region r
+                    where d.region_id = r.id 
+                            group by  region_id; 
 </code></pre>
     </div>
     <footer>
@@ -203,10 +185,10 @@ with(document)0[
 
  <nav id="pagination" >
     
-    <a href="/2017/11/02/9、表连接的SQL99-标准/" class="alignleft prev" title="9、表连接的SQL99 标准">9、表连接的SQL99 标准</a>
+    <a href="/2017/11/02/12、Oracle的子查询/" class="alignleft prev" title="12、Oracle的子查询">12、Oracle的子查询</a>
     
     
-    <a href="/2017/11/02/7、Oracle多表查询/" class="alignright next" title="7、Oracle多表查询">7、Oracle多表查询</a>
+    <a href="/2017/11/02/10、Oracle的组函数/" class="alignright next" title="10、Oracle的组函数">10、Oracle的组函数</a>
     
     <div class="clearfix"></div>
 </nav>
@@ -216,7 +198,7 @@ with(document)0[
 	
 	<section id="comment">
 		<!-- 多说评论框 start -->
-		<div class="ds-thread" data-thread-key="2017/11/02/8、Oracle的外连接/" data-title="8、Oracle的外连接" data-url="http://xyp-hf.github.io/2017/11/02/8、Oracle的外连接/"></div>
+		<div class="ds-thread" data-thread-key="2017/11/02/11、Oracle的分组/" data-title="11、Oracle的分组" data-url="http://xyp-hf.github.io/2017/11/02/11、Oracle的分组/"></div>
 		<!-- 多说评论框 end -->
 		<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 		<script type="text/javascript">

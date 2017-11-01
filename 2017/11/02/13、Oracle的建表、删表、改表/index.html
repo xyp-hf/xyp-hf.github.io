@@ -15,7 +15,7 @@
 	})();
 	</script>
   
-  <title>8、Oracle的外连接 | xyp-hf</title>
+  <title>13、Oracle的建表、删表、改表 | xyp-hf</title>
   <meta name="author" content="xyp-hf">
   
   <meta name="description" content="HTML|CSS|HTML5|CSS3|JavaScript|JQuery|Angular.js|vue.js|React.js">
@@ -23,7 +23,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="8、Oracle的外连接"/>
+  <meta property="og:title" content="13、Oracle的建表、删表、改表"/>
   <meta property="og:site_name" content="xyp-hf"/>
 
   
@@ -81,73 +81,56 @@
   <div class="post-content">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-	8、Oracle的外连接
+	13、Oracle的建表、删表、改表
   </h1>
   <p class="article-author">By
     
       <a href="http://xyp-hf.github.io" title="xyp-hf">xyp-hf</a>
     </p>
   <p class="article-time">
-    <time datetime="2017-11-01T22:43:44.000Z" itemprop="datePublished">2017-11-02</time>
-    Update date:<time datetime="2017-11-01T22:56:52.836Z" itemprop="dateModified">2017-11-02</time>
+    <time datetime="2017-11-01T23:51:16.000Z" itemprop="datePublished">2017-11-02</time>
+    Update date:<time datetime="2017-11-01T23:56:59.338Z" itemprop="dateModified">2017-11-02</time>
     
   </p>
 </header>
     <div class="entry">
 		
-        <h3 id="1、外连接的特点"><a href="#1、外连接的特点" class="headerlink" title="1、外连接的特点"></a>1、外连接的特点</h3><pre><code>外连接的结果集 等于 内连接的结果集  加上 匹配不上的记录
-一个也不能少
-</code></pre><h3 id="2、如何实现"><a href="#2、如何实现" class="headerlink" title="2、如何实现"></a>2、如何实现</h3><pre><code>(+) (+)的意思是 (+)所在的字段 对面的表的数据全部被匹配出来。
+        <h2 id="DDL-（-data-define-language）"><a href="#DDL-（-data-define-language）" class="headerlink" title="DDL  （ data define  language）"></a>DDL  （ data define  language）</h2><h3 id="1、建表"><a href="#1、建表" class="headerlink" title="1、建表"></a>1、建表</h3><pre><code>  create  table  表名(
+         字段名1    类型,
+         字段名2    类型,
+         字段名3    类型 
+   );
+------------------------------------------------------------------------------------------
+  类型:  number    数字类型  
+         varchar2(n)    变长字符串类型
+         char(n)     定长字符串  
+         date        日期类型
+</code></pre><h3 id="2、"><a href="#2、" class="headerlink" title="2、"></a>2、</h3><pre><code>  举例
+  建立一张学生表   叫 student100
+  id     number
+  name varchar2(30) 
+  sno    char(30)
+  sdate   date
+------------------------------------------------------------------------------------------
+  create  table  student100(
+      id     number，
+      name varchar2(30)， 
+     sno    char(30)，
+      sdate   date
+  ); 
+</code></pre><h3 id="3、删除表"><a href="#3、删除表" class="headerlink" title="3、删除表"></a>3、删除表</h3><pre><code> drop  table  表名;
+------------------------------------------------------------------------------------------
+ 如：
+ drop  table  student100;
+</code></pre><h3 id="4、修改表"><a href="#4、修改表" class="headerlink" title="4、修改表"></a>4、修改表</h3><pre><code>删除某个字段
+alter  table  表名 drop  column  字段名
+如：
+alter   table  student100 drop  column sdate;
 
-找出所有的普通员工?
-    select distinct  m.id,m.first_name
-         from  s_emp  e,s_emp  m
-                 where  e.manager_id(+) = m.id and e.manager_id is  null;
-</code></pre><h3 id="3、显示每个部门的名字-和-对应的地区的名字"><a href="#3、显示每个部门的名字-和-对应的地区的名字" class="headerlink" title="3、显示每个部门的名字 和 对应的地区的名字"></a>3、显示每个部门的名字 和 对应的地区的名字</h3><pre><code>   select d.name,r.name
-      from   s_dept d,s_region r
-             where  d.region_id = r.id;
-
-公司为了发展 增加了新的部门  
-insert  into  s_dept values(100,&apos;test100&apos;,null);
-commit; 
-----------------------------------------------------------------------
-显示每个部门的名字 和 对应的地区的名字   没有地区编号的部门也要显示
-    select d.name,r.name
-      from   s_dept d,s_region r
-             where  d.region_id = r.id(+);
-</code></pre><h3 id="4、显示每个员工的-first-name-salary-以及-工资对应的工资级别"><a href="#4、显示每个员工的-first-name-salary-以及-工资对应的工资级别" class="headerlink" title="4、显示每个员工的 first_name salary  以及 工资对应的工资级别"></a>4、显示每个员工的 first_name salary  以及 工资对应的工资级别</h3><pre><code>      select first_name,salary,grade    
-            from  s_emp,salgrade 
-                where  salary  between  losal  and hisal;
-
-    给 id  大于 23 的人涨工资   涨成 12500
-    update  s_emp  set salary=12500  where  id &gt; 23;
-      commit;
-----------------------------------------------------------------------
-    使用外连接  找回那些超出统计范围的员工
-    select first_name,salary,grade    
-            from  s_emp,salgrade 
-                    where  salary  between  losal(+)  and hisal(+); 
-</code></pre><h3 id="5、显示s-emp-表中所有的领导"><a href="#5、显示s-emp-表中所有的领导" class="headerlink" title="5、显示s_emp 表中所有的领导?"></a>5、显示s_emp 表中所有的领导?</h3><pre><code>    select  distinct m.id,m.first_name      
-        from  s_emp  e,s_emp m
-                where e.manager_id = m.id;
-----------------------------------------------------------------------
-显示s_emp  表中所有的普通员工
-     select  distinct m.id,m.first_name      
-           from  s_emp  e,s_emp m
-                 where e.manager_id(+) = m.id and  e.manager_id is null;
-
-(+)  的意思  (+) 所在字段的表的对面的表的数据全部被匹配出来 
-本质上 数据是通过 null 记录进行的匹配
-</code></pre><h3 id="6、表连接的总结"><a href="#6、表连接的总结" class="headerlink" title="6、表连接的总结"></a>6、表连接的总结</h3><pre><code>内连接   符合连接条件的数据被选中 不符合的被过滤掉
-        等值连接     员工和对应的部门   部门和对应的地区 
-        非等值连接   工资 和工资级别
-        自连接         谁是领导
-
-外连接   外连接的结果集 等于 内连接的结果集 加上匹配不上的记录 
-        (+)  (+)所在的字段的表的对面的表的数据全部被匹配出来  本质上使用null 记录     
-        自连接     谁是普通员工
-        等值连接   找出新增的部门
-        非等值连接  找出超出工资统计范围的员工 
+增加一个字段
+alter  table  表名  add    字段名   类型;
+如：
+alter  table  student100 add  sdate  date;
 </code></pre>
     </div>
     <footer>
@@ -203,10 +186,10 @@ with(document)0[
 
  <nav id="pagination" >
     
-    <a href="/2017/11/02/9、表连接的SQL99-标准/" class="alignleft prev" title="9、表连接的SQL99 标准">9、表连接的SQL99 标准</a>
+    <a href="/2017/11/02/第七节：实战前必须掌握的10个指令-上/" class="alignleft prev" title="第七节：实战前必须掌握的10个指令(上)">第七节：实战前必须掌握的10个指令(上)</a>
     
     
-    <a href="/2017/11/02/7、Oracle多表查询/" class="alignright next" title="7、Oracle多表查询">7、Oracle多表查询</a>
+    <a href="/2017/11/02/12、Oracle的子查询/" class="alignright next" title="12、Oracle的子查询">12、Oracle的子查询</a>
     
     <div class="clearfix"></div>
 </nav>
@@ -216,7 +199,7 @@ with(document)0[
 	
 	<section id="comment">
 		<!-- 多说评论框 start -->
-		<div class="ds-thread" data-thread-key="2017/11/02/8、Oracle的外连接/" data-title="8、Oracle的外连接" data-url="http://xyp-hf.github.io/2017/11/02/8、Oracle的外连接/"></div>
+		<div class="ds-thread" data-thread-key="2017/11/02/13、Oracle的建表、删表、改表/" data-title="13、Oracle的建表、删表、改表" data-url="http://xyp-hf.github.io/2017/11/02/13、Oracle的建表、删表、改表/"></div>
 		<!-- 多说评论框 end -->
 		<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 		<script type="text/javascript">
