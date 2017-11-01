@@ -15,7 +15,7 @@
 	})();
 	</script>
   
-  <title>Hello World | xyp-hf</title>
+  <title>3、Oracle查询语句 from 字句 | xyp-hf</title>
   <meta name="author" content="xyp-hf">
   
   <meta name="description" content="HTML|CSS|HTML5|CSS3|JavaScript|JQuery|Angular.js|vue.js|React.js">
@@ -23,7 +23,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="Hello World"/>
+  <meta property="og:title" content="3、Oracle查询语句 from 字句"/>
   <meta property="og:site_name" content="xyp-hf"/>
 
   
@@ -81,34 +81,107 @@
   <div class="post-content">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-	Hello World
+	3、Oracle查询语句 from 字句
   </h1>
   <p class="article-author">By
     
       <a href="http://xyp-hf.github.io" title="xyp-hf">xyp-hf</a>
     </p>
   <p class="article-time">
-    <time datetime="2017-10-27T00:23:34.415Z" itemprop="datePublished">2017-10-27</time>
-    Update date:<time datetime="2017-10-27T00:23:34.415Z" itemprop="dateModified">2017-10-27</time>
+    <time datetime="2017-11-01T12:19:58.000Z" itemprop="datePublished">2017-11-01</time>
+    Update date:<time datetime="2017-11-01T13:13:06.857Z" itemprop="dateModified">2017-11-01</time>
     
   </p>
 </header>
     <div class="entry">
 		
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+        <p>1、如何从表中查询一个字段对应的内容</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">select 字段名 from 表名;</div></pre></td></tr></table></figure>
+<p>查询 s_emp 表中 每个员工的月薪</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">select salary from s_emp;</div></pre></td></tr></table></figure>
+<p>2、如何查询多个字段对应的内容</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">select 字段名1,字段名2,字段名3 from 表名;</div></pre></td></tr></table></figure>
+<p>查询 s_emp 表中 每个员工的id,first_name,salary</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">select id,first_name,salary from s_emp;</div></pre></td></tr></table></figure>
+<pre><code>限制某个字段名的这一列 一行最多显示21个字符
 
+col first_name for a21;
+</code></pre><p>3、查询 s_emp 表中所有的字段对应的内容</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">select id,first_name,last_name,hire_date,title,comments,salary,commission_pct from s_emp;</div><div class="line">SQL&gt;edit</div><div class="line">SQL&gt;/</div></pre></td></tr></table></figure>
+<pre><code>* 号可以代表所有的字段名 但是比较耗性能
+</code></pre><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">select * from s_emp;</div></pre></td></tr></table></figure>
+<p>4、sql 中的数学运算</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">+  -  *  /</div><div class="line">select  salary,salary+1000 from  s_emp; // 加薪1000</div><div class="line">select  salary,salary*6  from  s_emp;   //计算半年薪</div><div class="line">这里没有取整特性 </div><div class="line">select  salary,salary/22 from s_emp;	//计算每个工作日收入</div></pre></td></tr></table></figure>
+<pre><code>练习：
+显示s_emp表中每个人的 月薪 和 对应的年薪
+select salary,salary*13 from s_emp;
+</code></pre><hr>
+<pre><code>字段 和 表达式 别名
+只要在 字段 或 表达式的后面 加 空格 别名 即可
+
+注意： 每个字段或表达式的别名只能有一个,如
+
+select salary sal,salary*13  yearsal from s_emp;
+
+如何解决带有空格的别名,加双引号
+
+select salary &quot;sAl&quot;,salary*13 &quot;year   sal&quot; from s_emp;
+
+单引号在sql中的意思是字符串
+
+&apos;&apos; &apos; &apos; &apos;a&apos; &apos;hello world&apos;
+</code></pre><p>5、    字符串的连接</p>
+<pre><code>Oracle 中字符串的拼接 使用 || ,如
+字符串 || 字符串 || 字符串
+</code></pre><p>显示 s_emp 表中的 姓名</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">select  first_name,last_name  from s_emp;</div><div class="line"></div><div class="line">select  first_name  || last_name  from s_emp;</div></pre></td></tr></table></figure>
+<p>在名 和 姓之间 拼接一个下划线字符串</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">select first_name ||<span class="string">'_'</span>||last_name from s_emp;</div></pre></td></tr></table></figure>
+<p>在名 和 姓之间拼接一个单引号字符串<br>这里用到了转义思想 需要使用两个单引号代表单引号</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">select  first_name  ||<span class="string">''</span><span class="string">''</span>||last_name  from s_emp;</div></pre></td></tr></table></figure>
+<p>在名 和 姓直接 拼接两个单引号字符串</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">select  first_name  ||<span class="string">''</span><span class="string">''</span><span class="string">''</span>||last_name  from s_emp;</div><div class="line"></div><div class="line">select  first_name  ||<span class="string">''</span><span class="string">''</span>||<span class="string">''</span><span class="string">''</span>||last_name  from s_emp;</div></pre></td></tr></table></figure>
+<p>6、NULL 值的处理 </p>
+<pre><code>为什么要进行NULL值处理?
+因为 NULL 值和任何值做运算结果都是NULL
+
+比如有的人有commission_pct（提成）,有的人没有，现在我们要给所有人的提成增加20,那么没有提成的人就会很受伤了
+select  commission_pct,commission_pct+20 from  s_emp;
+
+在比如我们要计算 月薪乘以 12  再加上 月薪乘以 12乘以提成/100，那么不做NULL处理的话，有人可是一年就白忙活了
+select salary*12,salary*12+salary*12*commission_pct/100  from s_emp
+
+那么怎么样处理NULL 值呢?
+
+nvl(par1, par2)   当par1 为NULL 时会返回par2的值，否则返回 par1 本身
+null 值要尽早处理 否则运算完成之后 结果就不正确了
+
+select salary*12,salary*12+salary*nvl(commision_pct,0)/100 from s_emp;
+</code></pre><hr>
+<pre><code>练习：
+显示每个员工的 id  first_name manager_id  如果manager_id为null 则显示成 -1
+
+select  id,first_name,nvl(manager_id,-1) from  s_emp;
+</code></pre><p>7、数据的排重 （重复的数据值留一份）</p>
+<pre><code>使用排重关键字 distinct 就可以完成
+如：查询所有的月薪，数目相同只留一份
+select distinct salary from s_emp;
+
+多重字段排重 当多个字段的值都相同时,才进行去重
+select distinct id,title,salary from s_emp;
+
+注意：排重关键字 distinct 必须出现在最前面 不能出现多对一 现象
+select id,title, distinct salary from s_emp; （X）
+</code></pre>
     </div>
     <footer>
         
         
+  
+  <div class="tags">
+    <a href="/tags/Oracle/">Oracle</a>
+  </div>
+
 		<div class="bdsharebuttonbox">
 	<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
 	<a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
@@ -154,8 +227,10 @@ with(document)0[
 
  <nav id="pagination" >
     
-    <a href="/2017/10/27/arr/" class="alignleft prev" title="面试题：一个数组插入另一个数组指定的位置">面试题：一个数组插入另一个数组指定的位置</a>
+    <a href="/2017/11/01/4、Oracle查询语句-where字句/" class="alignleft prev" title="4、Oracle查询语句 where字句">4、Oracle查询语句 where字句</a>
     
+    
+    <a href="/2017/11/01/2、安装Oracle数据库/" class="alignright next" title="2、安装Oracle数据库">2、安装Oracle数据库</a>
     
     <div class="clearfix"></div>
 </nav>
@@ -165,7 +240,7 @@ with(document)0[
 	
 	<section id="comment">
 		<!-- 多说评论框 start -->
-		<div class="ds-thread" data-thread-key="2017/10/27/hello-world/" data-title="Hello World" data-url="http://xyp-hf.github.io/2017/10/27/hello-world/"></div>
+		<div class="ds-thread" data-thread-key="2017/11/01/3、Oracle查询语句-from-字句/" data-title="3、Oracle查询语句 from 字句" data-url="http://xyp-hf.github.io/2017/11/01/3、Oracle查询语句-from-字句/"></div>
 		<!-- 多说评论框 end -->
 		<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 		<script type="text/javascript">
