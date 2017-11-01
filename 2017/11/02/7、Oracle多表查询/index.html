@@ -15,7 +15,7 @@
 	})();
 	</script>
   
-  <title>Hello World | xyp-hf</title>
+  <title>7、Oracle多表查询 | xyp-hf</title>
   <meta name="author" content="xyp-hf">
   
   <meta name="description" content="HTML|CSS|HTML5|CSS3|JavaScript|JQuery|Angular.js|vue.js|React.js">
@@ -23,7 +23,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="Hello World"/>
+  <meta property="og:title" content="7、Oracle多表查询"/>
   <meta property="og:site_name" content="xyp-hf"/>
 
   
@@ -81,34 +81,89 @@
   <div class="post-content">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-	Hello World
+	7、Oracle多表查询
   </h1>
   <p class="article-author">By
     
       <a href="http://xyp-hf.github.io" title="xyp-hf">xyp-hf</a>
     </p>
   <p class="article-time">
-    <time datetime="2017-10-27T00:23:34.415Z" itemprop="datePublished">2017-10-27</time>
-    更新日期:<time datetime="2017-10-27T00:23:34.415Z" itemprop="dateModified">2017-10-27</time>
+    <time datetime="2017-11-01T16:41:52.000Z" itemprop="datePublished">2017-11-02</time>
+    更新日期:<time datetime="2017-11-01T17:15:51.010Z" itemprop="dateModified">2017-11-02</time>
     
   </p>
 </header>
     <div class="entry">
 		
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+        <h3 id="1、表连接"><a href="#1、表连接" class="headerlink" title="1、表连接"></a>1、表连接</h3><pre><code>查询s_emp 表中的first_name 和 对应的部门编号
+select first_name,dept_id from s_emp;
+会发现 需要的部门名 在s_dept 表中 表结构 如下 
+会发现 需要的部门名  在 s_dept 表中
+</code></pre><h3 id="2、如何取得需要的数据-如果出现同名字段-则使用-表名区分"><a href="#2、如何取得需要的数据-如果出现同名字段-则使用-表名区分" class="headerlink" title="2、如何取得需要的数据 如果出现同名字段 则使用 表名区分"></a>2、如何取得需要的数据 如果出现同名字段 则使用 表名区分</h3><pre><code>select first_name,dept_id,name
+         from s_emp,s_dept
+                 where dept_id = s_dept.id;
+</code></pre><h3 id="3、表连接的语法"><a href="#3、表连接的语法" class="headerlink" title="3、表连接的语法"></a>3、表连接的语法</h3><pre><code>select 想要的字段数据
+       from 表1,表2
+            where 条件;
 
+如果碰到同名字段,则使用表名区分
+</code></pre><h3 id="4、"><a href="#4、" class="headerlink" title="4、"></a>4、</h3><pre><code>s_dept表                            s_region表
+id          部门编号                 id          地区编号
+name        部门名                   name        地区名
+region_id   地区编号
+------------------------------------------------------------------------------------------
+
+查询每个 部门的名字 和 对应的地区的名字
+    select s_dept.name,s_region.name
+           from s_dept,s_region
+                    where region_id = s_region.id;
+</code></pre><h3 id="5、可以通过给表起别名的方法-来简化表连接的sql"><a href="#5、可以通过给表起别名的方法-来简化表连接的sql" class="headerlink" title="5、可以通过给表起别名的方法 来简化表连接的sql"></a>5、可以通过给表起别名的方法 来简化表连接的sql</h3><pre><code>select d.name,r.name
+          from s_dept d,s_region r
+                  where region_id=r.id;
+</code></pre><h3 id="6、【三表查询】显示每个员工的first-name-和-对应的部门的名字-已经-部门对应的地区的名字"><a href="#6、【三表查询】显示每个员工的first-name-和-对应的部门的名字-已经-部门对应的地区的名字" class="headerlink" title="6、【三表查询】显示每个员工的first_name 和 对应的部门的名字 已经 部门对应的地区的名字"></a>6、【三表查询】显示每个员工的first_name 和 对应的部门的名字 已经 部门对应的地区的名字</h3><pre><code> s_emp表                        s_dept表                         s_region表
+ id          员工编号            id         部门编号               id    地区编号
+ first_name  员工名              name       部门名                name   地区名
+ dept_id     部门编号            region_id  地区编号
+------------------------------------------------------------------------------------------
+    select first_name, d.name dname,r.name rname
+         from s_emp e,s_dept d,s_region r
+                 where  e.dept_id=d.id and d.region_id=r.id;
+</code></pre><h3 id="7、非等值连接"><a href="#7、非等值连接" class="headerlink" title="7、非等值连接"></a>7、非等值连接</h3><pre><code>4.7.1  等值连接 和 非等值连接
+等值连接
+       使用等号作为表的连接条件 叫等值连接
+非等值连接:
+       不使用等号作为表的连接条件  叫非等值连接
+
+------------------------------------------------------------------------------------------
+
+4.7.2 非等值连接举例
+salgrade
+grade    工资级别
+losal    级别对应的低工资
+hisal    级别对应的高工资
+显示每个员工的 id   salary  和 对应的工资级别
+
+select id,salary,grade
+       from s_emp,salgrede
+             where salary between losal and hisal;
+</code></pre><h3 id="8、自连接"><a href="#8、自连接" class="headerlink" title="8、自连接"></a>8、自连接</h3><pre><code>通常在一张物理表中 存在两层业务含义的数据 查询出其中的一层数据，就会使用到自连接。
+
+如：找出所有的领导
+如果有人的manager_id是你的id，则你就是领导
+
+    select distinct m.id,m.first_name
+           from s_emp e,s_emp m
+                  where e.manager_id=m.id;
+</code></pre>
     </div>
     <footer>
         
         
+  
+  <div class="tags">
+    <a href="/tags/Oracle/">Oracle</a>
+  </div>
+
 		<div class="bdsharebuttonbox">
 	<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
 	<a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
@@ -154,8 +209,8 @@ with(document)0[
 
  <nav id="pagination" >
     
-    <a href="/2017/10/27/arr/" class="alignleft prev" title="面试题：一个数组插入另一个数组指定的位置">面试题：一个数组插入另一个数组指定的位置</a>
     
+    <a href="/2017/11/01/6、Oracle单行函数/" class="alignright next" title="6、Oracle单行函数">6、Oracle单行函数</a>
     
     <div class="clearfix"></div>
 </nav>
@@ -165,7 +220,7 @@ with(document)0[
 	
 	<section id="comment">
 		<!-- 多说评论框 start -->
-		<div class="ds-thread" data-thread-key="2017/10/27/hello-world/" data-title="Hello World" data-url="http://xyp-hf.github.io/2017/10/27/hello-world/"></div>
+		<div class="ds-thread" data-thread-key="2017/11/02/7、Oracle多表查询/" data-title="7、Oracle多表查询" data-url="http://xyp-hf.github.io/2017/11/02/7、Oracle多表查询/"></div>
 		<!-- 多说评论框 end -->
 		<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 		<script type="text/javascript">
