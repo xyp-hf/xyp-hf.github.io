@@ -15,7 +15,7 @@
 	})();
 	</script>
   
-  <title>1、初识数据库 | xyp-hf</title>
+  <title>6、Oracle单行函数 | xyp-hf</title>
   <meta name="author" content="xyp-hf">
   
   <meta name="description" content="HTML|CSS|HTML5|CSS3|JavaScript|JQuery|Angular.js|vue.js|React.js">
@@ -23,7 +23,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="1、初识数据库"/>
+  <meta property="og:title" content="6、Oracle单行函数"/>
   <meta property="og:site_name" content="xyp-hf"/>
 
   
@@ -81,61 +81,121 @@
   <div class="post-content">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-	1、初识数据库
+	6、Oracle单行函数
   </h1>
   <p class="article-author">By
     
       <a href="http://xyp-hf.github.io" title="xyp-hf">xyp-hf</a>
     </p>
   <p class="article-time">
-    <time datetime="2017-11-01T11:20:04.000Z" itemprop="datePublished">2017-11-01</time>
-    更新日期:<time datetime="2017-11-01T11:40:12.871Z" itemprop="dateModified">2017-11-01</time>
+    <time datetime="2017-11-01T15:42:41.000Z" itemprop="datePublished">2017-11-01</time>
+    更新日期:<time datetime="2017-11-01T16:34:13.616Z" itemprop="dateModified">2017-11-02</time>
     
   </p>
 </header>
     <div class="entry">
 		
-        <p>1、什么是数据库?</p>
-<pre><code>数据库 本质上对应一个管理文件的软件
-DBMS    （data base manager system） 数据库管理系统
-DB      data base 正在存储数据的文件
-RDBMS   relation database manager system 关系型数据管理系统
-RDB     relation data base 关系型数据库
-</code></pre><p>2、什么是RDB 以及主流的RDB?</p>
-<pre><code>基于二维表的数据库 叫 RDB
-二维表就是 基于行 和列的表
-行       row
-列       column
-表头     table header
-字段名   Field name
-字段值   Field value
+        <p>1、概念</p>
+<pre><code>单行函数：
+       针对sql语句影响的每一行 都做处理 并且针对每一行都会返回一个结果
+       sql语句影响多少行就返回多少个结果
+组函数:
+       针对sql语句影响的所有行 只返回一个结果
+       无论sql影响多少行 只返回一个结果
+</code></pre><p>2、举例</p>
+<pre><code>单行函数:
+select first_name,upper(first_name) name from s_emp where id=1;
+select first_name,upper(first_name) name from s_emp where id=1;
+select first_name,upper(first_name) name from s_emp where id=1;
 
-主流的关系型数据库有
-Oracle          主要版本有Oracle9i Oracle10g Oracle11g  来自甲骨文公司
-DB2           db2  来自于IBM公司
-sqlserver      sqlserver20*    来自微软公司
+组函数：
+select count(first_name) cname from s_emp where id=1;
+select count(first_name) canme from s_emp where id&gt;1;
+select  count(first_name) cname  from  s_emp where  id&lt;1;
+</code></pre><p>3、准备学习 oracle数据库中单行函数</p>
+<pre><code>select upper(first_name) name,first_name from s_emp;
+为了方便学习 引入一个单行 单列的表 dual
+select * from dual;
+</code></pre><p>4、Oracle数据库中 处理字符串的单行函数</p>
+<pre><code>upper(par1) 变大写 如： select upper(&apos;hello&apos;) from dual;
+lower(par2) 变小写 如： select lower(&apos;HEllo&apos;) from dual;
 
-非常流行的非商业级数据库
-mysql    原本属于sun公司，先属于Oracle公司
-</code></pre><p>3、SQL （Struct Query Language 结构化查询语言） 的分类<br>    select 语句 （查询语句 DQL）</p>
-<pre><code>DDL （data define language 数据定义语言）
-    create table 建表
-    drop table 删表
-    alter table 改表
+initcap(par1) 每个单词首字母变大写 如： select initcap(&apos;one world one dream&apos;) from dual;
+length(par1) 求长度 如：select length(&apos;hello&apos;) from dual;
+concat(par1,par2) 连接两个字符串 如: select concat(&apos;a&apos;,&apos;b&apos;) from dual;
+nvl(par1,par2) nvl 可以处理任何类型 要求par1 和 par2 类型保持一致
+substr(par1,par2,par3)
+        par1    要处理的字符串或者字段
+        par2    截取的位置 编号从1 开始        可是负数 -1 代表最后一个字符
+        par3    截取的长度
+        select substr(&apos;hello&apos;,0,2) from dual;
+        select substr(&apos;hello&apos;,1,2) from dual;
+        select  substr(&apos;hello&apos;,2,2)  from dual;
 
-DML （data manapulation language 数据操作语言）
-    insert 插入
-    delect 删除
-    alter table 该表
+------------------------------------------------------------------------------------------
+如：
+显示 s_emp 表中的first_name 和 first_name 对应的前三个字符
+    select first_name,substr(first_name,1,3) from s_emp;
 
-TCL （transation control language 事物控制语句）
-    commit     提交
-    rollback   回滚
-    savepoiont 保存点
+显示 s_emp 表中的first_name 和 first_name 对应的后三个字符
+    select first_name,substr(first_name,-3,3) from s_emp;
 
-DCL （data control language 数据控制语句）
-    grant   授权
-    revoke    回收权限
+replace(par1,par2,par3)
+         par1     要处理的字符串
+         par2     被替换的内容
+         par3     替换成什么
+    如：select replace(&apos;one&apos; world one dream&apos;,&apos;one&apos;,&apos;two&apos;) from dual;
+</code></pre><p>5、处理数字的函数</p>
+<pre><code>round(par1,par2)    四舍五入
+         par1      要处理的数字
+         par2      处理的精确 默认是0 可以省略
+保留小数点后一位 看第二位小数
+    select round(9.58,1) from dual;
+对小数点前一位进行四舍五入
+    select round(9.58,-1) from dual;
+------------------------------------------------------------------------------------------
+trunc(par1,par2) 截取函数
+          par1         要处理的数字
+           par2      处理的精度  默认是 0，可以省略
+    select trunc(9.58) from dual;
+    select trunc(12.88) from dual;
+保留小数点后一位 不看第二位
+select trunc(9.58,1) from dual;
+对小数点前一位 进行截取
+select trunc(9.58,-1) from dual;
+</code></pre><p>6、格式显示函数</p>
+<pre><code>to_char(par1,par2)
+         par1 要处理的数据，还可以处理日期
+         par2 是显示格式 以字符串形式出现 可以省略 如果省略代表把某个类型变成 字符串类型 
+
+FM       格式的开头 是format格式的缩写 可以省略
+￥       美元符号
+L        本地货币符号 ￥
+9        小数点前面 代表 0-9 的任意数字
+         小数点后面 代表 1-9 的任意数字
+0        小数点前面代表 强制显示前导零 如 12345 =&gt; 012,234
+         小数点后面代表 0-9 的任意数字
+,         千分位分隔符
+.         小数点
+
+select salary,to_char(salary,&apos;FM$099,999.99&apos;) from s_emp;
+select salary,to_char(salary,&apos;FM$099,999.00&apos;) from s_emp;
+
+select to_char(12345.86,&apos;$099,999.99&apos;) from dual;
+select to_char(12345.86,&apos;$099,999.00&apos;) from dual;
+
+如果使用 L  则看的是 环境变量 NLS_LANG 
+select  to_char(12345.86,&apos;L099,999.00&apos;) from dual;
+</code></pre><p>3.7 函数嵌套</p>
+<pre><code>把一个函数的返回值 作为另一个函数的参数
+如：显示s_emp 表中的first_name 和 first_name 前三个字符，然后把这三个字符变大写
+select first_name,upper(substr(first_name,1,3)) from s_emp;
+
+如：显示s_emp 表中的first_name 和 first_name 后三个字符 然后把这三个字符变大写
+select first_name,upper(substr(first_name,length(first_name)-2,3)) from s_emp;
+
+显示 s_emp 表中的 id first_name manager_id,如果manager_id是null,则显示成BOSS
+select id,first_name,nvl(to_char(manager_id),&apos;BOSS&apos;)  mid  from  s_emp;
 </code></pre>
     </div>
     <footer>
@@ -191,10 +251,8 @@ with(document)0[
 
  <nav id="pagination" >
     
-    <a href="/2017/11/01/2、安装Oracle数据库/" class="alignleft prev" title="2、安装Oracle数据库">2、安装Oracle数据库</a>
     
-    
-    <a href="/2017/10/31/第五节：轻松掌握-vue-实例的生命周期/" class="alignright next" title="第五节：轻松掌握 vue 实例的生命周期">第五节：轻松掌握 vue 实例的生命周期</a>
+    <a href="/2017/11/01/5、Oracle的排序/" class="alignright next" title="5、Oracle的排序">5、Oracle的排序</a>
     
     <div class="clearfix"></div>
 </nav>
@@ -204,7 +262,7 @@ with(document)0[
 	
 	<section id="comment">
 		<!-- 多说评论框 start -->
-		<div class="ds-thread" data-thread-key="2017/11/01/1、初识数据库/" data-title="1、初识数据库" data-url="http://xyp-hf.github.io/2017/11/01/1、初识数据库/"></div>
+		<div class="ds-thread" data-thread-key="2017/11/01/6、Oracle单行函数/" data-title="6、Oracle单行函数" data-url="http://xyp-hf.github.io/2017/11/01/6、Oracle单行函数/"></div>
 		<!-- 多说评论框 end -->
 		<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 		<script type="text/javascript">
