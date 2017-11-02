@@ -15,7 +15,7 @@
 	})();
 	</script>
   
-  <title>9、表连接的SQL99 标准 | xyp-hf</title>
+  <title>14、DML(data manipulation language) | xyp-hf</title>
   <meta name="author" content="xyp-hf">
   
   <meta name="description" content="HTML|CSS|HTML5|CSS3|JavaScript|JQuery|Angular.js|vue.js|React.js">
@@ -23,7 +23,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="9、表连接的SQL99 标准"/>
+  <meta property="og:title" content="14、DML(data manipulation language)"/>
   <meta property="og:site_name" content="xyp-hf"/>
 
   
@@ -81,69 +81,43 @@
   <div class="post-content">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-	9、表连接的SQL99 标准
+	14、DML(data manipulation language)
   </h1>
   <p class="article-author">By
     
       <a href="http://xyp-hf.github.io" title="xyp-hf">xyp-hf</a>
     </p>
   <p class="article-time">
-    <time datetime="2017-11-01T23:01:35.000Z" itemprop="datePublished">2017-11-02</time>
-    更新日期:<time datetime="2017-11-01T23:15:33.100Z" itemprop="dateModified">2017-11-02</time>
+    <time datetime="2017-11-02T16:54:18.000Z" itemprop="datePublished">2017-11-03</time>
+    更新日期:<time datetime="2017-11-02T17:14:43.700Z" itemprop="dateModified">2017-11-03</time>
     
   </p>
 </header>
     <div class="entry">
 		
-        <h3 id="1、sql99-的内连接标准"><a href="#1、sql99-的内连接标准" class="headerlink" title="1、sql99 的内连接标准"></a>1、sql99 的内连接标准</h3><pre><code>语法格式：
-from  a表  join  b 表  on  表的连接条件  where  过滤条件;
-from  a表   inner join  b 表  on  表的连接条件  where  过滤条件;
-</code></pre><p>###<br>    练习<br>    显示 每个部门的名字 和 对应的地区的名字<br>      select   d.name,r.name<br>          from s_dept d,s_region  r  </p>
-<pre><code>              where  d.region_id =  r.id;
-------------------------------------------------------------------------------------------
-  select   d.name,r.name         
-          from s_dept d  join  s_region  r  
-                 on  d.region_id =  r.id;
-------------------------------------------------------------------------------------------
-  select   d.name,r.name         
-          from s_dept d  inner  join  s_region  r  
-                 on  d.region_id =  r.id;
-</code></pre><h3 id="2、sql99-外连接标准"><a href="#2、sql99-外连接标准" class="headerlink" title="2、sql99 外连接标准"></a>2、sql99 外连接标准</h3><pre><code>语法格式：
-a 表   left   outer  join  b表   on  连接条件  where  过滤条件;
-a 表   right  outer  join  b表   on  连接条件  where  过滤条件;
-a 表   full   outer  join  b表   on  连接条件  where  过滤条件;
-</code></pre><p>###<br>    左外连接</p>
-<pre><code>a 表 left outer join b 表 的意思就是 a 表发起连接,
-a表发起连接就代表a表全部被匹配出来。
-本质上 也是通过 null 记录进行匹配。
-</code></pre><h3 id="3、"><a href="#3、" class="headerlink" title="3、"></a>3、</h3><pre><code>练习
-显示每个部门的名字 和 对应的地区的名字  没有地区编号的部门也要显示 
-    select d.name,r.name            
-         from s_dept d,s_region r  
-              where d.region_id = r.id(+);
-------------------------------------------------------------------------------------------
-    select d.name,r.name            
-         from s_dept d left outer join s_region r  
-                 on d.region_id = r.id;
-</code></pre><h3 id="4、"><a href="#4、" class="headerlink" title="4、"></a>4、</h3><pre><code>练习
-查询出所有的普通员工?
-    select distinct m.id,m.first_name   
-           from s_emp e,s_emp m 
-              where e.manager_id(+) = m.id and e.manager_id is null;
-------------------------------------------------------------------------------------------
-     select  distinct m.id,m.first_name   
-           from  s_emp  m  left outer join s_emp  e 
-              on e.manager_id = m.id   where  e.manager_id is null;        
-</code></pre><h3 id="5、全外连接"><a href="#5、全外连接" class="headerlink" title="5、全外连接"></a>5、全外连接</h3><pre><code>全外连接 只是一个逻辑概念   全外连接的结果集 等于 左外连接的结果集 加上右外连接的结果集
-然后排除重复的记录。
+        <h3 id="1-1-插入语句-insert-into"><a href="#1-1-插入语句-insert-into" class="headerlink" title="1.1 插入语句 insert into"></a>1.1 插入语句 insert into</h3><pre><code>1.1.1 全字段插入 插入数据的顺序和 desc 表名之后的顺序相同
+insert into 表名 values(值1,值2，值3);
+commit;
 
-全外连接 在Oracle 中 是怎么实现的?
-    全外连接 不是通过两端 加 (+) 实现的，而是通过  union   实现的
-    union 是可以合并两个结果集 然后排重
-    union  all    是 合并两个结果集 不排重 
+注意： 数字类型可以直接写 字符串类型的值应该使用单引号 值如果可以为null 则可以使用null
+insert into student100 values(1,&apos;zhangsan&apos;,&apos;201700011&apos;,null);
+insert into student100 values(2,&apos;lisi&apos;,&apos;201700012&apos;,sysdate);
+</code></pre><p>###<br>        1.12 选择部分字段插入<br>        没有选择到的字段 默认值是null 这就要求大家必须包含所有的非空字段<br>        insert into  表名(字段名1,字段名3)  values(值1,值3);</p>
+<pre><code>commit;
+------------------------------------------------------------------------------------------
+insert  into  s_dept(id,name) values(101,&apos;test101&apos;);
+commit;
+</code></pre><h3 id="1-2-删除语法"><a href="#1-2-删除语法" class="headerlink" title="1.2 删除语法"></a>1.2 删除语法</h3><pre><code>delete  from  表名  where 条件;
+commit;
+</code></pre><h3 id="1-3-修改数据"><a href="#1-3-修改数据" class="headerlink" title="1.3 修改数据"></a>1.3 修改数据</h3><pre><code>update  表名  set 字段名=值  where 条件;
+update  表名   set 字段名=值,字段名2=值2  where 条件;
+commit;
+------------------------------------------------------------------------------------------
+例如：
+把s_emp 表中 id = 5 的员工 first_name 改成 dengziqi salary改成1234567
 
-select id from  s_emp  union  select id from s_emp;
-select id from  s_emp  union  all select id from s_emp;
+select first_name,salary from s_emp where id=5;
+update s_emp set first_name=&apos;dengziqi&apos;,salary=1234567 where id=5;
 </code></pre>
     </div>
     <footer>
@@ -199,10 +173,10 @@ with(document)0[
 
  <nav id="pagination" >
     
-    <a href="/2017/11/02/10、Oracle的组函数/" class="alignleft prev" title="10、Oracle的组函数">10、Oracle的组函数</a>
+    <a href="/2017/11/03/15、TCL-（transaction-control-language）/" class="alignleft prev" title="15、TCL （transaction  control  language）">15、TCL （transaction  control  language）</a>
     
     
-    <a href="/2017/11/02/8、Oracle的外连接/" class="alignright next" title="8、Oracle的外连接">8、Oracle的外连接</a>
+    <a href="/2017/11/02/第七节：实战前必须掌握的10个指令-上/" class="alignright next" title="第七节：实战前必须掌握的10个指令(上)">第七节：实战前必须掌握的10个指令(上)</a>
     
     <div class="clearfix"></div>
 </nav>
@@ -212,7 +186,7 @@ with(document)0[
 	
 	<section id="comment">
 		<!-- 多说评论框 start -->
-		<div class="ds-thread" data-thread-key="2017/11/02/9、表连接的SQL99-标准/" data-title="9、表连接的SQL99 标准" data-url="http://xyp-hf.github.io/2017/11/02/9、表连接的SQL99-标准/"></div>
+		<div class="ds-thread" data-thread-key="2017/11/03/14、DML-data-manipulation-language/" data-title="14、DML(data manipulation language)" data-url="http://xyp-hf.github.io/2017/11/03/14、DML-data-manipulation-language/"></div>
 		<!-- 多说评论框 end -->
 		<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 		<script type="text/javascript">

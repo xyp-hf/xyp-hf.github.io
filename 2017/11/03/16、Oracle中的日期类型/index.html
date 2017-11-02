@@ -15,7 +15,7 @@
 	})();
 	</script>
   
-  <title>9、表连接的SQL99 标准 | xyp-hf</title>
+  <title>16、Oracle中的日期类型 | xyp-hf</title>
   <meta name="author" content="xyp-hf">
   
   <meta name="description" content="HTML|CSS|HTML5|CSS3|JavaScript|JQuery|Angular.js|vue.js|React.js">
@@ -23,7 +23,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="9、表连接的SQL99 标准"/>
+  <meta property="og:title" content="16、Oracle中的日期类型"/>
   <meta property="og:site_name" content="xyp-hf"/>
 
   
@@ -81,69 +81,79 @@
   <div class="post-content">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-	9、表连接的SQL99 标准
+	16、Oracle中的日期类型
   </h1>
   <p class="article-author">By
     
       <a href="http://xyp-hf.github.io" title="xyp-hf">xyp-hf</a>
     </p>
   <p class="article-time">
-    <time datetime="2017-11-01T23:01:35.000Z" itemprop="datePublished">2017-11-02</time>
-    更新日期:<time datetime="2017-11-01T23:15:33.100Z" itemprop="dateModified">2017-11-02</time>
+    <time datetime="2017-11-02T17:25:26.000Z" itemprop="datePublished">2017-11-03</time>
+    更新日期:<time datetime="2017-11-02T17:41:21.291Z" itemprop="dateModified">2017-11-03</time>
     
   </p>
 </header>
     <div class="entry">
 		
-        <h3 id="1、sql99-的内连接标准"><a href="#1、sql99-的内连接标准" class="headerlink" title="1、sql99 的内连接标准"></a>1、sql99 的内连接标准</h3><pre><code>语法格式：
-from  a表  join  b 表  on  表的连接条件  where  过滤条件;
-from  a表   inner join  b 表  on  表的连接条件  where  过滤条件;
-</code></pre><p>###<br>    练习<br>    显示 每个部门的名字 和 对应的地区的名字<br>      select   d.name,r.name<br>          from s_dept d,s_region  r  </p>
-<pre><code>              where  d.region_id =  r.id;
+        <h3 id="1、默认的日期类型"><a href="#1、默认的日期类型" class="headerlink" title="1、默认的日期类型"></a>1、默认的日期类型</h3><pre><code>dd-MON-yy
+表现默认是两年 实际上存储了四位
+</code></pre><h3 id="2、显示-s-emp-表中的数据-按照入职日期排序-显示-id-first-name-start-date"><a href="#2、显示-s-emp-表中的数据-按照入职日期排序-显示-id-first-name-start-date" class="headerlink" title="2、显示 s_emp 表中的数据  按照入职日期排序  显示 id  first_name  start_date"></a>2、显示 s_emp 表中的数据  按照入职日期排序  显示 id  first_name  start_date</h3><pre><code>select   id,first_name,start_date from s_emp  order by start_date; 
+</code></pre><h3 id="3、-如何按照指定格式-显示日期"><a href="#3、-如何按照指定格式-显示日期" class="headerlink" title="3、 如何按照指定格式 显示日期"></a>3、 如何按照指定格式 显示日期</h3><pre><code>    to_char(par1,par2)   par1是要处理的日期 
+        par2 日期格式    日期格式 
+        yyyy      四位年          mm   月               dd    日 
+        hh        12小时制        hh24  24小时制         mi   分钟             ss  秒 
+        day       星期几          MON  英文月的缩写      month  英文月的全写 
 ------------------------------------------------------------------------------------------
-  select   d.name,r.name         
-          from s_dept d  join  s_region  r  
-                 on  d.region_id =  r.id;
-------------------------------------------------------------------------------------------
-  select   d.name,r.name         
-          from s_dept d  inner  join  s_region  r  
-                 on  d.region_id =  r.id;
-</code></pre><h3 id="2、sql99-外连接标准"><a href="#2、sql99-外连接标准" class="headerlink" title="2、sql99 外连接标准"></a>2、sql99 外连接标准</h3><pre><code>语法格式：
-a 表   left   outer  join  b表   on  连接条件  where  过滤条件;
-a 表   right  outer  join  b表   on  连接条件  where  过滤条件;
-a 表   full   outer  join  b表   on  连接条件  where  过滤条件;
-</code></pre><p>###<br>    左外连接</p>
-<pre><code>a 表 left outer join b 表 的意思就是 a 表发起连接,
-a表发起连接就代表a表全部被匹配出来。
-本质上 也是通过 null 记录进行匹配。
-</code></pre><h3 id="3、"><a href="#3、" class="headerlink" title="3、"></a>3、</h3><pre><code>练习
-显示每个部门的名字 和 对应的地区的名字  没有地区编号的部门也要显示 
-    select d.name,r.name            
-         from s_dept d,s_region r  
-              where d.region_id = r.id(+);
-------------------------------------------------------------------------------------------
-    select d.name,r.name            
-         from s_dept d left outer join s_region r  
-                 on d.region_id = r.id;
-</code></pre><h3 id="4、"><a href="#4、" class="headerlink" title="4、"></a>4、</h3><pre><code>练习
-查询出所有的普通员工?
-    select distinct m.id,m.first_name   
-           from s_emp e,s_emp m 
-              where e.manager_id(+) = m.id and e.manager_id is null;
-------------------------------------------------------------------------------------------
-     select  distinct m.id,m.first_name   
-           from  s_emp  m  left outer join s_emp  e 
-              on e.manager_id = m.id   where  e.manager_id is null;        
-</code></pre><h3 id="5、全外连接"><a href="#5、全外连接" class="headerlink" title="5、全外连接"></a>5、全外连接</h3><pre><code>全外连接 只是一个逻辑概念   全外连接的结果集 等于 左外连接的结果集 加上右外连接的结果集
-然后排除重复的记录。
+select   id,first_name,to_char(start_date,&apos;yyyy-mm-dd hh24:mi:ss&apos;)  start_date from s_emp  order by start_date;
+</code></pre><h3 id="4、如何插入一个日期"><a href="#4、如何插入一个日期" class="headerlink" title="4、如何插入一个日期"></a>4、如何插入一个日期</h3><pre><code>之前学过  null    和 sysdate   sysdate 代表系统时间 
+如何插入未来的时间  或者 过去的时间点
+2008-08-08 20:08:10
+insert into  student100(id,sdate) values(3,&apos;08-AUG-08&apos;);
+默认只能放入 年 月 日,时分秒信息是  0 
+如果需要时分秒信息 则使用  to_date 就可以了
+to_date(par1,par2)   par1 是一个日期字符串   par2 是日期的格式 
+insert into  student100(id,sdate) values(4,to_date(&apos;2008-08-08 20:08:08&apos;,&apos;yyyy-mm-dd hh24:mi:ss&apos;));
+select  id,to_char(sdate,&apos;yyyy-mm-dd hh24:mi:ss&apos;) from  student100;
+2012-12-22  23:59:59
+</code></pre><h3 id="5、日期的调整"><a href="#5、日期的调整" class="headerlink" title="5、日期的调整"></a>5、日期的调整</h3><pre><code>select  to_char(sysdate,&apos;yyyy-mm-dd hh24:mi:ss&apos;) from dual;
+调整一天   默认按照天为单位
 
-全外连接 在Oracle 中 是怎么实现的?
-    全外连接 不是通过两端 加 (+) 实现的，而是通过  union   实现的
-    union 是可以合并两个结果集 然后排重
-    union  all    是 合并两个结果集 不排重 
+select  to_char(sysdate,&apos;yyyy-mm-dd hh24:mi:ss&apos;),
+        to_char(sysdate+1,&apos;yyyy-mm-dd hh24:mi:ss&apos;) from dual;
 
-select id from  s_emp  union  select id from s_emp;
-select id from  s_emp  union  all select id from s_emp;
+调整一个小时的一半   默认按照天为单位
+select  to_char(sysdate,&apos;yyyy-mm-dd hh24:mi:ss&apos;),
+        to_char(sysdate+1/(24*2),&apos;yyyy-mm-dd hh24:mi:ss&apos;) from dual;
+select  to_char(sysdate,&apos;yyyy-mm-dd hh24:mi:ss&apos;),
+        to_char(sysdate-1/(24*2),&apos;yyyy-mm-dd hh24:mi:ss&apos;) from dual;
+</code></pre><h3 id="6、特殊的调整"><a href="#6、特殊的调整" class="headerlink" title="6、特殊的调整"></a>6、特殊的调整</h3><pre><code>按照月为单位 调整 
+  add_months(par1,par2)   par1 要调整的日期    par2 调整的月数  可以是负数
+select  to_char(sysdate,&apos;yyyy-mm-dd hh24:mi:ss&apos;),
+        to_char(add_months(sysdate,1),&apos;yyyy-mm-dd hh24:mi:ss&apos;) from dual;
+
+select  to_char(sysdate,&apos;yyyy-mm-dd hh24:mi:ss&apos;),
+        to_char(add_months(sysdate,-1),&apos;yyyy-mm-dd hh24:mi:ss&apos;) from dual;
+
+对日期进行 截取     默认以天为单位截取 
+select  to_char(sysdate,&apos;yyyy-mm-dd hh24:mi:ss&apos;),
+        to_char(trunc(sysdate),&apos;yyyy-mm-dd hh24:mi:ss&apos;) from dual; 
+
+select  to_char(sysdate,&apos;yyyy-mm-dd hh24:mi:ss&apos;),
+        to_char(round(sysdate),&apos;yyyy-mm-dd hh24:mi:ss&apos;) from dual;  
+
+select  to_char(sysdate,&apos;yyyy-mm-dd hh24:mi:ss&apos;),
+        to_char(trunc(sysdate,&apos;hh&apos;),&apos;yyyy-mm-dd hh24:mi:ss&apos;) from dual; 
+
+select  to_char(sysdate,&apos;yyyy-mm-dd hh24:mi:ss&apos;),
+        to_char(trunc(sysdate,&apos;mm&apos;),&apos;yyyy-mm-dd hh24:mi:ss&apos;) from dual; 
+
+select  to_char(sysdate,&apos;yyyy-mm-dd hh24:mi:ss&apos;),
+        to_char(trunc(sysdate,&apos;yy&apos;),&apos;yyyy-mm-dd hh24:mi:ss&apos;) from dual;
+</code></pre><h3 id="7、给你一个时间-获取到这个时间对应的月的最后的一天的最后一秒对应的时间点"><a href="#7、给你一个时间-获取到这个时间对应的月的最后的一天的最后一秒对应的时间点" class="headerlink" title="7、给你一个时间  获取到这个时间对应的月的最后的一天的最后一秒对应的时间点"></a>7、给你一个时间  获取到这个时间对应的月的最后的一天的最后一秒对应的时间点</h3><pre><code>sysdate
+
+select  to_char(sysdate,&apos;yyyy-mm-dd hh24:mi:ss&apos;),
+        to_char(add_months(trunc(sysdate,&apos;mm&apos;),1)-1/(24*60*60),
+                 &apos;yyyy-mm-dd hh24:mi:ss&apos;) from dual; 
 </code></pre>
     </div>
     <footer>
@@ -199,10 +209,10 @@ with(document)0[
 
  <nav id="pagination" >
     
-    <a href="/2017/11/02/10、Oracle的组函数/" class="alignleft prev" title="10、Oracle的组函数">10、Oracle的组函数</a>
+    <a href="/2017/11/03/17、Oracle的约束/" class="alignleft prev" title="17、Oracle的约束">17、Oracle的约束</a>
     
     
-    <a href="/2017/11/02/8、Oracle的外连接/" class="alignright next" title="8、Oracle的外连接">8、Oracle的外连接</a>
+    <a href="/2017/11/03/15、TCL-（transaction-control-language）/" class="alignright next" title="15、TCL （transaction  control  language）">15、TCL （transaction  control  language）</a>
     
     <div class="clearfix"></div>
 </nav>
@@ -212,7 +222,7 @@ with(document)0[
 	
 	<section id="comment">
 		<!-- 多说评论框 start -->
-		<div class="ds-thread" data-thread-key="2017/11/02/9、表连接的SQL99-标准/" data-title="9、表连接的SQL99 标准" data-url="http://xyp-hf.github.io/2017/11/02/9、表连接的SQL99-标准/"></div>
+		<div class="ds-thread" data-thread-key="2017/11/03/16、Oracle中的日期类型/" data-title="16、Oracle中的日期类型" data-url="http://xyp-hf.github.io/2017/11/03/16、Oracle中的日期类型/"></div>
 		<!-- 多说评论框 end -->
 		<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 		<script type="text/javascript">

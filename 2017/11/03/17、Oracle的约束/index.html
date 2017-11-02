@@ -15,7 +15,7 @@
 	})();
 	</script>
   
-  <title>9、表连接的SQL99 标准 | xyp-hf</title>
+  <title>17、Oracle的约束 | xyp-hf</title>
   <meta name="author" content="xyp-hf">
   
   <meta name="description" content="HTML|CSS|HTML5|CSS3|JavaScript|JQuery|Angular.js|vue.js|React.js">
@@ -23,7 +23,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="9、表连接的SQL99 标准"/>
+  <meta property="og:title" content="17、Oracle的约束"/>
   <meta property="og:site_name" content="xyp-hf"/>
 
   
@@ -81,69 +81,109 @@
   <div class="post-content">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-	9、表连接的SQL99 标准
+	17、Oracle的约束
   </h1>
   <p class="article-author">By
     
       <a href="http://xyp-hf.github.io" title="xyp-hf">xyp-hf</a>
     </p>
   <p class="article-time">
-    <time datetime="2017-11-01T23:01:35.000Z" itemprop="datePublished">2017-11-02</time>
-    更新日期:<time datetime="2017-11-01T23:15:33.100Z" itemprop="dateModified">2017-11-02</time>
+    <time datetime="2017-11-02T17:43:53.000Z" itemprop="datePublished">2017-11-03</time>
+    更新日期:<time datetime="2017-11-02T17:51:30.636Z" itemprop="dateModified">2017-11-03</time>
     
   </p>
 </header>
     <div class="entry">
 		
-        <h3 id="1、sql99-的内连接标准"><a href="#1、sql99-的内连接标准" class="headerlink" title="1、sql99 的内连接标准"></a>1、sql99 的内连接标准</h3><pre><code>语法格式：
-from  a表  join  b 表  on  表的连接条件  where  过滤条件;
-from  a表   inner join  b 表  on  表的连接条件  where  过滤条件;
-</code></pre><p>###<br>    练习<br>    显示 每个部门的名字 和 对应的地区的名字<br>      select   d.name,r.name<br>          from s_dept d,s_region  r  </p>
-<pre><code>              where  d.region_id =  r.id;
+        <h2 id="约束"><a href="#约束" class="headerlink" title="约束"></a>约束</h2><h3 id="1、约束是-对数据库表中字段加的限制，有了约束之后-可以让我们的数据更加准确-和-完整。"><a href="#1、约束是-对数据库表中字段加的限制，有了约束之后-可以让我们的数据更加准确-和-完整。" class="headerlink" title="1、约束是 对数据库表中字段加的限制，有了约束之后 可以让我们的数据更加准确 和 完整。"></a>1、约束是 对数据库表中字段加的限制，有了约束之后 可以让我们的数据更加准确 和 完整。</h3><h3 id="2、约束种类"><a href="#2、约束种类" class="headerlink" title="2、约束种类"></a>2、约束种类</h3><pre><code>主键约束     primary   key          pk
+       如果给表的某个字段加了主键约束 则这个字段的值 不能重复,并且字段的值不能为 null.
+       一张表只能有一个主键。
+唯一性约束    unique                  uk         
+        如果给表的字段加了唯一性约束 则 这个字段的值不能重复。
+        注意 唯一性约束 无法区分两个 null 值 
+非空约束       not null                nn
+        如果给表的字段增加了 非空约束  则这个字段的值不能是 null 值 
+检查约束       check                   ck
+        如果给表的字段增加了 检查约束  则这个字段必须符合检查条件  符合检查条件的数据
+               才能进入数据库。               
+外键约束       references         foreign key        fk 
+</code></pre><h3 id="3、约束的实现"><a href="#3、约束的实现" class="headerlink" title="3、约束的实现"></a>3、约束的实现</h3><pre><code>列级约束:在定义表的某一列时  直接在这一列的后面加约束限制 叫列级约束。
+表级约束:在定义完表的所有列之后 再选择某些列加约束限制。
+</code></pre><h3 id="4、主键的列级约束实现"><a href="#4、主键的列级约束实现" class="headerlink" title="4、主键的列级约束实现"></a>4、主键的列级约束实现</h3><pre><code> 建立一张 订单表  myorder   
+ id      number    pk
+ oname  varchar2(30)
+ create   table  myorder(
+        id    number   primary  key,
+        name varchar2(30) 
+  );
+ insert into myorder  values(1,&apos;test1&apos;);
+ insert into myorder  values(1,&apos;test1&apos;)
+ *
+ERROR at line 1:
+ORA-00001: unique constraint (SYSTEM.SYS_C007619) violated
+如果不给约束起名字  则系统会自动给约束进行一个命名  保证约束的名字不重复
+但是这个名字 不方便记忆  并且 不方便排错 以及以后的约束管理。
+</code></pre><h3 id="5、如何给约束命名"><a href="#5、如何给约束命名" class="headerlink" title="5、如何给约束命名"></a>5、如何给约束命名</h3><pre><code>constraint    约束的名字     约束对应的英文
+约束的名字构成:  表名_字段名_约束简写
 ------------------------------------------------------------------------------------------
-  select   d.name,r.name         
-          from s_dept d  join  s_region  r  
-                 on  d.region_id =  r.id;
+drop    table   myorder;
+create   table  myorder(
+       id    number   constraint myorder_id_pk primary  key,
+       name varchar2(30) 
+ );
+insert into myorder  values(1,&apos;test1&apos;);
+insert into myorder  values(1,&apos;test1&apos;);
+</code></pre><h3 id="6、练习"><a href="#6、练习" class="headerlink" title="6、练习"></a>6、练习</h3><pre><code>建立一张 订单表 叫 order100  
+id     number     pk
+ono    varchar2(30)  uk
+odate  date       nn 
+create  table  order100(
+       id     number  constraint  order100_id_pk  primary key,
+       ono  varchar2(30)  constraint  order100_ono_uk  unique,
+       odate  date   constraint  order100_odate_nn  not null
+);
+insert into  order100 values(1,null,sysdate);
+insert into  order100 values(2,null,sysdate);
+</code></pre><h3 id="7、检查约束-需要把检查约束的条件写入"><a href="#7、检查约束-需要把检查约束的条件写入" class="headerlink" title="7、检查约束 需要把检查约束的条件写入()"></a>7、检查约束 需要把检查约束的条件写入()</h3><pre><code>在上面的表的基础上 加一个字段 omoney number 要求omoney 大于35 
 ------------------------------------------------------------------------------------------
-  select   d.name,r.name         
-          from s_dept d  inner  join  s_region  r  
-                 on  d.region_id =  r.id;
-</code></pre><h3 id="2、sql99-外连接标准"><a href="#2、sql99-外连接标准" class="headerlink" title="2、sql99 外连接标准"></a>2、sql99 外连接标准</h3><pre><code>语法格式：
-a 表   left   outer  join  b表   on  连接条件  where  过滤条件;
-a 表   right  outer  join  b表   on  连接条件  where  过滤条件;
-a 表   full   outer  join  b表   on  连接条件  where  过滤条件;
-</code></pre><p>###<br>    左外连接</p>
-<pre><code>a 表 left outer join b 表 的意思就是 a 表发起连接,
-a表发起连接就代表a表全部被匹配出来。
-本质上 也是通过 null 记录进行匹配。
-</code></pre><h3 id="3、"><a href="#3、" class="headerlink" title="3、"></a>3、</h3><pre><code>练习
-显示每个部门的名字 和 对应的地区的名字  没有地区编号的部门也要显示 
-    select d.name,r.name            
-         from s_dept d,s_region r  
-              where d.region_id = r.id(+);
-------------------------------------------------------------------------------------------
-    select d.name,r.name            
-         from s_dept d left outer join s_region r  
-                 on d.region_id = r.id;
-</code></pre><h3 id="4、"><a href="#4、" class="headerlink" title="4、"></a>4、</h3><pre><code>练习
-查询出所有的普通员工?
-    select distinct m.id,m.first_name   
-           from s_emp e,s_emp m 
-              where e.manager_id(+) = m.id and e.manager_id is null;
-------------------------------------------------------------------------------------------
-     select  distinct m.id,m.first_name   
-           from  s_emp  m  left outer join s_emp  e 
-              on e.manager_id = m.id   where  e.manager_id is null;        
-</code></pre><h3 id="5、全外连接"><a href="#5、全外连接" class="headerlink" title="5、全外连接"></a>5、全外连接</h3><pre><code>全外连接 只是一个逻辑概念   全外连接的结果集 等于 左外连接的结果集 加上右外连接的结果集
-然后排除重复的记录。
+drop   table    order100;
+create  table  order100(
+        id     number  constraint  order100_id_pk  primary key,
+        ono  varchar2(30)  constraint  order100_ono_uk  unique,
+        odate  date   constraint  order100_odate_nn  not null,
+        omoney   number   constraint  order100_omoney_ck  check(omoney &gt; 35)        
+ );
+</code></pre><h3 id="8、主键的表级约束实现"><a href="#8、主键的表级约束实现" class="headerlink" title="8、主键的表级约束实现"></a>8、主键的表级约束实现</h3><pre><code>create   table    order200(
+       id    number,
+       ono   varchar2(30),
+       odate  date,
+       omoney   number , constraint   order200_id_pk   primary  key(id)
+ );
 
-全外连接 在Oracle 中 是怎么实现的?
-    全外连接 不是通过两端 加 (+) 实现的，而是通过  union   实现的
-    union 是可以合并两个结果集 然后排重
-    union  all    是 合并两个结果集 不排重 
-
-select id from  s_emp  union  select id from s_emp;
-select id from  s_emp  union  all select id from s_emp;
+表级约束最大的优势就在于可以做联合约束
+create   table    order300(
+       id    number,
+       ono   varchar2(30),
+       odate  date,
+       omoney   number , constraint   order300_idono_pk   primary  key(id,ono)
+ );    
+1    &apos;a&apos;
+1    &apos;b&apos;
+</code></pre><h3 id="9、练习"><a href="#9、练习" class="headerlink" title="9、练习"></a>9、练习</h3><pre><code>建立一张 订单表 叫 order1001  
+id     number     pk
+ono    varchar2(30)  uk
+odate  date       nn     列级约束 (因为不支持表级)
+omoney   number    ck   要求大于35 
+除了  odate之外 其它的字段需要使用 表级约束   
+create table   order1001(
+       id   number,
+       ono    varchar2(30),
+       odate   date   not null,
+       omoney   number, 
+       constraint   order1001_id_pk  primary  key(id),
+       constraint   order1001_ono_uk  unique(ono),
+       constraint   order1001_omoney_ck  check(omoney&gt;35)
+ );
 </code></pre>
     </div>
     <footer>
@@ -199,10 +239,8 @@ with(document)0[
 
  <nav id="pagination" >
     
-    <a href="/2017/11/02/10、Oracle的组函数/" class="alignleft prev" title="10、Oracle的组函数">10、Oracle的组函数</a>
     
-    
-    <a href="/2017/11/02/8、Oracle的外连接/" class="alignright next" title="8、Oracle的外连接">8、Oracle的外连接</a>
+    <a href="/2017/11/03/16、Oracle中的日期类型/" class="alignright next" title="16、Oracle中的日期类型">16、Oracle中的日期类型</a>
     
     <div class="clearfix"></div>
 </nav>
@@ -212,7 +250,7 @@ with(document)0[
 	
 	<section id="comment">
 		<!-- 多说评论框 start -->
-		<div class="ds-thread" data-thread-key="2017/11/02/9、表连接的SQL99-标准/" data-title="9、表连接的SQL99 标准" data-url="http://xyp-hf.github.io/2017/11/02/9、表连接的SQL99-标准/"></div>
+		<div class="ds-thread" data-thread-key="2017/11/03/17、Oracle的约束/" data-title="17、Oracle的约束" data-url="http://xyp-hf.github.io/2017/11/03/17、Oracle的约束/"></div>
 		<!-- 多说评论框 end -->
 		<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 		<script type="text/javascript">
