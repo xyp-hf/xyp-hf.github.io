@@ -15,7 +15,7 @@
 	})();
 	</script>
   
-  <title>17、Oracle的约束 | xyp-hf</title>
+  <title>19、Oracle数据库中的其它对象 | xyp-hf</title>
   <meta name="author" content="xyp-hf">
   
   <meta name="description" content="HTML|CSS|HTML5|CSS3|JavaScript|JQuery|Angular.js|vue.js|React.js">
@@ -23,7 +23,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="17、Oracle的约束"/>
+  <meta property="og:title" content="19、Oracle数据库中的其它对象"/>
   <meta property="og:site_name" content="xyp-hf"/>
 
   
@@ -81,109 +81,71 @@
   <div class="post-content">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-	17、Oracle的约束
+	19、Oracle数据库中的其它对象
   </h1>
   <p class="article-author">By
     
       <a href="http://xyp-hf.github.io" title="xyp-hf">xyp-hf</a>
     </p>
   <p class="article-time">
-    <time datetime="2017-11-02T17:43:53.000Z" itemprop="datePublished">2017-11-03</time>
-    更新日期:<time datetime="2017-11-02T17:51:30.636Z" itemprop="dateModified">2017-11-03</time>
+    <time datetime="2017-11-02T23:06:10.000Z" itemprop="datePublished">2017-11-03</time>
+    更新日期:<time datetime="2017-11-02T23:15:20.924Z" itemprop="dateModified">2017-11-03</time>
     
   </p>
 </header>
     <div class="entry">
 		
-        <h2 id="约束"><a href="#约束" class="headerlink" title="约束"></a>约束</h2><h3 id="1、约束是-对数据库表中字段加的限制，有了约束之后-可以让我们的数据更加准确-和-完整。"><a href="#1、约束是-对数据库表中字段加的限制，有了约束之后-可以让我们的数据更加准确-和-完整。" class="headerlink" title="1、约束是 对数据库表中字段加的限制，有了约束之后 可以让我们的数据更加准确 和 完整。"></a>1、约束是 对数据库表中字段加的限制，有了约束之后 可以让我们的数据更加准确 和 完整。</h3><h3 id="2、约束种类"><a href="#2、约束种类" class="headerlink" title="2、约束种类"></a>2、约束种类</h3><pre><code>主键约束     primary   key          pk
-       如果给表的某个字段加了主键约束 则这个字段的值 不能重复,并且字段的值不能为 null.
-       一张表只能有一个主键。
-唯一性约束    unique                  uk         
-        如果给表的字段加了唯一性约束 则 这个字段的值不能重复。
-        注意 唯一性约束 无法区分两个 null 值 
-非空约束       not null                nn
-        如果给表的字段增加了 非空约束  则这个字段的值不能是 null 值 
-检查约束       check                   ck
-        如果给表的字段增加了 检查约束  则这个字段必须符合检查条件  符合检查条件的数据
-               才能进入数据库。               
-外键约束       references         foreign key        fk 
-</code></pre><h3 id="3、约束的实现"><a href="#3、约束的实现" class="headerlink" title="3、约束的实现"></a>3、约束的实现</h3><pre><code>列级约束:在定义表的某一列时  直接在这一列的后面加约束限制 叫列级约束。
-表级约束:在定义完表的所有列之后 再选择某些列加约束限制。
-</code></pre><h3 id="4、主键的列级约束实现"><a href="#4、主键的列级约束实现" class="headerlink" title="4、主键的列级约束实现"></a>4、主键的列级约束实现</h3><pre><code> 建立一张 订单表  myorder   
- id      number    pk
- oname  varchar2(30)
- create   table  myorder(
-        id    number   primary  key,
-        name varchar2(30) 
-  );
- insert into myorder  values(1,&apos;test1&apos;);
- insert into myorder  values(1,&apos;test1&apos;)
- *
-ERROR at line 1:
-ORA-00001: unique constraint (SYSTEM.SYS_C007619) violated
-如果不给约束起名字  则系统会自动给约束进行一个命名  保证约束的名字不重复
-但是这个名字 不方便记忆  并且 不方便排错 以及以后的约束管理。
-</code></pre><h3 id="5、如何给约束命名"><a href="#5、如何给约束命名" class="headerlink" title="5、如何给约束命名"></a>5、如何给约束命名</h3><pre><code>constraint    约束的名字     约束对应的英文
-约束的名字构成:  表名_字段名_约束简写
+        <h3 id="1、-序列-sequence"><a href="#1、-序列-sequence" class="headerlink" title="1、 序列   sequence"></a>1、 序列   sequence</h3><pre><code>1.1 作用
+用来产生主键值的  保证产生不重复的数字 
 ------------------------------------------------------------------------------------------
-drop    table   myorder;
-create   table  myorder(
-       id    number   constraint myorder_id_pk primary  key,
-       name varchar2(30) 
- );
-insert into myorder  values(1,&apos;test1&apos;);
-insert into myorder  values(1,&apos;test1&apos;);
-</code></pre><h3 id="6、练习"><a href="#6、练习" class="headerlink" title="6、练习"></a>6、练习</h3><pre><code>建立一张 订单表 叫 order100  
-id     number     pk
-ono    varchar2(30)  uk
-odate  date       nn 
-create  table  order100(
-       id     number  constraint  order100_id_pk  primary key,
-       ono  varchar2(30)  constraint  order100_ono_uk  unique,
-       odate  date   constraint  order100_odate_nn  not null
-);
-insert into  order100 values(1,null,sysdate);
-insert into  order100 values(2,null,sysdate);
-</code></pre><h3 id="7、检查约束-需要把检查约束的条件写入"><a href="#7、检查约束-需要把检查约束的条件写入" class="headerlink" title="7、检查约束 需要把检查约束的条件写入()"></a>7、检查约束 需要把检查约束的条件写入()</h3><pre><code>在上面的表的基础上 加一个字段 omoney number 要求omoney 大于35 
+1.2  如何创建序列
+create sequence   序列名;
+序列名   表名_字段名_seq;
 ------------------------------------------------------------------------------------------
-drop   table    order100;
-create  table  order100(
-        id     number  constraint  order100_id_pk  primary key,
-        ono  varchar2(30)  constraint  order100_ono_uk  unique,
-        odate  date   constraint  order100_odate_nn  not null,
-        omoney   number   constraint  order100_omoney_ck  check(omoney &gt; 35)        
- );
-</code></pre><h3 id="8、主键的表级约束实现"><a href="#8、主键的表级约束实现" class="headerlink" title="8、主键的表级约束实现"></a>8、主键的表级约束实现</h3><pre><code>create   table    order200(
-       id    number,
-       ono   varchar2(30),
-       odate  date,
-       omoney   number , constraint   order200_id_pk   primary  key(id)
- );
-
-表级约束最大的优势就在于可以做联合约束
-create   table    order300(
-       id    number,
-       ono   varchar2(30),
-       odate  date,
-       omoney   number , constraint   order300_idono_pk   primary  key(id,ono)
- );    
-1    &apos;a&apos;
-1    &apos;b&apos;
-</code></pre><h3 id="9、练习"><a href="#9、练习" class="headerlink" title="9、练习"></a>9、练习</h3><pre><code>建立一张 订单表 叫 order1001  
-id     number     pk
-ono    varchar2(30)  uk
-odate  date       nn     列级约束 (因为不支持表级)
-omoney   number    ck   要求大于35 
-除了  odate之外 其它的字段需要使用 表级约束   
-create table   order1001(
-       id   number,
-       ono    varchar2(30),
-       odate   date   not null,
-       omoney   number, 
-       constraint   order1001_id_pk  primary  key(id),
-       constraint   order1001_ono_uk  unique(ono),
-       constraint   order1001_omoney_ck  check(omoney&gt;35)
- );
+1.3 如何使用 
+序列名.nextval    偶尔使用 序列名.currval      
+举例:
+create  table  testseq(
+       id     number     constraint  testseq_id_pk  primary  key,
+       name  varchar2(30)
+);       
+create  sequence   testseq_id_seq;
+insert  into  testseq values(testseq_id_seq.nextval,&apos;test&apos;||testseq_id_seq.currval);
+------------------------------------------------------------------------------------------
+1.4  删除序列
+drop  sequence  序列名;
+</code></pre><h3 id="2、索引-index-了解"><a href="#2、索引-index-了解" class="headerlink" title="2、索引  index   (了解)"></a>2、索引  index   (了解)</h3><pre><code>2.1  作用 
+加速查询的  
+3亿   
+不使用索引     500s 
+使用索引         0.01s   
+------------------------------------------------------------------------------------------  
+2.2  原理 
+索引 底层使用树状结构   通过消耗大量的空间 和  时间 来达到加速查询的目的。
+------------------------------------------------------------------------------------------
+2.3  如何建立 
+create  index   索引名    on  表名(字段名);
+注意不要在 主键 和 唯一性字段上 加索引  因为系统已经自动建立过索引了。
+create  table  emp222   as select id,first_name name,salary from s_emp;                   
+set timing on;
+create  index    emp222_name_index    on emp222(name);
+------------------------------------------------------------------------------------------
+2.4  删除索引
+drop  index   索引名;
+drop   index  emp222_name_index;
+</code></pre><h3 id="3、视图-view"><a href="#3、视图-view" class="headerlink" title="3、视图    view"></a>3、视图    view</h3><pre><code>3.1  本质 
+视图的本质 就是一条sql 语句的select语句。
+相对于 视图对应的数据而言  视图本身的空间可以忽略不计。
+------------------------------------------------------------------------------------------
+3.2 语法 
+create   or   replace    view  视图名   as  select语句;
+------------------------------------------------------------------------------------------
+3.3  举例
+create   or   replace    view  myview  as   select  id,first_name name,salary  from s_emp;
+------------------------------------------------------------------------------------------
+3.4 作用 
+可以对同一份物理数据 作出不同表现  可以用来做权限的管理 
+可以用来简化子查询 
 </code></pre>
     </div>
     <footer>
@@ -239,10 +201,10 @@ with(document)0[
 
  <nav id="pagination" >
     
-    <a href="/2017/11/03/18、Oracle的外键/" class="alignleft prev" title="18、Oracle的外键">18、Oracle的外键</a>
+    <a href="/2017/11/03/20、Oracle数据库分页技术/" class="alignleft prev" title="20、Oracle数据库分页技术">20、Oracle数据库分页技术</a>
     
     
-    <a href="/2017/11/03/16、Oracle中的日期类型/" class="alignright next" title="16、Oracle中的日期类型">16、Oracle中的日期类型</a>
+    <a href="/2017/11/03/18、Oracle的外键/" class="alignright next" title="18、Oracle的外键">18、Oracle的外键</a>
     
     <div class="clearfix"></div>
 </nav>
@@ -252,7 +214,7 @@ with(document)0[
 	
 	<section id="comment">
 		<!-- 多说评论框 start -->
-		<div class="ds-thread" data-thread-key="2017/11/03/17、Oracle的约束/" data-title="17、Oracle的约束" data-url="http://xyp-hf.github.io/2017/11/03/17、Oracle的约束/"></div>
+		<div class="ds-thread" data-thread-key="2017/11/03/19、Oracle数据库中的其它对象/" data-title="19、Oracle数据库中的其它对象" data-url="http://xyp-hf.github.io/2017/11/03/19、Oracle数据库中的其它对象/"></div>
 		<!-- 多说评论框 end -->
 		<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 		<script type="text/javascript">
