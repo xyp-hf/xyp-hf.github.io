@@ -15,7 +15,7 @@
 	})();
 	</script>
   
-  <title>13、Oracle的建表、删表、改表 | xyp-hf</title>
+  <title>20、Oracle数据库分页技术 | xyp-hf</title>
   <meta name="author" content="xyp-hf">
   
   <meta name="description" content="HTML|CSS|HTML5|CSS3|JavaScript|JQuery|Angular.js|vue.js|React.js">
@@ -23,7 +23,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="13、Oracle的建表、删表、改表"/>
+  <meta property="og:title" content="20、Oracle数据库分页技术"/>
   <meta property="og:site_name" content="xyp-hf"/>
 
   
@@ -81,56 +81,64 @@
   <div class="post-content">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-	13、Oracle的建表、删表、改表
+	20、Oracle数据库分页技术
   </h1>
   <p class="article-author">By
     
       <a href="http://xyp-hf.github.io" title="xyp-hf">xyp-hf</a>
     </p>
   <p class="article-time">
-    <time datetime="2017-11-01T23:51:16.000Z" itemprop="datePublished">2017-11-02</time>
-    更新日期:<time datetime="2017-11-01T23:56:59.338Z" itemprop="dateModified">2017-11-02</time>
+    <time datetime="2017-11-02T23:16:38.000Z" itemprop="datePublished">2017-11-03</time>
+    更新日期:<time datetime="2017-11-02T23:39:25.336Z" itemprop="dateModified">2017-11-03</time>
     
   </p>
 </header>
     <div class="entry">
 		
-        <h2 id="DDL-（-data-define-language）"><a href="#DDL-（-data-define-language）" class="headerlink" title="DDL  （ data define  language）"></a>DDL  （ data define  language）</h2><h3 id="1、建表"><a href="#1、建表" class="headerlink" title="1、建表"></a>1、建表</h3><pre><code>  create  table  表名(
-         字段名1    类型,
-         字段名2    类型,
-         字段名3    类型 
-   );
+        <h2 id="分页技术"><a href="#分页技术" class="headerlink" title="分页技术"></a>分页技术</h2><p>### </p>
+<pre><code>rownum      行编号   这个字段叫伪列
 ------------------------------------------------------------------------------------------
-  类型:  number    数字类型  
-         varchar2(n)    变长字符串类型
-         char(n)     定长字符串  
-         date        日期类型
-</code></pre><h3 id="2、"><a href="#2、" class="headerlink" title="2、"></a>2、</h3><pre><code>  举例
-  建立一张学生表   叫 student100
-  id     number
-  name varchar2(30) 
-  sno    char(30)
-  sdate   date
-------------------------------------------------------------------------------------------
-  create  table  student100(
-      id     number，
-      name varchar2(30)， 
-     sno    char(30)，
-      sdate   date
-  ); 
-</code></pre><h3 id="3、删除表"><a href="#3、删除表" class="headerlink" title="3、删除表"></a>3、删除表</h3><pre><code> drop  table  表名;
-------------------------------------------------------------------------------------------
- 如：
- drop  table  student100;
-</code></pre><h3 id="4、修改表"><a href="#4、修改表" class="headerlink" title="4、修改表"></a>4、修改表</h3><pre><code>删除某个字段
-alter  table  表名 drop  column  字段名
-如：
-alter   table  student100 drop  column sdate;
+select  rownum,first_name,salary  from  s_emp;
 
-增加一个字段
-alter  table  表名  add    字段名   类型;
-如：
-alter  table  student100 add  sdate  date;
+
+一页显示 11 条数据  显示第一页数据
+select  rownum,first_name,salary  from  s_emp  where  rownum &lt; 12; 
+
+
+一页显示 11 条数据  显示第二页数据
+select  rownum,first_name,salary  from  s_emp  where  rownum &lt; 23 and rownum &gt; 11;
+
+
+通过子查询 把rownum  变成一个普通的字段
+    select r,first_name,salary 
+            from (select  rownum  r,first_name,salary  from  s_emp  
+                     where  rownum &lt; 23 ) where r &gt; 11;    
+
+
+一页显示 11 条数据  显示第三页数据
+    select r,first_name,salary 
+            from (select  rownum  r,first_name,salary  from  s_emp  where  rownum &lt; 3*11+1 ) 
+                            where r &gt; (3-1)*11;
+
+按照某个字段排序之后 显示 第几页数据
+按照salary  排序  显示  first_name  salary 
+select   first_name,salary from  s_emp    order by salary;
+
+
+按照salary  排序 一页显示11 条数据 显示 第二页数据
+select * from(select rownum r,first_name,salary from 
+    (select   first_name,salary from  s_emp    order by salary) where rownum &lt; 2*11+1
+)where r &gt; (2-1)*11 ;
+
+
+最内层:负责排序
+中间层:负责编号   和 起别名  以及部分数据的过滤
+最外层:负责使用别名进行过滤 
+
+按照salary  排序 一页显示11 条数据 显示 第三页数据   
+select * from(select rownum r,t.* from 
+    (select   first_name,salary from  s_emp    order by salary) t where rownum &lt; 3*11+1
+ )where r &gt; (3-1)*11 ;
 </code></pre>
     </div>
     <footer>
@@ -186,10 +194,8 @@ with(document)0[
 
  <nav id="pagination" >
     
-    <a href="/2017/11/02/第七节：实战前必须掌握的10个指令-上/" class="alignleft prev" title="第七节：实战前必须掌握的10个指令(上)">第七节：实战前必须掌握的10个指令(上)</a>
     
-    
-    <a href="/2017/11/02/12、Oracle的子查询/" class="alignright next" title="12、Oracle的子查询">12、Oracle的子查询</a>
+    <a href="/2017/11/03/19、Oracle数据库中的其它对象/" class="alignright next" title="19、Oracle数据库中的其它对象">19、Oracle数据库中的其它对象</a>
     
     <div class="clearfix"></div>
 </nav>
@@ -199,7 +205,7 @@ with(document)0[
 	
 	<section id="comment">
 		<!-- 多说评论框 start -->
-		<div class="ds-thread" data-thread-key="2017/11/02/13、Oracle的建表、删表、改表/" data-title="13、Oracle的建表、删表、改表" data-url="http://xyp-hf.github.io/2017/11/02/13、Oracle的建表、删表、改表/"></div>
+		<div class="ds-thread" data-thread-key="2017/11/03/20、Oracle数据库分页技术/" data-title="20、Oracle数据库分页技术" data-url="http://xyp-hf.github.io/2017/11/03/20、Oracle数据库分页技术/"></div>
 		<!-- 多说评论框 end -->
 		<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 		<script type="text/javascript">
