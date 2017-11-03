@@ -15,7 +15,7 @@
 	})();
 	</script>
   
-  <title>9、表连接的SQL99 标准 | xyp-hf</title>
+  <title>21、PLSQL 过程化sql | xyp-hf</title>
   <meta name="author" content="xyp-hf">
   
   <meta name="description" content="HTML|CSS|HTML5|CSS3|JavaScript|JQuery|Angular.js|vue.js|React.js">
@@ -23,7 +23,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="9、表连接的SQL99 标准"/>
+  <meta property="og:title" content="21、PLSQL 过程化sql"/>
   <meta property="og:site_name" content="xyp-hf"/>
 
   
@@ -81,69 +81,119 @@
   <div class="post-content">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-	9、表连接的SQL99 标准
+	21、PLSQL 过程化sql
   </h1>
   <p class="article-author">By
     
       <a href="http://xyp-hf.github.io" title="xyp-hf">xyp-hf</a>
     </p>
   <p class="article-time">
-    <time datetime="2017-11-01T23:01:35.000Z" itemprop="datePublished">2017-11-02</time>
-    Update date:<time datetime="2017-11-01T23:15:33.100Z" itemprop="dateModified">2017-11-02</time>
+    <time datetime="2017-11-03T13:27:50.000Z" itemprop="datePublished">2017-11-03</time>
+    Update date:<time datetime="2017-11-03T15:43:41.619Z" itemprop="dateModified">2017-11-03</time>
     
   </p>
 </header>
     <div class="entry">
 		
-        <h3 id="1、sql99-的内连接标准"><a href="#1、sql99-的内连接标准" class="headerlink" title="1、sql99 的内连接标准"></a>1、sql99 的内连接标准</h3><pre><code>语法格式：
-from  a表  join  b 表  on  表的连接条件  where  过滤条件;
-from  a表   inner join  b 表  on  表的连接条件  where  过滤条件;
-</code></pre><p>###<br>    练习<br>    显示 每个部门的名字 和 对应的地区的名字<br>      select   d.name,r.name<br>          from s_dept d,s_region  r  </p>
-<pre><code>              where  d.region_id =  r.id;
-------------------------------------------------------------------------------------------
-  select   d.name,r.name         
-          from s_dept d  join  s_region  r  
-                 on  d.region_id =  r.id;
-------------------------------------------------------------------------------------------
-  select   d.name,r.name         
-          from s_dept d  inner  join  s_region  r  
-                 on  d.region_id =  r.id;
-</code></pre><h3 id="2、sql99-外连接标准"><a href="#2、sql99-外连接标准" class="headerlink" title="2、sql99 外连接标准"></a>2、sql99 外连接标准</h3><pre><code>语法格式：
-a 表   left   outer  join  b表   on  连接条件  where  过滤条件;
-a 表   right  outer  join  b表   on  连接条件  where  过滤条件;
-a 表   full   outer  join  b表   on  连接条件  where  过滤条件;
-</code></pre><p>###<br>    左外连接</p>
-<pre><code>a 表 left outer join b 表 的意思就是 a 表发起连接,
-a表发起连接就代表a表全部被匹配出来。
-本质上 也是通过 null 记录进行匹配。
-</code></pre><h3 id="3、"><a href="#3、" class="headerlink" title="3、"></a>3、</h3><pre><code>练习
-显示每个部门的名字 和 对应的地区的名字  没有地区编号的部门也要显示 
-    select d.name,r.name            
-         from s_dept d,s_region r  
-              where d.region_id = r.id(+);
-------------------------------------------------------------------------------------------
-    select d.name,r.name            
-         from s_dept d left outer join s_region r  
-                 on d.region_id = r.id;
-</code></pre><h3 id="4、"><a href="#4、" class="headerlink" title="4、"></a>4、</h3><pre><code>练习
-查询出所有的普通员工?
-    select distinct m.id,m.first_name   
-           from s_emp e,s_emp m 
-              where e.manager_id(+) = m.id and e.manager_id is null;
-------------------------------------------------------------------------------------------
-     select  distinct m.id,m.first_name   
-           from  s_emp  m  left outer join s_emp  e 
-              on e.manager_id = m.id   where  e.manager_id is null;        
-</code></pre><h3 id="5、全外连接"><a href="#5、全外连接" class="headerlink" title="5、全外连接"></a>5、全外连接</h3><pre><code>全外连接 只是一个逻辑概念   全外连接的结果集 等于 左外连接的结果集 加上右外连接的结果集
-然后排除重复的记录。
+        <h3 id="1、PLSQL-procedure-language-struct-query-language"><a href="#1、PLSQL-procedure-language-struct-query-language" class="headerlink" title="1、PLSQL(procedure language / struct query language)"></a>1、PLSQL(procedure language / struct query language)</h3><pre><code>PLSQL 过程化sql,就是可以像写java程序一样，去完成数据库的操作
+jdbc 使用java程序访问数据库
+</code></pre><h3 id="2、plsql-简介"><a href="#2、plsql-简介" class="headerlink" title="2、plsql  简介"></a>2、plsql  简介</h3><pre><code>plsql 是在标准sql的基础上 增加了 过程化处理语言
+它是在客户端操作服务端的一门语言
+</code></pre><h3 id="3、PLSQL的特点"><a href="#3、PLSQL的特点" class="headerlink" title="3、PLSQL的特点"></a>3、PLSQL的特点</h3><pre><code>结构化 模块化编程
+良好的可扩展性
+良好的可维护性
+提高了程序的性能
+不便于向异构数据库移植
+</code></pre><h3 id="4、plsql扩展了sql那些内容"><a href="#4、plsql扩展了sql那些内容" class="headerlink" title="4、plsql扩展了sql那些内容"></a>4、plsql扩展了sql那些内容</h3><pre><code>变量和数据类型
+控制语句 --- 分支语句 循环语句 goto
+过程和函数
+对象和方法
+</code></pre><h3 id="5、plsql的程序结构"><a href="#5、plsql的程序结构" class="headerlink" title="5、plsql的程序结构"></a>5、plsql的程序结构</h3><pre><code>declare
+   /* 申明区 
+        用来定义变量  和  类型的   */
+    begin
+   /* 执行区 
+       用来执行plsql语句 和 sql语句的                
+       */ 
+    exception
+   -- 异常处理区   
+   -- 当程序执行出错自动进入这个区处理  
+    end;
+    /
+</code></pre><h3 id="6、第一个plsql程序"><a href="#6、第一个plsql程序" class="headerlink" title="6、第一个plsql程序"></a>6、第一个plsql程序</h3><pre><code>begin
+        dbms_output.put_line(&apos;hello plsql!&apos;);
+end;
+/
+</code></pre><h3 id="7、执行-plsql程序"><a href="#7、执行-plsql程序" class="headerlink" title="7、执行 plsql程序"></a>7、执行 plsql程序</h3><pre><code>命令行下的 sqlplus
+图形界面工具 plsqldeveloper sqldeveloper
+无论使用 哪种开发工具 必须设置 set serveroutput on;
+</code></pre><h3 id="8、标识符"><a href="#8、标识符" class="headerlink" title="8、标识符"></a>8、标识符</h3><pre><code>给变量 类型 过程 函数 游标等命名的
+</code></pre><h3 id="9、变量"><a href="#9、变量" class="headerlink" title="9、变量"></a>9、变量</h3><pre><code>9.1 语法
+declare
+    变量名 类型;
+begin
+类型:
+    基本类型 number varchar2(n) char(n) date boolean binary_integer
+    复合类型 record table cursor
+    参考类型 ref
+    大数据类型 BLOB CLOB FILE 一般使用，使用字符串存储路径即可
 
-全外连接 在Oracle 中 是怎么实现的?
-    全外连接 不是通过两端 加 (+) 实现的，而是通过  union   实现的
-    union 是可以合并两个结果集 然后排重
-    union  all    是 合并两个结果集 不排重 
+------------------------------------------------------------------------------------------
+9.2 举例
+定义两个变量 分别是 数字类型 和 字符串类型
+declare
+    var_id number;
+    var_name varchar2(30);
+begin
+    dbms_output.put_line(var_id||&apos;:&apos;var_name);
+end;
+/
+变量没有赋值 则值一定是null
+------------------------------------------------------------------------------------------
+9.3 变量的赋值
+declare
+        var_id number:=123;
+        var_name varchar2(30):=&apos;zhangsan&apos;;
+begin
+        dbms_output.put_line(var_id||&apos;:&apos;||var_name);
+end;
+/
+------------------------------------------------------------------------------------------
+9.4 定义两个变量 分别 和 s_emp 表中的id 和first_name对应的类型保持一致
+然后分别给两个变量赋值成 1 testcarmen 最后打印这两个变量饿值
+declare
+    id number(7);
+    first_name varchar2(25);
+begin
+    id:=1;
+    first_name:=&apos;testcarmen&apos;;
+    dbms_output.put_line(id||&apos;:&apos;||first_name);
+end;
+/
+------------------------------------------------------------------------------------------
+9.5 可以使用 表名.字段名 % type 来获取表中字段对应的类型
+declare
+       var_id        s_emp.id%type;
+       first_name    s_emp.first_name%type;    
+begin
+    var_id:=2;
+    /* 使用sql 语句 给变量 first_name 赋值 */
+    select first_name into first_name from s_emp where id=var_id;
+end;
+/
+------------------------------------------------------------------------------------------
+9.6 变量的修饰
+constant 代表修饰成常量
+not null 修饰成非空
 
-select id from  s_emp  union  select id from s_emp;
-select id from  s_emp  union  all select id from s_emp;
+declare
+    var_id constant s_emp.id%type:=1;
+    first_name s_emp.first_name%type not null:=&apos;abc&apos;;
+begin
+    -- var_id:=1;
+    dbms_output.put_line(var_id||&apos;:&apos;||first_name);
+end;
+/
 </code></pre>
     </div>
     <footer>
@@ -151,7 +201,7 @@ select id from  s_emp  union  all select id from s_emp;
         
   
   <div class="tags">
-    <a href="/tags/Oracle/">Oracle</a>
+    <a href="/tags/PLSQL/">PLSQL</a>
   </div>
 
 		<div class="bdsharebuttonbox">
@@ -199,10 +249,10 @@ with(document)0[
 
  <nav id="pagination" >
     
-    <a href="/2017/11/02/10、Oracle的组函数/" class="alignleft prev" title="10、Oracle的组函数">10、Oracle的组函数</a>
+    <a href="/2017/11/03/第八节：实战前必须掌握的10个指令-下/" class="alignleft prev" title="第八节：实战前必须掌握的10个指令(下)">第八节：实战前必须掌握的10个指令(下)</a>
     
     
-    <a href="/2017/11/02/8、Oracle的外连接/" class="alignright next" title="8、Oracle的外连接">8、Oracle的外连接</a>
+    <a href="/2017/11/03/20、Oracle数据库分页技术/" class="alignright next" title="20、Oracle数据库分页技术">20、Oracle数据库分页技术</a>
     
     <div class="clearfix"></div>
 </nav>
@@ -212,7 +262,7 @@ with(document)0[
 	
 	<section id="comment">
 		<!-- 多说评论框 start -->
-		<div class="ds-thread" data-thread-key="2017/11/02/9、表连接的SQL99-标准/" data-title="9、表连接的SQL99 标准" data-url="http://xyp-hf.github.io/2017/11/02/9、表连接的SQL99-标准/"></div>
+		<div class="ds-thread" data-thread-key="2017/11/03/21、PLSQL-过程化sql/" data-title="21、PLSQL 过程化sql" data-url="http://xyp-hf.github.io/2017/11/03/21、PLSQL-过程化sql/"></div>
 		<!-- 多说评论框 end -->
 		<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 		<script type="text/javascript">

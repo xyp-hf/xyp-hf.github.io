@@ -15,7 +15,7 @@
 	})();
 	</script>
   
-  <title>9、表连接的SQL99 标准 | xyp-hf</title>
+  <title>24、PLSQL 游标 | xyp-hf</title>
   <meta name="author" content="xyp-hf">
   
   <meta name="description" content="HTML|CSS|HTML5|CSS3|JavaScript|JQuery|Angular.js|vue.js|React.js">
@@ -23,7 +23,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="9、表连接的SQL99 标准"/>
+  <meta property="og:title" content="24、PLSQL 游标"/>
   <meta property="og:site_name" content="xyp-hf"/>
 
   
@@ -81,69 +81,174 @@
   <div class="post-content">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-	9、表连接的SQL99 标准
+	24、PLSQL 游标
   </h1>
   <p class="article-author">By
     
       <a href="http://xyp-hf.github.io" title="xyp-hf">xyp-hf</a>
     </p>
   <p class="article-time">
-    <time datetime="2017-11-01T23:01:35.000Z" itemprop="datePublished">2017-11-02</time>
-    Update date:<time datetime="2017-11-01T23:15:33.100Z" itemprop="dateModified">2017-11-02</time>
+    <time datetime="2017-11-02T13:05:39.000Z" itemprop="datePublished">2017-11-02</time>
+    Update date:<time datetime="2017-11-03T15:41:34.199Z" itemprop="dateModified">2017-11-03</time>
     
   </p>
 </header>
     <div class="entry">
 		
-        <h3 id="1、sql99-的内连接标准"><a href="#1、sql99-的内连接标准" class="headerlink" title="1、sql99 的内连接标准"></a>1、sql99 的内连接标准</h3><pre><code>语法格式：
-from  a表  join  b 表  on  表的连接条件  where  过滤条件;
-from  a表   inner join  b 表  on  表的连接条件  where  过滤条件;
-</code></pre><p>###<br>    练习<br>    显示 每个部门的名字 和 对应的地区的名字<br>      select   d.name,r.name<br>          from s_dept d,s_region  r  </p>
-<pre><code>              where  d.region_id =  r.id;
-------------------------------------------------------------------------------------------
-  select   d.name,r.name         
-          from s_dept d  join  s_region  r  
-                 on  d.region_id =  r.id;
-------------------------------------------------------------------------------------------
-  select   d.name,r.name         
-          from s_dept d  inner  join  s_region  r  
-                 on  d.region_id =  r.id;
-</code></pre><h3 id="2、sql99-外连接标准"><a href="#2、sql99-外连接标准" class="headerlink" title="2、sql99 外连接标准"></a>2、sql99 外连接标准</h3><pre><code>语法格式：
-a 表   left   outer  join  b表   on  连接条件  where  过滤条件;
-a 表   right  outer  join  b表   on  连接条件  where  过滤条件;
-a 表   full   outer  join  b表   on  连接条件  where  过滤条件;
-</code></pre><p>###<br>    左外连接</p>
-<pre><code>a 表 left outer join b 表 的意思就是 a 表发起连接,
-a表发起连接就代表a表全部被匹配出来。
-本质上 也是通过 null 记录进行匹配。
-</code></pre><h3 id="3、"><a href="#3、" class="headerlink" title="3、"></a>3、</h3><pre><code>练习
-显示每个部门的名字 和 对应的地区的名字  没有地区编号的部门也要显示 
-    select d.name,r.name            
-         from s_dept d,s_region r  
-              where d.region_id = r.id(+);
-------------------------------------------------------------------------------------------
-    select d.name,r.name            
-         from s_dept d left outer join s_region r  
-                 on d.region_id = r.id;
-</code></pre><h3 id="4、"><a href="#4、" class="headerlink" title="4、"></a>4、</h3><pre><code>练习
-查询出所有的普通员工?
-    select distinct m.id,m.first_name   
-           from s_emp e,s_emp m 
-              where e.manager_id(+) = m.id and e.manager_id is null;
-------------------------------------------------------------------------------------------
-     select  distinct m.id,m.first_name   
-           from  s_emp  m  left outer join s_emp  e 
-              on e.manager_id = m.id   where  e.manager_id is null;        
-</code></pre><h3 id="5、全外连接"><a href="#5、全外连接" class="headerlink" title="5、全外连接"></a>5、全外连接</h3><pre><code>全外连接 只是一个逻辑概念   全外连接的结果集 等于 左外连接的结果集 加上右外连接的结果集
-然后排除重复的记录。
+        <h2 id="游标-cursor"><a href="#游标-cursor" class="headerlink" title="游标 cursor"></a>游标 cursor</h2><pre><code>1.1 作用
+用来存放多条数据的一个结果集
+</code></pre><h3 id="1-2-游标的使用步骤"><a href="#1-2-游标的使用步骤" class="headerlink" title="1.2 游标的使用步骤"></a>1.2 游标的使用步骤</h3><pre><code>使用步骤
+定义游标
+    declare 
+            cursor 游标名 is select语句；
+    begin
+打开游标
+    open 游标名;
+提取数据 操作数据
+    fatch 游标名 into 变量
+关闭游标
+    close 游标名；
+</code></pre><h3 id="1-3-举例"><a href="#1-3-举例" class="headerlink" title="1.3 举例"></a>1.3 举例</h3><pre><code>查询 s_emp表中 id first_name salary 放入一个游标中 然后提取游标中前两条数据并进行打印。
 
-全外连接 在Oracle 中 是怎么实现的?
-    全外连接 不是通过两端 加 (+) 实现的，而是通过  union   实现的
-    union 是可以合并两个结果集 然后排重
-    union  all    是 合并两个结果集 不排重 
+declare
+    cursor empcursor is select id,first_name,salary from s_emp;
+    type emptype is record(
+        id s_emp.id%type,
+        first_name s_emp.first_name%type,
+        salary s_emp.salary%type
+    );
+    var_emp emptype;
+begin
+    oper empcursor;
+    fetch empcursor into var_emp;
+    dbms_output.put_line(var_emp.id||&apos;:&apos;||var_emp.first_name||&apos;:&apos;||var_emp.salary);
+    fetch  empcursor into  var_emp;   
+    dbms_output.put_line(var_emp.id||&apos;:&apos;||var_emp.first_name||&apos;:&apos;||var_emp.salary);  
+    close empcursor;
+end;
+/
+------------------------------------------------------------------------------------------
+   declare
+      cursor  empcursor is  select id,first_name,salary from s_emp;  
+      var_emp   empcursor%rowtype;
+       begin
+      open  empcursor;
+      fetch  empcursor into  var_emp;
+      dbms_output.put_line(var_emp.id||&apos;:&apos;||var_emp.first_name||&apos;:&apos;||var_emp.salary); 
+      fetch  empcursor into  var_emp;   
+      dbms_output.put_line(var_emp.id||&apos;:&apos;||var_emp.first_name||&apos;:&apos;||var_emp.salary);  
+      close  empcursor;   
+       end;
+       /  
+</code></pre><h3 id="1-4-如何提取游标中所有的数据"><a href="#1-4-如何提取游标中所有的数据" class="headerlink" title="1.4 如何提取游标中所有的数据"></a>1.4 如何提取游标中所有的数据</h3><pre><code>游标的属性
+游标名%found      当提取游标数据时  如果提取到了新数据 则这个属性返回true   如果没有提取到
+      新数据 则这个属性返回false。但这个属性使用有两个前提 第一游标必须处于打开状态 否则返回
+      非法游标  第二 游标必须fetch  否则这个属性返回 null值。
+游标名%notfound     当提取游标数据时  如果提取到了新数据 则这个属性返回false   如果没有提取到
+      新数据 则这个属性返回true。但这个属性使用有两个前提 第一游标必须处于打开状态 否则返回
+      非法游标  第二 游标必须fetch  否则这个属性返回 null值。
 
-select id from  s_emp  union  select id from s_emp;
-select id from  s_emp  union  all select id from s_emp;
+简单循环 结合notfound属性
+declare
+    cursor  empcursor is  select id,first_name,salary from s_emp;  
+    var_emp   empcursor%rowtype;
+begin
+    open empcursor;
+    loop
+        fetch empcurror into var_emp;
+        /* 提取不到新数据时 结束循环 */
+        exit when epmcursor%notfound;
+        dbms_output.put_line(var_emp.id||&apos;:&apos;||var_emp.first_name||var_emp.salary);
+    end loop;
+    close empcursor;
+end;
+/
+------------------------------------------------------------------------------------------
+把上面的游标遍历 改成 使用 while 循环  结合 found 属性遍历
+   declare
+      cursor  empcursor is  select id,first_name,salary from s_emp;  
+      var_emp   empcursor%rowtype;
+   begin
+          open  empcursor;
+          fetch  empcursor into  var_emp;   
+          while  empcursor%found loop        
+                 dbms_output.put_line(var_emp.id||&apos;:&apos;||var_emp.first_name||&apos;:&apos;||var_emp.salary);  
+                 fetch  empcursor into  var_emp;
+          end  loop;
+          close  empcursor;   
+   end;
+   / 
+------------------------------------------------------------------------------------------
+for 询函 遍历游标
+for循环又叫智能循环 它可以自动定义变量 自动打开游标 自动提取数据 自动关闭游标
+
+   declare
+          cursor  empcursor is  select id,first_name,salary from s_emp;  
+   begin
+          for  var_emp in empcursor  loop        
+                 dbms_output.put_line(var_emp.id||&apos;:&apos;||var_emp.first_name||&apos;:&apos;||var_emp.salary);  
+          end  loop;   
+   end;
+   / 
+</code></pre><h3 id="1-5-游标的其它属性"><a href="#1-5-游标的其它属性" class="headerlink" title="1.5 游标的其它属性"></a>1.5 游标的其它属性</h3><pre><code>游标名 % isopen   判断游标是否处于打开状态  打开的游标返回  true   关闭的游标返回false.
+     注意打开的游标不能再打开   关闭的游标不能再关闭。
+
+ 游标名 % rowcount   游标指针偏移量  (了解)
+      游标必须打开 否则报错   游标指针默认在第一条数据之前
+</code></pre><h3 id="1-6-带参游标"><a href="#1-6-带参游标" class="headerlink" title="1.6  带参游标"></a>1.6  带参游标</h3><pre><code>定义游标时 可以给游标 设计参数
+游标的参数 可以在游标对应的查询语句中使用
+只要在打开游标时 传入实参即可
+注意:plsql 中 参数不能加长度修饰 但是可以使用%type
+
+   declare
+          cursor  empcursor(var_id   s_emp.id%type) is  select id,first_name,salary 
+                  from s_emp where  id&gt;var_id;  
+          var_emp   empcursor%rowtype;
+   begin
+          open  empcursor(20);
+          loop        
+                 fetch  empcursor into  var_emp;   
+                 /* 提取不到新数据时 结束循环  */
+                  exit  when  empcursor%notfound; 
+                 dbms_output.put_line(var_emp.id||&apos;:&apos;||var_emp.first_name||&apos;:&apos;||var_emp.salary);  
+          end  loop;
+          close  empcursor;   
+   end;
+   /  
+------------------------------------------------------------------------------------------
+ for 循环能否 遍历带参游标  
+ declare
+        cursor  empcursor(var_id   s_emp.id%type) is  select id,first_name,salary 
+                from s_emp where  id&gt;var_id;  
+ begin
+        for   var_emp  in  empcursor(15)   loop
+                dbms_output.put_line(var_emp.id||&apos;:&apos;||var_emp.first_name);
+        end  loop;
+ end;
+   /  
+</code></pre><h3 id="1-7-把每个员工的-名字-和-对应部门编号-以及-部门的名字-放入一个游标中"><a href="#1-7-把每个员工的-名字-和-对应部门编号-以及-部门的名字-放入一个游标中" class="headerlink" title="1.7 把每个员工的 名字 和 对应部门编号 以及 部门的名字 放入一个游标中"></a>1.7 把每个员工的 名字 和 对应部门编号 以及 部门的名字 放入一个游标中</h3><pre><code>然后提取这个游标中的所有数据 打印
+
+  declare
+         cursor   empdeptcursor  is  select   first_name,dept_id,name from 
+                s_emp,s_dept where dept_id=s_dept.id;
+  begin
+         for  var_t    in  empdeptcursor  loop
+                dbms_output.put_line(var_t.first_name||&apos;:&apos;||var_t.dept_id||&apos;:&apos;||var_t.name);
+         end loop;                 
+  end;
+  / 
+------------------------------------------------------------------------------------------
+把每个员工的 员工编号 名字  和  对应部门编号  以及 部门的名字 放入一个游标中 然后提取这个游标中的所有数据 打印 
+
+  declare
+         cursor   empdeptcursor  is  select  s_emp.id eid, first_name,dept_id,name,s_dept.id did from  s_emp,s_dept where dept_id=s_dept.id;
+  begin
+         for  var_t    in  empdeptcursor  loop
+                dbms_output.put_line(var_t.eid||&apos;:&apos;||var_t.first_name||&apos;:&apos;||var_t.dept_id
+                ||&apos;:&apos;||var_t.name);
+         end loop;                 
+  end;
+  / 
 </code></pre>
     </div>
     <footer>
@@ -151,7 +256,7 @@ select id from  s_emp  union  all select id from s_emp;
         
   
   <div class="tags">
-    <a href="/tags/Oracle/">Oracle</a>
+    <a href="/tags/PLSQL/">PLSQL</a>
   </div>
 
 		<div class="bdsharebuttonbox">
@@ -199,10 +304,10 @@ with(document)0[
 
  <nav id="pagination" >
     
-    <a href="/2017/11/02/10、Oracle的组函数/" class="alignleft prev" title="10、Oracle的组函数">10、Oracle的组函数</a>
+    <a href="/2017/11/02/第七节：实战前必须掌握的10个指令-上/" class="alignleft prev" title="第七节：实战前必须掌握的10个指令(上)">第七节：实战前必须掌握的10个指令(上)</a>
     
     
-    <a href="/2017/11/02/8、Oracle的外连接/" class="alignright next" title="8、Oracle的外连接">8、Oracle的外连接</a>
+    <a href="/2017/11/02/23、PLSQL 控制语句/" class="alignright next" title="23、PLSQL 控制语句">23、PLSQL 控制语句</a>
     
     <div class="clearfix"></div>
 </nav>
@@ -212,7 +317,7 @@ with(document)0[
 	
 	<section id="comment">
 		<!-- 多说评论框 start -->
-		<div class="ds-thread" data-thread-key="2017/11/02/9、表连接的SQL99-标准/" data-title="9、表连接的SQL99 标准" data-url="http://xyp-hf.github.io/2017/11/02/9、表连接的SQL99-标准/"></div>
+		<div class="ds-thread" data-thread-key="2017/11/02/24、PLSQL 游标/" data-title="24、PLSQL 游标" data-url="http://xyp-hf.github.io/2017/11/02/24、PLSQL 游标/"></div>
 		<!-- 多说评论框 end -->
 		<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 		<script type="text/javascript">
