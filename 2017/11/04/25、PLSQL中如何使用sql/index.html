@@ -1,0 +1,388 @@
+
+
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script type="text/javascript" src="http://tajs.qq.com/stats?sId=" charset="UTF-8"></script>
+  <script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+  
+  <title>25、PLSQL中如何使用sql? | xyp-hf</title>
+  <meta name="author" content="xyp-hf">
+  
+  <meta name="description" content="HTML|CSS|HTML5|CSS3|JavaScript|JQuery|Angular.js|vue.js|React.js">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="25、PLSQL中如何使用sql?"/>
+  <meta property="og:site_name" content="xyp-hf"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  <link href="/imgs/favicon.ico" rel="icon" type="image/x-ico">
+  <link rel="alternate" href="/atom.xml" title="xyp-hf" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <script src="//libs.baidu.com/jquery/1.8.0/jquery.min.js"></script>
+</head>
+
+
+<body>
+  <header><div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/imgs/logo.png" alt="xyp-hf" title="xyp-hf"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name">xyp-hf</h1>
+				<h2 class="blog-motto">全栈工程师</h2>
+			</div>
+			<nav class="animated">
+				<ul>
+					
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li> <a href="/atom.xml">RSS</a> </li>
+				</ul>
+			</nav>			
+</div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header class="article-info clearfix">
+  <h1 itemprop="name">
+	25、PLSQL中如何使用sql?
+  </h1>
+  <p class="article-author">By
+    
+      <a href="http://xyp-hf.github.io" title="xyp-hf">xyp-hf</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2017-11-03T16:38:48.000Z" itemprop="datePublished">2017-11-04</time>
+    更新日期:<time datetime="2017-11-03T17:13:08.337Z" itemprop="dateModified">2017-11-04</time>
+    
+  </p>
+</header>
+    <div class="entry">
+		
+        <h3 id="1、PLSQL中如何使用sql"><a href="#1、PLSQL中如何使用sql" class="headerlink" title="1、PLSQL中如何使用sql?"></a>1、PLSQL中如何使用sql?</h3><pre><code>DML(insert delete update) TCL(commit rollback savepoint) 可以直接在plsql中使用
+------------------------------------------------------------------------------------------
+select 语句要么和 into 结合使用(查询的数据只有一个结果)
+如果select语句返回多行数据 则需要和游标结合使用
+------------------------------------------------------------------------------------------
+DDL(create drop alter) 不能直接在plsql中使用 需要使用动态sql
+------------------------------------------------------------------------------------------
+begin
+    create table dsql(id number primary key);
+end;
+/
+</code></pre><h3 id="2、动态sql"><a href="#2、动态sql" class="headerlink" title="2、动态sql"></a>2、动态sql</h3><pre><code>2.1 概念
+在程序执行的过程中 sql语句可以根据条件发生改变。
+2.2 如何实现?
+只要把sql语句变换成字符串即可,  并使用 execute immediate 执行字符串
+------------------------------------------------------------------------------------------
+declare
+    sqlstr varchar2(200):=&apos;create table dsql(id number primary key)&apos;;
+begin
+    sqlstr:=replace(sqlstr,&apos;)&apos;,&apos;);
+    sqlstr:=sqlstr || &apos;name varchar2(30))&apos;;
+    dbms_output.put_line(sqlstr);
+    execute immediate sqlstr;
+end;
+/
+</code></pre><h3 id="3、其实DML-select语句-等都可以使用-动态sql"><a href="#3、其实DML-select语句-等都可以使用-动态sql" class="headerlink" title="3、其实DML select语句 等都可以使用 动态sql"></a>3、其实DML select语句 等都可以使用 动态sql</h3><pre><code>3.1 参考游标的概念
+select 语句的动态sql ------ 参考游标
+参考游标的核心思想 就是 游标对应的sql语句 是一个动态拼接的字符串。
+------------------------------------------------------------------------------------------
+3.2 参考游标的使用步骤
+    定义一个参考游标类型
+        type 参考游标类型名 is ref cursor;
+    使用参考游标类型 定义游标变量;
+             游标名 参考游标类型名;
+    把游标变量 和 拼接的字符串 关联起来；
+------------------------------------------------------------------------------------------
+3.3 举例    
+declare 
+       sqlstr  varchar2(300);
+       type    myrefcursor  is  ref cursor;
+       empcursor   myrefcursor;
+       type   emptype  is  record(
+              id     s_emp.id%type,
+              name   s_emp.first_name%type,
+              salary emp.salary%type
+        );
+             var_emp   emptype;
+begin
+    sqlstr:=&apos;select id,first_name,salary from s_emp&apos;;
+    sqlstr:=sqlstr || &apos;where salary &gt; 1500&apos;;
+    sqlstr:=sqlstr || &apos;and id &gt; 5&apos;;
+    open empcursor for sqlstr;
+    loop
+        fetch empcursor into var_emp;
+        exit when empcursor%notfound;
+        dbms_output.put_line(var_emp.id||&apos;:&apos;||var_emp.name||&apos;:&apos;||var_emp.salary);        
+    end loop;
+    close empcursor;
+end;
+/
+------------------------------------------------------------------------------------------
+3.4 参考游标中的占位符 :bn 开头的叫占位符 使用using 可以传入实参
+    declare
+            sqlstr varchar2(300);
+            type myrefcursor is ref cursor;
+            empcursor myrefcursor;
+            type emptype is record(
+                   id         s_emp.id%type;
+                name    s_emp.first_name%type;
+                salary    s_emp.salary%type;
+            );
+            var_emp emptype;
+    begin
+        sqlstr:=&apos;select  id,first_name,salary from  s_emp &apos;;
+        sqlstr:=sqlstr || &apos;where  salary&gt;:b0 &apos;;
+        sqlstr:=sqlstr||&apos; and  id &gt; :b1 &apos;;
+        open   empcursor  for  sqlstr using 1000,3;
+        loop
+            fetch empcursor into var_emp;
+            exit when empcursor%notfound;
+            dbms_output.put_line(var_emp.id||&apos;:&apos;||var_emp.name||&apos;:&apos;||var_emp.salary);
+        end loop;
+        close empcursor;
+    end;
+    /
+</code></pre>
+    </div>
+    <footer>
+        
+        
+  
+  <div class="tags">
+    <a href="/tags/PLSQL/">PLSQL</a>
+  </div>
+
+		<div class="bdsharebuttonbox">
+	<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+	<a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
+	<a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a>
+	<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="bds_more" data-cmd="more"></a>
+	<a href="#" class="bds_count" data-cmd="count"></a>
+</div>
+<script>
+window._bd_share_config=
+{
+	"common":{
+		"bdSnsKey":{},
+		"bdText":"",
+		"bdMini":"2",
+		"bdMiniList":false,
+		"bdPic":"",
+		"bdStyle":"0",
+		"bdSize":"24"
+	},
+	"share":{},
+	"image":{
+		"viewList":["qzone","tsina","tqq","renren","weixin","fbook","twi"],
+		"viewText":"分享到：",
+		"viewSize":"24"
+	},
+	"selectShare":{
+		"bdContainerClass":null,
+		"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin","fbook","twi"]
+	}
+};
+with(document)0[
+	(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)
+];
+</script>    
+        <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+ <nav id="pagination" >
+    
+    <a href="/2017/11/04/26、PLSQL中的异常机制/" class="alignleft prev" title="26、PLSQL中的异常机制">26、PLSQL中的异常机制</a>
+    
+    
+    <a href="/2017/11/03/第八节：实战前必须掌握的10个指令-下/" class="alignright next" title="第八节：实战前必须掌握的10个指令(下)">第八节：实战前必须掌握的10个指令(下)</a>
+    
+    <div class="clearfix"></div>
+</nav>
+
+
+
+	
+	<section id="comment">
+		<!-- 多说评论框 start -->
+		<div class="ds-thread" data-thread-key="2017/11/04/25、PLSQL中如何使用sql/" data-title="25、PLSQL中如何使用sql?" data-url="http://xyp-hf.github.io/2017/11/04/25、PLSQL中如何使用sql/"></div>
+		<!-- 多说评论框 end -->
+		<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+		<script type="text/javascript">
+		var duoshuoQuery = {short_name:""};
+		(function() {
+			var ds = document.createElement('script');
+			ds.type = 'text/javascript';ds.async = true;
+			ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+			ds.charset = 'UTF-8';
+			(document.getElementsByTagName('head')[0] 
+			 || document.getElementsByTagName('body')[0]).appendChild(ds);
+		})();
+		</script>
+		<!-- 多说公共JS代码 end -->
+	</section>
+	
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜索">
+    <input type="hidden" name="q" value="site:xyp-hf.github.io">
+  </form>
+</div>
+
+  
+
+  
+<div class="widget tagcloud">
+  <h3 class="title">标签云</h3>
+  <div class="entry">
+    <a href="/tags/Js数组/" style="font-size: 10px;">Js数组</a> <a href="/tags/Oracle/" style="font-size: 20px;">Oracle</a> <a href="/tags/PLSQL/" style="font-size: 16.67px;">PLSQL</a> <a href="/tags/Vue-js/" style="font-size: 13.33px;">Vue.js</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/git/" style="font-size: 10px;">git</a>
+  </div>
+</div>
+
+
+  <iframe width="100%" height="140" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=1&speed=0&skin=1&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1923610190&verifier=6af5ad6a&colors=fafafa,fafafa,666666,0082cb,ecfbfd&dpc=1"></iframe>
+
+  <div class="widget tag">
+<h3 class="title">友情链接</h3>
+<ul class="entry">
+<li><a href="http://blog.csdn.net/xyphf" title="我的CSDN" target="_blank">我的CSDN</a></li>
+<li><a href="https://github.com/xyp-hf" title="我的Github" target="_blank">我的Github</a></li>
+<li><a href="http://blog.csdn.net/column/details/17503.html" title="Java全栈之路 技术专栏" target="_blank">Java全栈之路 技术专栏</a></li>
+</ul>
+</div>
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer"><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> 欢迎来到我的Github博客空间 <br/>
+			每天进步一点点, 星星之火可燎原</p>
+	</section>
+	 
+	<div class="social-font clearfix">
+		
+		<a href="http://weibo.com/gushi120" target="_blank" title="weibo"></a>
+		
+		
+		
+		<a href="https://github.com/xyp-hf" target="_blank" title="github"></a>
+		
+		
+		
+		
+		<a href="mailto:2766588380@qq.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/huangjunhui/concise" target="_blank" title="Concise">Concise</a> © 2017 
+		
+		<a href="http://xyp-hf.github.io/about" target="_blank" title="xyp-hf">xyp-hf</a>
+		
+		</p>
+</div>
+</footer>
+  <script src="//libs.baidu.com/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/counter.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+<div id="totop" style="position:fixed;bottom:100px;right:10px;cursor: pointer;">
+<a title="返回顶部"><img src="/imgs/scrollup.png"/></a>
+</div>
+<script src="/js/totop.js"></script>
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</body>
+</html>
+
+

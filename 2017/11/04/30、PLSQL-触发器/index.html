@@ -1,0 +1,362 @@
+
+
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script type="text/javascript" src="http://tajs.qq.com/stats?sId=" charset="UTF-8"></script>
+  <script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+  
+  <title>30、PLSQL 触发器 | xyp-hf</title>
+  <meta name="author" content="xyp-hf">
+  
+  <meta name="description" content="HTML|CSS|HTML5|CSS3|JavaScript|JQuery|Angular.js|vue.js|React.js">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="30、PLSQL 触发器"/>
+  <meta property="og:site_name" content="xyp-hf"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  <link href="/imgs/favicon.ico" rel="icon" type="image/x-ico">
+  <link rel="alternate" href="/atom.xml" title="xyp-hf" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <script src="//libs.baidu.com/jquery/1.8.0/jquery.min.js"></script>
+</head>
+
+
+<body>
+  <header><div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/imgs/logo.png" alt="xyp-hf" title="xyp-hf"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name">xyp-hf</h1>
+				<h2 class="blog-motto">全栈工程师</h2>
+			</div>
+			<nav class="animated">
+				<ul>
+					
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li> <a href="/atom.xml">RSS</a> </li>
+				</ul>
+			</nav>			
+</div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header class="article-info clearfix">
+  <h1 itemprop="name">
+	30、PLSQL 触发器
+  </h1>
+  <p class="article-author">By
+    
+      <a href="http://xyp-hf.github.io" title="xyp-hf">xyp-hf</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2017-11-03T17:53:43.000Z" itemprop="datePublished">2017-11-04</time>
+    更新日期:<time datetime="2017-11-03T18:04:40.921Z" itemprop="dateModified">2017-11-04</time>
+    
+  </p>
+</header>
+    <div class="entry">
+		
+        <h3 id="1、DML-级别的触发器"><a href="#1、DML-级别的触发器" class="headerlink" title="1、DML 级别的触发器"></a>1、DML 级别的触发器</h3><pre><code>当进行dml(insert  delete  update)操作时,这些操作可以被数据库管理系统捕获到，捕获到这些行为之后 可以根据操作 进行相应的处理。
+</code></pre><h3 id="2、语法"><a href="#2、语法" class="headerlink" title="2、语法"></a>2、语法</h3><pre><code>create  or  replace  trigger  触发器的名字    before|after    dml(insert |delete | update)
+        on 表名   | for each row
+declare
+begin
+end;
+/
+</code></pre><h3 id="3、-举例"><a href="#3、-举例" class="headerlink" title="3、 举例"></a>3、 举例</h3><pre><code>create   table   emp300 as select  id,first_name name,salary from s_emp;
+col  name for a20;
+为 emp300 这张表建立一个更新操作之后的 触发器
+create  or  replace  trigger   emp300_after_update  after  update   on  emp300  
+declare
+begin
+       dbms_output.put_line(&apos;warning   you update emp300&apos;);
+end;
+/                  
+update  emp300 set salary=salary+100 where id=1;
+update  emp300 set salary=salary+100 where id&lt;1;
+update  emp300 set salary=salary+100 where id&gt;1; 
+无论sql语句影响多少行数据  上面的触发器 都会被触发一次  这种触发器 叫 语句级触发器。
+</code></pre><h3 id="4、开发中-比较有意义的是-针对每一行-都触发-这样才能获取到数据的具体变化"><a href="#4、开发中-比较有意义的是-针对每一行-都触发-这样才能获取到数据的具体变化" class="headerlink" title="4、开发中 比较有意义的是 针对每一行 都触发 这样才能获取到数据的具体变化"></a>4、开发中 比较有意义的是 针对每一行 都触发 这样才能获取到数据的具体变化</h3><p>行级触发器  —-  针对sql语句影响的每一行都触发    for  each row </p>
+<pre><code> create  or  replace  trigger   emp300_after_update  after  update   on  emp300  for each row
+ declare
+ begin
+        dbms_output.put_line(:old.id||&apos;:&apos;||:old.salary);            
+        dbms_output.put_line(&apos;warning   you update emp300&apos;);
+        dbms_output.put_line(:new.id||&apos;:&apos;||:new.salary); 
+ end;
+ /                  
+ update  emp300 set salary=salary+100 where id=1;
+ update  emp300 set salary=salary+100 where id&lt;1;
+ update  emp300 set salary=salary+100 where id&gt;1; 
+
+ update       :old                 :new
+ delete       :old 
+ insert                            :new 
+
+触发器中不能使用  事务控制语句
+
+ create  or  replace  procedure   getNumN(var_n   number,var_sum  out  number)  
+ is
+ begin
+      var_sum:=0;
+      for  var_i  in  1..var_n  loop
+           var_sum:=var_sum+var_i;  
+      end  loop;
+ end;
+ / 
+------------------------------------------------------------------------------------------
+declare
+        var_s    number:=0;
+begin
+        getNumN(100,var_s);
+        dbms_output.put_line(&apos;var_s=&apos;||var_s);           
+end;
+/
+
+constant       not null
+declare
+        var_x    constant  number  not null:=0; 
+begin
+</code></pre>
+    </div>
+    <footer>
+        
+        
+  
+  <div class="tags">
+    <a href="/tags/PLSQL/">PLSQL</a>
+  </div>
+
+		<div class="bdsharebuttonbox">
+	<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+	<a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
+	<a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a>
+	<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="bds_more" data-cmd="more"></a>
+	<a href="#" class="bds_count" data-cmd="count"></a>
+</div>
+<script>
+window._bd_share_config=
+{
+	"common":{
+		"bdSnsKey":{},
+		"bdText":"",
+		"bdMini":"2",
+		"bdMiniList":false,
+		"bdPic":"",
+		"bdStyle":"0",
+		"bdSize":"24"
+	},
+	"share":{},
+	"image":{
+		"viewList":["qzone","tsina","tqq","renren","weixin","fbook","twi"],
+		"viewText":"分享到：",
+		"viewSize":"24"
+	},
+	"selectShare":{
+		"bdContainerClass":null,
+		"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin","fbook","twi"]
+	}
+};
+with(document)0[
+	(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)
+];
+</script>    
+        <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+ <nav id="pagination" >
+    
+    
+    <a href="/2017/11/04/29、包-package/" class="alignright next" title="29、包  package">29、包  package</a>
+    
+    <div class="clearfix"></div>
+</nav>
+
+
+
+	
+	<section id="comment">
+		<!-- 多说评论框 start -->
+		<div class="ds-thread" data-thread-key="2017/11/04/30、PLSQL-触发器/" data-title="30、PLSQL 触发器" data-url="http://xyp-hf.github.io/2017/11/04/30、PLSQL-触发器/"></div>
+		<!-- 多说评论框 end -->
+		<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+		<script type="text/javascript">
+		var duoshuoQuery = {short_name:""};
+		(function() {
+			var ds = document.createElement('script');
+			ds.type = 'text/javascript';ds.async = true;
+			ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+			ds.charset = 'UTF-8';
+			(document.getElementsByTagName('head')[0] 
+			 || document.getElementsByTagName('body')[0]).appendChild(ds);
+		})();
+		</script>
+		<!-- 多说公共JS代码 end -->
+	</section>
+	
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜索">
+    <input type="hidden" name="q" value="site:xyp-hf.github.io">
+  </form>
+</div>
+
+  
+
+  
+<div class="widget tagcloud">
+  <h3 class="title">标签云</h3>
+  <div class="entry">
+    <a href="/tags/Js数组/" style="font-size: 10px;">Js数组</a> <a href="/tags/Oracle/" style="font-size: 20px;">Oracle</a> <a href="/tags/PLSQL/" style="font-size: 16.67px;">PLSQL</a> <a href="/tags/Vue-js/" style="font-size: 13.33px;">Vue.js</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/git/" style="font-size: 10px;">git</a>
+  </div>
+</div>
+
+
+  <iframe width="100%" height="140" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=1&speed=0&skin=1&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1923610190&verifier=6af5ad6a&colors=fafafa,fafafa,666666,0082cb,ecfbfd&dpc=1"></iframe>
+
+  <div class="widget tag">
+<h3 class="title">友情链接</h3>
+<ul class="entry">
+<li><a href="http://blog.csdn.net/xyphf" title="我的CSDN" target="_blank">我的CSDN</a></li>
+<li><a href="https://github.com/xyp-hf" title="我的Github" target="_blank">我的Github</a></li>
+<li><a href="http://blog.csdn.net/column/details/17503.html" title="Java全栈之路 技术专栏" target="_blank">Java全栈之路 技术专栏</a></li>
+</ul>
+</div>
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer"><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> 欢迎来到我的Github博客空间 <br/>
+			每天进步一点点, 星星之火可燎原</p>
+	</section>
+	 
+	<div class="social-font clearfix">
+		
+		<a href="http://weibo.com/gushi120" target="_blank" title="weibo"></a>
+		
+		
+		
+		<a href="https://github.com/xyp-hf" target="_blank" title="github"></a>
+		
+		
+		
+		
+		<a href="mailto:2766588380@qq.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/huangjunhui/concise" target="_blank" title="Concise">Concise</a> © 2017 
+		
+		<a href="http://xyp-hf.github.io/about" target="_blank" title="xyp-hf">xyp-hf</a>
+		
+		</p>
+</div>
+</footer>
+  <script src="//libs.baidu.com/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/counter.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+<div id="totop" style="position:fixed;bottom:100px;right:10px;cursor: pointer;">
+<a title="返回顶部"><img src="/imgs/scrollup.png"/></a>
+</div>
+<script src="/js/totop.js"></script>
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</body>
+</html>
+
+
