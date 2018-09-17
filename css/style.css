@@ -307,7 +307,7 @@ article.link .icon:before {
 }
 article.link .title a:after {
   content: '\f08e';
-  color: #777;
+  color: #fff;
   font: 12px FontAwesome;
   padding-left: 10px;
   vertical-align: super;
@@ -571,7 +571,7 @@ article .entry code {
   border-radius: 3px;
 }
 article .entry pre {
-  background: #eee;
+  background: #3c3f41;
   border: 1px solid #ddd;
   margin-top: 15px;
   overflow: auto;
@@ -626,7 +626,7 @@ article .entry iframe {
 article .entry .caption {
   display: block;
   margin-top: 5px;
-  color: #777;
+  color: #fff;
   position: relative;
   font-size: 0.9em;
   padding-left: 25px;
@@ -669,14 +669,14 @@ article footer {
   margin-top: 15px;
   padding-top: 10px;
   border-top: 1px solid #ddd;
-  color: #777;
+  color: #fff;
   font-size: 0.9em;
   line-height: 16px;
   position: relative;
   min-height: 16px;
 }
 article footer a {
-  color: #777;
+  color: #fff;
 }
 article footer a:hover {
   color: #0085ff;
@@ -773,7 +773,7 @@ a
   display: block;
   padding: 5px 10px;
   background: #ddd;
-  color: #777;
+  color: #fff;
   font-family: Helvetica Neue, Helvetica, Arial, "Hiragino Sans GB", sans-serif;
   text-shadow: 0 0 1px #fff;
   margin-bottom: 50px;
@@ -795,7 +795,7 @@ a
   font-family: FontAwesome;
 }
 .archive-title {
-  color: #777;
+  color: #fff;
   margin-bottom: 30px;
   font-weight: normal;
   text-shadow: 0 0 1px #fff;
@@ -936,14 +936,14 @@ a
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  color: #777;
+  color: #fff;
 }
 #sidebar .search input:focus {
   color: #000;
 }
 #sidebar .tag small {
   margin-left: 15px;
-  color: #777;
+  color: #fff;
 }
 #sidebar .tag small:before {
   content: '(';
@@ -962,7 +962,7 @@ a
 #sidebar .twitter small {
   display: block;
   margin-top: 10px;
-  color: #777;
+  color: #fff;
   line-height: 1;
 }
 #sidebar .tagcloud .entry {
@@ -1300,7 +1300,7 @@ a
 }
 .entry .gist .gist-file .gist-meta {
   background: none;
-  color: #777;
+  color: #fff;
   margin-top: 5px;
   padding: 0;
   text-shadow: 0 0 1px #fff;
@@ -1313,7 +1313,7 @@ a
   color: #0085ff;
 }
 figure.highlight {
-  background: #eee;
+  background: #3c3f41;
   border: 1px solid #ddd;
   margin-top: 15px;
   padding: 7px 15px;
@@ -1325,7 +1325,7 @@ figure.highlight {
   font-size: 0.9em;
 }
 figure.highlight figcaption {
-  color: #777;
+  color: #fff;
   margin-bottom: 5px;
   text-shadow: 0 0 1px #fff;
 }
@@ -1343,7 +1343,7 @@ figure.highlight table {
   border-spacing: 0;
 }
 figure.highlight .gutter {
-  color: #777;
+  color: #fff;
   padding-right: 15px;
   border-right: 1px solid #ddd;
   text-align: right;
@@ -1351,7 +1351,7 @@ figure.highlight .gutter {
 figure.highlight .code {
   padding-left: 15px;
   border-left: 1px solid #fff;
-  color: #666;
+  color: #fff;
 }
 pre .comment,
 pre .template_comment,
@@ -1371,7 +1371,7 @@ pre .css .tag,
 pre .request,
 pre .status,
 pre .nginx .title {
-  color: #859900;
+  color: #9bf71b;
 }
 pre .number,
 pre .command,
