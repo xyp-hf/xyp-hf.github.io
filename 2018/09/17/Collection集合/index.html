@@ -1,0 +1,316 @@
+
+
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script type="text/javascript" src="http://tajs.qq.com/stats?sId=" charset="UTF-8"></script>
+  <script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+  
+  <title>Collection集合常用API | xyp-hf</title>
+  <meta name="author" content="xyp-hf">
+  
+  <meta name="description" content="HTML|CSS|HTML5|CSS3|JavaScript|JQuery|Angular.js|vue.js|React.js">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Collection集合常用API"/>
+  <meta property="og:site_name" content="xyp-hf"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  <link href="/imgs/favicon.ico" rel="icon" type="image/x-ico">
+  <link rel="alternate" href="/atom.xml" title="xyp-hf" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <script src="//libs.baidu.com/jquery/1.8.0/jquery.min.js"></script>
+</head>
+
+
+<body>
+  <header><div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/imgs/logo.png" alt="xyp-hf" title="xyp-hf"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name">xyp-hf</h1>
+				<h2 class="blog-motto">全栈工程师</h2>
+			</div>
+			<nav class="animated">
+				<ul>
+					
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li> <a href="/atom.xml">RSS</a> </li>
+				</ul>
+			</nav>			
+</div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header class="article-info clearfix">
+  <h1 itemprop="name">
+	Collection集合常用API
+  </h1>
+  <p class="article-author">By
+    
+      <a href="http://xyp-hf.github.io" title="xyp-hf">xyp-hf</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2018-09-17T14:57:47.000Z" itemprop="datePublished">2018-09-17</time>
+    Update date:<time datetime="2018-09-17T15:27:41.844Z" itemprop="dateModified">2018-09-17</time>
+    
+  </p>
+</header>
+    <div class="entry">
+		
+        <p>欢迎访问CSDN博客专栏<a href="http://blog.csdn.net/column/details/17503.html" target="_blank" rel="noopener">CSDN专栏 Java全栈之路</a>,<a href="https://github.com/xyp-hf" target="_blank" rel="noopener">Github主页</a>。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestCollection</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//获取Collection集合的引用</span></span><br><span class="line">		<span class="comment">//Collection c1 = new Collection(); error 接口不能构造对象</span></span><br><span class="line">		<span class="comment">//接口类型的引用指向了实现类的对象，形成了多态</span></span><br><span class="line">		Collection c1 = <span class="keyword">new</span> ArrayList();</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//向集合c1中增加元素</span></span><br><span class="line">		<span class="keyword">boolean</span> b1 = c1.add(<span class="keyword">new</span> Integer(<span class="number">1</span>));</span><br><span class="line">		System.out.println(<span class="string">"b1 = "</span> + b1); <span class="comment">//true</span></span><br><span class="line">		<span class="comment">//自动调用toString()，编译器自动添加</span></span><br><span class="line">		<span class="comment">//在编译阶段调用父类的方法，在运行阶段调用子类重写以后的方法，ArrayList类</span></span><br><span class="line">		<span class="comment">//toString()方法默认打印的格式为：[元素1, 元素2, ...]</span></span><br><span class="line">		System.out.println(<span class="string">"c1 = "</span> + c1); <span class="comment">//[1]</span></span><br><span class="line">		</span><br><span class="line">		b1 = c1.add(<span class="keyword">new</span> String(<span class="string">"two"</span>));</span><br><span class="line">		System.out.println(<span class="string">"b1 = "</span> + b1); <span class="comment">//true</span></span><br><span class="line">		System.out.println(<span class="string">"c1 = "</span> + c1); <span class="comment">//[1, two]</span></span><br><span class="line">		</span><br><span class="line">		b1 = c1.add(<span class="keyword">new</span> Student(<span class="number">1001</span>, <span class="string">"zhangfei"</span>, <span class="number">30</span>));</span><br><span class="line">		System.out.println(<span class="string">"b1 = "</span> + b1); <span class="comment">//true</span></span><br><span class="line">		<span class="comment">//当打印集合中的元素时，本质上调用每个元素对应的toString()来打印</span></span><br><span class="line">		<span class="comment">//[1, two, Student[id=1001, name=zhangfei, age=30]]</span></span><br><span class="line">		System.out.println(<span class="string">"c1 = "</span> + c1); </span><br><span class="line">		</span><br><span class="line">		System.out.println(<span class="string">"--------------------------------------"</span>);</span><br><span class="line">		<span class="comment">//准备另外一个集合</span></span><br><span class="line">		Collection c2 = <span class="keyword">new</span> ArrayList();</span><br><span class="line">		c2.add(<span class="number">3</span>); <span class="comment">//采用了自动装箱技术 int =&gt; Integer</span></span><br><span class="line">		System.out.println(<span class="string">"c2 = "</span> + c2); <span class="comment">//[3]</span></span><br><span class="line">		c2.add(<span class="string">"four"</span>);</span><br><span class="line">		System.out.println(<span class="string">"c2 = "</span> + c2); <span class="comment">//[3, four] </span></span><br><span class="line">		System.out.println(<span class="string">"当前集合的元素个数是："</span> + c2.size()); <span class="comment">//2</span></span><br><span class="line">		System.out.println(<span class="string">"当前集合的元素个数是："</span> + c1.size()); <span class="comment">//3</span></span><br><span class="line">		</span><br><span class="line">		System.out.println(<span class="string">"--------------------------------------"</span>);</span><br><span class="line">		<span class="comment">//将集合c2中的所有元素添加到集合c1中，本质上就是将c2的元素一个个取出来放入c1</span></span><br><span class="line">		b1 = c1.addAll(c2);</span><br><span class="line">		<span class="comment">//本质上将c2看做一个元素，然后整体放入c1中</span></span><br><span class="line">		<span class="comment">//b1 = c1.add(c2);</span></span><br><span class="line">		System.out.println(<span class="string">"b1 = "</span> + b1); <span class="comment">//b1 = true</span></span><br><span class="line">		<span class="comment">//[1, two, Student[id=1001, name=zhangfei, age=30], 3, four]</span></span><br><span class="line">		<span class="comment">//[1, two, Student[id=1001, name=zhangfei, age=30], [3, four]]</span></span><br><span class="line">		System.out.println(<span class="string">"c1 = "</span> + c1); </span><br><span class="line">		System.out.println(<span class="string">"c2 = "</span> + c2); <span class="comment">//[3, four] </span></span><br><span class="line">		</span><br><span class="line">		System.out.println(<span class="string">"--------------------------------------"</span>);</span><br><span class="line">		<span class="comment">//判断集合c1中是否包含参数指定的单个元素</span></span><br><span class="line">		<span class="comment">//[1, two, Student[id=1001, name=zhangfei, age=30], 3, four]</span></span><br><span class="line">		b1 = c1.contains(<span class="keyword">new</span> Integer(<span class="number">1</span>));</span><br><span class="line">		System.out.println(<span class="string">"b1 = "</span> + b1); <span class="comment">//b1 = true</span></span><br><span class="line">		b1 = c1.contains(<span class="keyword">new</span> Integer(<span class="number">2</span>));</span><br><span class="line">		System.out.println(<span class="string">"b1 = "</span> + b1); <span class="comment">//b1 = false</span></span><br><span class="line">		b1 = c1.contains(<span class="keyword">new</span> String(<span class="string">"two"</span>));</span><br><span class="line">		System.out.println(<span class="string">"b1 = "</span> + b1); <span class="comment">//b1 = true</span></span><br><span class="line">		<span class="comment">//contains方法的原理：参数对象调用equals()方法与集合中的元素一个一个比较</span></span><br><span class="line">		<span class="comment">//当Student类没有重写equals()方法时，则比较对象的地址，因此结果为false</span></span><br><span class="line">		<span class="comment">//当Student类重写equals()方法后，则比较对象的内容，因此结果为true</span></span><br><span class="line">		b1 = c1.contains(<span class="keyword">new</span> Student(<span class="number">1001</span>, <span class="string">"zhangfei"</span>, <span class="number">30</span>));</span><br><span class="line">		System.out.println(<span class="string">"b1 = "</span> + b1); <span class="comment">//false  b1 = true </span></span><br><span class="line">		</span><br><span class="line">		System.out.println(<span class="string">"--------------------------------------"</span>);</span><br><span class="line">		<span class="comment">//判断集合c1中是否包含参数指定的多个元素</span></span><br><span class="line">		<span class="comment">//[1, two, Student[id=1001, name=zhangfei, age=30], 3, four]</span></span><br><span class="line">		<span class="comment">//将集合c2中的元素一个个拿出来在c1中进行查找</span></span><br><span class="line">		<span class="comment">//[3, four] </span></span><br><span class="line">		<span class="comment">//b1 = c1.containsAll(c2);</span></span><br><span class="line">		<span class="comment">//表示判断集合c1中是否有元素c2这个整体</span></span><br><span class="line">		b1 = c1.contains(c2);</span><br><span class="line">		System.out.println(<span class="string">"b1 = "</span> + b1); <span class="comment">//b1 = true false</span></span><br><span class="line">		</span><br><span class="line">		System.out.println(<span class="string">"--------------------------------------"</span>);</span><br><span class="line">		<span class="comment">//实现集合c1中单个元素的删除</span></span><br><span class="line">		b1 = c1.remove(<span class="keyword">new</span> String(<span class="string">"2"</span>));</span><br><span class="line">		System.out.println(<span class="string">"b1 = "</span> + b1); <span class="comment">//b1 = false</span></span><br><span class="line">		<span class="comment">//[1, two, Student[id=1001, name=zhangfei, age=30], 3, four]</span></span><br><span class="line">		System.out.println(<span class="string">"c1 = "</span> + c1); <span class="comment">//</span></span><br><span class="line">	</span><br><span class="line">		b1 = c1.remove(<span class="keyword">new</span> String(<span class="string">"two"</span>));</span><br><span class="line">		System.out.println(<span class="string">"b1 = "</span> + b1); <span class="comment">//b1 = true</span></span><br><span class="line">		<span class="comment">//[1, Student[id=1001, name=zhangfei, age=30], 3, four]</span></span><br><span class="line">		System.out.println(<span class="string">"c1 = "</span> + c1); <span class="comment">//</span></span><br><span class="line">		</span><br><span class="line">		System.out.println(<span class="string">"--------------------------------------"</span>);</span><br><span class="line">		<span class="comment">//[1, Student[id=1001, name=zhangfei, age=30], 3, four]</span></span><br><span class="line">		System.out.println(<span class="string">"c1 = "</span> + c1); <span class="comment">//</span></span><br><span class="line">		<span class="comment">//[3, four] </span></span><br><span class="line">		System.out.println(<span class="string">"c2 = "</span> + c2);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//实现集合c1中多个元素的删除</span></span><br><span class="line">		<span class="comment">//表示从集合c1中将集合c2中的元素一个一个删除</span></span><br><span class="line">		b1 = c1.removeAll(c2);</span><br><span class="line">		<span class="comment">//表示从集合c1中将集合c2这个元素整体删除</span></span><br><span class="line">		<span class="comment">//b1 = c1.remove(c2);</span></span><br><span class="line">		System.out.println(<span class="string">"b1 = "</span> + b1); <span class="comment">//true  false</span></span><br><span class="line">		<span class="comment">//[1, Student[id=1001, name=zhangfei, age=30], 3, four]</span></span><br><span class="line">		System.out.println(<span class="string">"c1 = "</span> + c1); <span class="comment">//[1, Student[id=1001, name=zhangfei, age=30]]</span></span><br><span class="line">		System.out.println(<span class="string">"c2 = "</span> + c2); <span class="comment">//[3, four]</span></span><br><span class="line">		</span><br><span class="line">		System.out.println(<span class="string">"--------------------------------------"</span>);</span><br><span class="line">		<span class="comment">//实现集合c1中所有元素的删除</span></span><br><span class="line">		<span class="comment">//c1.clear();</span></span><br><span class="line">		<span class="comment">//System.out.println("c1 = " + c1); //[啥也没有]</span></span><br><span class="line">		<span class="comment">//System.out.println(c1.isEmpty()); //true</span></span><br><span class="line">		<span class="comment">//System.out.println(c1.size()); //0</span></span><br><span class="line">		</span><br><span class="line">		System.out.println(<span class="string">"--------------------------------------"</span>);</span><br><span class="line">		<span class="comment">//计算两个集合的交集并保留到当前集合中</span></span><br><span class="line">		System.out.println(<span class="string">"c1 = "</span> + c1); <span class="comment">//[1, Student[id=1001, name=zhangfei, age=30]]</span></span><br><span class="line">		System.out.println(<span class="string">"c2 = "</span> + c2); <span class="comment">//[3, four]</span></span><br><span class="line">		</span><br><span class="line">		<span class="comment">//计算c1和c2的交集并保留到c1中，若c1集合中的内容发生了改变则返回true</span></span><br><span class="line">		b1 = c1.retainAll(c2);</span><br><span class="line">		System.out.println(<span class="string">"b1 = "</span> + b1); <span class="comment">//true</span></span><br><span class="line">		System.out.println(<span class="string">"c1 = "</span> + c1); <span class="comment">//[啥也没有]</span></span><br><span class="line">		System.out.println(<span class="string">"c2 = "</span> + c2); <span class="comment">//[3, four]</span></span><br><span class="line">		</span><br><span class="line">		System.out.println(<span class="string">"--------------------------------------"</span>);</span><br><span class="line">		<span class="comment">//计算两个集合的交集并保留到当前集合中</span></span><br><span class="line">		<span class="comment">//计算c2和c2的交集并保留到c2中，c2中的内容不发生改变，因此返回false</span></span><br><span class="line">		b1 = c2.retainAll(c2);</span><br><span class="line">		System.out.println(<span class="string">"b1 = "</span> + b1); <span class="comment">//false</span></span><br><span class="line">		System.out.println(<span class="string">"c2 = "</span> + c2); <span class="comment">//[3, four]</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    </div>
+    <footer>
+        
+  
+  <div class="categories">
+    <a href="/categories/JAVA/">JAVA</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/集合/">集合</a>
+  </div>
+
+		<div class="bdsharebuttonbox">
+	<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+	<a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
+	<a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a>
+	<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="bds_more" data-cmd="more"></a>
+	<a href="#" class="bds_count" data-cmd="count"></a>
+</div>
+<script>
+window._bd_share_config=
+{
+	"common":{
+		"bdSnsKey":{},
+		"bdText":"",
+		"bdMini":"2",
+		"bdMiniList":false,
+		"bdPic":"",
+		"bdStyle":"0",
+		"bdSize":"24"
+	},
+	"share":{},
+	"image":{
+		"viewList":["qzone","tsina","tqq","renren","weixin","fbook","twi"],
+		"viewText":"分享到：",
+		"viewSize":"24"
+	},
+	"selectShare":{
+		"bdContainerClass":null,
+		"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin","fbook","twi"]
+	}
+};
+with(document)0[
+	(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)
+];
+</script>    
+        <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+ <nav id="pagination" >
+    
+    
+    <a href="/2018/02/12/JavaScript数组常用操作大全/" class="alignright next" title="JavaScript数组常用操作大全">JavaScript数组常用操作大全</a>
+    
+    <div class="clearfix"></div>
+</nav>
+
+
+
+	
+	<section id="comment">
+		<!-- 多说评论框 start -->
+		<div class="ds-thread" data-thread-key="2018/09/17/Collection集合/" data-title="Collection集合常用API" data-url="http://xyp-hf.github.io/2018/09/17/Collection集合/"></div>
+		<!-- 多说评论框 end -->
+		<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+		<script type="text/javascript">
+		var duoshuoQuery = {short_name:""};
+		(function() {
+			var ds = document.createElement('script');
+			ds.type = 'text/javascript';ds.async = true;
+			ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+			ds.charset = 'UTF-8';
+			(document.getElementsByTagName('head')[0] 
+			 || document.getElementsByTagName('body')[0]).appendChild(ds);
+		})();
+		</script>
+		<!-- 多说公共JS代码 end -->
+	</section>
+	
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:xyp-hf.github.io">
+  </form>
+</div>
+
+  
+<div class="widget tag">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/JAVA/">JAVA</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tagcloud">
+  <h3 class="title">Tag Cloud</h3>
+  <div class="entry">
+    <a href="/tags/Js数组/" style="font-size: 10px;">Js数组</a> <a href="/tags/Oracle/" style="font-size: 20px;">Oracle</a> <a href="/tags/PLSQL/" style="font-size: 16.67px;">PLSQL</a> <a href="/tags/Vue-js/" style="font-size: 13.33px;">Vue.js</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/socket/" style="font-size: 10px;">socket</a> <a href="/tags/集合/" style="font-size: 10px;">集合</a>
+  </div>
+</div>
+
+
+  <iframe width="100%" height="140" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=1&speed=0&skin=1&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1811639345&verifier=6af5ad6a&colors=fafafa,fafafa,666666,0082cb,ecfbfd&dpc=1"></iframe>
+
+  <div class="widget tag">
+<h3 class="title">友情链接</h3>
+<ul class="entry">
+<li><a href="http://blog.csdn.net/xyphf" title="我的CSDN" target="_blank">我的CSDN</a></li>
+<li><a href="https://github.com/xyp-hf" title="我的Github" target="_blank">我的Github</a></li>
+<li><a href="http://blog.csdn.net/column/details/17503.html" title="Java全栈之路 技术专栏" target="_blank">Java全栈之路 技术专栏</a></li>
+</ul>
+</div>
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer"><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> 欢迎来到我的Github博客空间 <br/>
+			每天进步一点点, 星星之火可燎原</p>
+	</section>
+	 
+	<div class="social-font clearfix">
+		
+		<a href="http://weibo.com/gushi120" target="_blank" title="weibo"></a>
+		
+		
+		
+		<a href="https://github.com/xyp-hf" target="_blank" title="github"></a>
+		
+		
+		
+		
+		<a href="mailto:2766588380@qq.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/huangjunhui/concise" target="_blank" title="Concise">Concise</a> © 2018 
+		
+		<a href="http://xyp-hf.github.io/about" target="_blank" title="xyp-hf">xyp-hf</a>
+		
+		</p>
+</div>
+</footer>
+  <script src="//libs.baidu.com/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/counter.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+<div id="totop" style="position:fixed;bottom:100px;right:10px;cursor: pointer;">
+<a title="返回顶部"><img src="/imgs/scrollup.png"/></a>
+</div>
+<script src="/js/totop.js"></script>
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</body>
+</html>
+
+
