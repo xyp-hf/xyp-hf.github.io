@@ -89,7 +89,7 @@
     </p>
   <p class="article-time">
     <time datetime="2018-09-18T12:42:49.000Z" itemprop="datePublished">2018-09-18</time>
-    Update date:<time datetime="2018-09-18T14:22:29.506Z" itemprop="dateModified">2018-09-18</time>
+    Update date:<time datetime="2018-09-18T22:59:05.733Z" itemprop="dateModified">2018-09-19</time>
     
   </p>
 </header>
@@ -112,43 +112,8 @@ List&lt;Person&gt; l1 = new LinkedList&lt;Student&gt;();
 List&lt;Person&gt; l1 = new LinkedList&lt;Teacher&gt;();
 </code></pre><h1 id="例"><a href="#例" class="headerlink" title="例"></a>例</h1><pre><code>用泛型机机制来声明集合
 </code></pre><p>-</p>
-<pre><code>package com.xxx.xxx
-
-import java.util.LinkedList;
-import java.util.List;
-
-import xdl.person.Student;
-
-public class TestListType {
-
-    public static void main(String[] args) {
-
-        //使用泛型机制来声明集合
-        List&lt;Integer&gt; l1 = new LinkedList&lt;Integer&gt;();
-        // 表示l1这个集合中只支持放Integer类型的            
-
-        //向集合中添加元素
-        l1.add(new Integer(1));
-        l1.add(new Integer(2));
-        l1.add(new Integer(3));
-        //l1.add(new String(&quot;four&quot;)); //编译报错
-        System.out.println(l1); //[1, 2, 3]
-
-        //获取集合中下标为0的元素
-        Integer it = l1.get(0);
-        System.out.println(&quot;it = &quot; + it); //it = 1
-
-        System.out.println(&quot;---------------------------&quot;);
-
-        List&lt;String&gt; l2 = new LinkedList&lt;String&gt;();
-        // 表示l2这个集合只支持放String类型的
-
-        List&lt;Student&gt; l3 = new LinkedList&lt;Student&gt;();
-        // 表示l3这个集合只支持放Student类型的
-    }
-
-}
-</code></pre><p>对于整个Java官方库来说，整个List<e> 只写了一个, 而这个一个接口既能处理上面的Integer、又能处理String类型、又能处理Student类型,于是我们把它叫做泛型(即：广泛的类型);</e></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.xxx.xxx</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.LinkedList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> xdl.person.Student;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestListType</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//使用泛型机制来声明集合</span></span><br><span class="line">		List&lt;Integer&gt; l1 = <span class="keyword">new</span> LinkedList&lt;Integer&gt;();</span><br><span class="line">		<span class="comment">// 表示l1这个集合中只支持放Integer类型的			</span></span><br><span class="line"></span><br><span class="line">		<span class="comment">//向集合中添加元素</span></span><br><span class="line">		l1.add(<span class="keyword">new</span> Integer(<span class="number">1</span>));</span><br><span class="line">		l1.add(<span class="keyword">new</span> Integer(<span class="number">2</span>));</span><br><span class="line">		l1.add(<span class="keyword">new</span> Integer(<span class="number">3</span>));</span><br><span class="line">		<span class="comment">//l1.add(new String("four")); //编译报错</span></span><br><span class="line">		System.out.println(l1); <span class="comment">//[1, 2, 3]</span></span><br><span class="line">		</span><br><span class="line">		<span class="comment">//获取集合中下标为0的元素</span></span><br><span class="line">		Integer it = l1.get(<span class="number">0</span>);</span><br><span class="line">		System.out.println(<span class="string">"it = "</span> + it); <span class="comment">//it = 1</span></span><br><span class="line">		</span><br><span class="line">		System.out.println(<span class="string">"---------------------------"</span>);</span><br><span class="line">		</span><br><span class="line">		List&lt;String&gt; l2 = <span class="keyword">new</span> LinkedList&lt;String&gt;();</span><br><span class="line">		<span class="comment">// 表示l2这个集合只支持放String类型的</span></span><br><span class="line">		</span><br><span class="line">		List&lt;Student&gt; l3 = <span class="keyword">new</span> LinkedList&lt;Student&gt;();</span><br><span class="line">		<span class="comment">// 表示l3这个集合只支持放Student类型的</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对于整个Java官方库来说，整个List<e> 只写了一个, 而这个一个接口既能处理上面的Integer、又能处理String类型、又能处理Student类型,于是我们把它叫做泛型(即：广泛的类型);</e></p>
 <h1 id="泛型的本质："><a href="#泛型的本质：" class="headerlink" title="泛型的本质："></a>泛型的本质：</h1><pre><code>泛型是Java SE 1.5引入的特性，也就是说使用E作为泛型机制的形式参数负责占位,
 当真正构造对象时需要使用真实的数据类型作为实参传递给E这个形参，从而类中的E全部变成实参类型。
 </code></pre><p>-</p>
