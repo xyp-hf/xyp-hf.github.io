@@ -15,7 +15,7 @@
 	})();
 	</script>
   
-  <title>面试题：一个数组插入另一个数组指定的位置 | xyp-hf</title>
+  <title>Java的泛型机制 | xyp-hf</title>
   <meta name="author" content="xyp-hf">
   
   <meta name="description" content="HTML|CSS|HTML5|CSS3|JavaScript|JQuery|Angular.js|vue.js|React.js">
@@ -23,7 +23,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="面试题：一个数组插入另一个数组指定的位置"/>
+  <meta property="og:title" content="Java的泛型机制"/>
   <meta property="og:site_name" content="xyp-hf"/>
 
   
@@ -81,36 +81,104 @@
   <div class="post-content">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-	面试题：一个数组插入另一个数组指定的位置
+	Java的泛型机制
   </h1>
   <p class="article-author">By
     
       <a href="http://xyp-hf.github.io" title="xyp-hf">xyp-hf</a>
     </p>
   <p class="article-time">
-    <time datetime="2018-02-11T16:08:55.882Z" itemprop="datePublished">2018-02-12</time>
-    Update date:<time datetime="2017-10-27T11:31:25.301Z" itemprop="dateModified">2017-10-27</time>
+    <time datetime="2018-09-18T12:42:49.000Z" itemprop="datePublished">2018-09-18</time>
+    Update date:<time datetime="2018-09-18T14:17:38.040Z" itemprop="dateModified">2018-09-18</time>
     
   </p>
 </header>
     <div class="entry">
 		
-        <p>欢迎CSDN博客专栏<a href="http://blog.csdn.net/column/details/17503.html" target="_blank" rel="noopener">CSDN专栏 Java全栈之路</a>,<a href="https://github.com/xyp-hf" target="_blank" rel="noopener">Github主页</a>。</p>
-<pre><code>arr1 = [&apos;a&apos;, &apos;b&apos;, &apos;c&apos;] 
-arr2 = [&apos;1&apos;, &apos;2&apos;, &apos;3&apos;] 
-</code></pre><p>###把数组arr2插入数组arr1的第二个元素b后面； </p>
-<p>###思路：<br>插入特定的位置，我们首先会想到splice，但是又不能直接splice(2, 0, arr2)，这样的结果：[‘a’, ‘b’, [‘1’, ‘2’, ‘3’], ‘c’]；<br>那我们怎么能把arr2的元素一个一个的splice到arr1中呢，有没有简单的方式呢？<br>答案是肯定，有一个神奇的函数call、apply，（调用一个函数的方法用在另一个函数上）<br>apply的参数：第一个为所用在的函数，第二个为一个数组，<br>所以我们要把arr2 变成一个适合splice的数组（包含splice前2个参数的数组）<br>在arr2前面插入2个元素：splice前2个参数（开始位置，删除几个元素）<br>然后把Array的splice方法指向arr1，最重要的是把新得到的arr2整个数组做为参数传给arr1！<br>这样就完成了arr2插入arr1的具体位置。</p>
-<pre><code>var arr1 = [&apos;a&apos;, &apos;b&apos;, &apos;c&apos;]; 
-var arr2 = [&apos;1&apos;, &apos;2&apos;, &apos;3&apos;]; 
-</code></pre><p>// 把arr2 变成一个适合splice的数组（包含splice前2个参数的数组） </p>
-<pre><code>arr2.unshift(2, 0); 
-Array.prototype.splice.apply(arr1, arr2); 
-console.log(arr1); 
+        <h1 id="Java集合中的泛型机制"><a href="#Java集合中的泛型机制" class="headerlink" title="Java集合中的泛型机制"></a>Java集合中的泛型机制</h1><p>-</p>
+<pre><code>集合中之所以可以存放不同类型的数据是因为全不当作Object类型处理的,
+当从集合中取出元素并希望表达该数据最原始的类型时就需要进行强制类型转换,
+强制类型转换不仅使得代码更加繁琐而且可能导致类型转换异常的发生.
+</code></pre><p>-</p>
+<pre><code>为了避免上述问题的发生,从jdk1.5开始提供泛型机制,
+也就是在集合名称的右边使用&lt;数据类型&gt;的方式明确规定该集合中可以存放的元素类型,若存放其他类型则会报错.
+数据类型可以随便写,可以是java自带的也可以是我们创建的，但两边必须保持一致。
+</code></pre><p>-</p>
+<pre><code>List&lt;Integer&gt; l1 = new LinkedList&lt;Integer&gt;();
+</code></pre><p>-</p>
+<pre><code>在实际开发过程中，我们可以使用Java多态的机制，左边放一个Person，那么右边Person的子类都可以，如
+
+List&lt;Person&gt; l1 = new LinkedList&lt;Student&gt;();
+List&lt;Person&gt; l1 = new LinkedList&lt;Teacher&gt;();
+</code></pre><h1 id="例"><a href="#例" class="headerlink" title="例"></a>例</h1><pre><code>用泛型机机制来声明集合
+</code></pre><p>-</p>
+<pre><code>package com.xxx.xxx
+
+import java.util.LinkedList;
+import java.util.List;
+
+import xdl.person.Student;
+
+public class TestListType {
+
+    public static void main(String[] args) {
+
+        //使用泛型机制来声明集合
+        List&lt;Integer&gt; l1 = new LinkedList&lt;Integer&gt;();
+        // 表示l1这个集合中只支持放Integer类型的            
+
+        //向集合中添加元素
+        l1.add(new Integer(1));
+        l1.add(new Integer(2));
+        l1.add(new Integer(3));
+        //l1.add(new String(&quot;four&quot;)); //编译报错
+        System.out.println(l1); //[1, 2, 3]
+
+        //获取集合中下标为0的元素
+        Integer it = l1.get(0);
+        System.out.println(&quot;it = &quot; + it); //it = 1
+
+        System.out.println(&quot;---------------------------&quot;);
+
+        List&lt;String&gt; l2 = new LinkedList&lt;String&gt;();
+        // 表示l2这个集合只支持放String类型的
+
+        List&lt;Student&gt; l3 = new LinkedList&lt;Student&gt;();
+        // 表示l3这个集合只支持放Student类型的
+    }
+
+}
+</code></pre><p>对于整个Java官方库来说，整个List<e> 只写了一个, 而这个一个接口既能处理上面的Integer、又能处理String类型、又能处理Student类型,于是我们把它叫做泛型(即：广泛的类型);</e></p>
+<h1 id="泛型的本质："><a href="#泛型的本质：" class="headerlink" title="泛型的本质："></a>泛型的本质：</h1><pre><code>泛型是Java SE 1.5引入的特性，也就是说使用E作为泛型机制的形式参数负责占位,
+当真正构造对象时需要使用真实的数据类型作为实参传递给E这个形参，从而类中的E全部变成实参类型。
+</code></pre><p>-</p>
+<pre><code>泛型的本质是参数化类型。 说白了就是让数据类型作为参数传递。
+
+
+我们看一下LinkedList源码,我们知道尖括号代表泛型,尖括号里面有个大E,其实在这里E就相当于这个类的形式参数，
+而当我们创建对象的时候会传一个Integer或String或Person进来，这里的Integer或String或Person就相当于实际参数，
+把实际参数传过来给这个形式参数接收，所以这里E全部替换成Integer或String或Person，以后在使用E就代表Integer或String或Person，
+
+这里有点类似于方法的调用，只是方法的调用传的是数值，而泛型的调用传的数据类型仅此而已，这是泛型的本质。
+</code></pre><p>泛型机制的原理就是参数化类型，也就是说使用E作为泛型机制的形式参数负责占位，当真正构造对象时需要使用真实的数据类型作为实参传递给E这个形参，从而类中的E全部变成了实参类型。</p>
+<pre><code>如何判断哪些类支持泛型，哪些类不支持泛型，怎么驱判断呢？
+只要看到类也好、接口也好，只要它的名字后面有尖括号，无论尖括号里面的字母是什么，就表示这个接口支持泛型，
+泛型的意思就是说创建对象的时候传个数据类型作为实参了。
 </code></pre>
     </div>
     <footer>
         
+  
+  <div class="categories">
+    <a href="/categories/JAVA/">JAVA</a>
+  </div>
+
         
+  
+  <div class="tags">
+    <a href="/tags/集合/">集合</a>
+  </div>
+
 		<div class="bdsharebuttonbox">
 	<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
 	<a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
@@ -156,10 +224,10 @@ with(document)0[
 
  <nav id="pagination" >
     
-    <a href="/2018/02/12/hello-world/" class="alignleft prev" title="Hello World">Hello World</a>
+    <a href="/2018/09/18/List集合之LinkedList集合常用API/" class="alignleft prev" title="List集合常用API">List集合常用API</a>
     
     
-    <a href="/2018/02/12/git命令行入门/" class="alignright next" title="git命令行入门">git命令行入门</a>
+    <a href="/2018/09/17/Collection集合/" class="alignright next" title="Collection集合常用API">Collection集合常用API</a>
     
     <div class="clearfix"></div>
 </nav>
@@ -169,7 +237,7 @@ with(document)0[
 	
 	<section id="comment">
 		<!-- 多说评论框 start -->
-		<div class="ds-thread" data-thread-key="2018/02/12/arr/" data-title="面试题：一个数组插入另一个数组指定的位置" data-url="http://xyp-hf.github.io/2018/02/12/arr/"></div>
+		<div class="ds-thread" data-thread-key="2018/09/18/Java的泛型机制/" data-title="Java的泛型机制" data-url="http://xyp-hf.github.io/2018/09/18/Java的泛型机制/"></div>
 		<!-- 多说评论框 end -->
 		<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 		<script type="text/javascript">
