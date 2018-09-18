@@ -15,7 +15,7 @@
 	})();
 	</script>
   
-  <title>8、Oracle的外连接 | xyp-hf</title>
+  <title>List集合之LinkedList集合常用API | xyp-hf</title>
   <meta name="author" content="xyp-hf">
   
   <meta name="description" content="HTML|CSS|HTML5|CSS3|JavaScript|JQuery|Angular.js|vue.js|React.js">
@@ -23,7 +23,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="8、Oracle的外连接"/>
+  <meta property="og:title" content="List集合之LinkedList集合常用API"/>
   <meta property="og:site_name" content="xyp-hf"/>
 
   
@@ -81,81 +81,158 @@
   <div class="post-content">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-	8、Oracle的外连接
+	List集合之LinkedList集合常用API
   </h1>
   <p class="article-author">By
     
       <a href="http://xyp-hf.github.io" title="xyp-hf">xyp-hf</a>
     </p>
   <p class="article-time">
-    <time datetime="2017-11-01T22:43:44.000Z" itemprop="datePublished">2017-11-02</time>
-    Update date:<time datetime="2017-11-01T22:56:52.837Z" itemprop="dateModified">2017-11-02</time>
+    <time datetime="2018-09-18T14:57:47.000Z" itemprop="datePublished">2018-09-18</time>
+    Update date:<time datetime="2018-09-18T05:25:51.961Z" itemprop="dateModified">2018-09-18</time>
     
   </p>
 </header>
     <div class="entry">
 		
-        <h3 id="1、外连接的特点"><a href="#1、外连接的特点" class="headerlink" title="1、外连接的特点"></a>1、外连接的特点</h3><pre><code>外连接的结果集 等于 内连接的结果集  加上 匹配不上的记录
-一个也不能少
-</code></pre><h3 id="2、如何实现"><a href="#2、如何实现" class="headerlink" title="2、如何实现"></a>2、如何实现</h3><pre><code>(+) (+)的意思是 (+)所在的字段 对面的表的数据全部被匹配出来。
+        <p>欢迎访问CSDN博客专栏<a href="http://blog.csdn.net/column/details/17503.html" target="_blank" rel="noopener">CSDN专栏 Java全栈之路</a>,<a href="https://github.com/xyp-hf" target="_blank" rel="noopener">Github主页</a>。</p>
+<pre><code>import java.util.LinkedList;
+import java.util.List;
 
-找出所有的普通员工?
-    select distinct  m.id,m.first_name
-         from  s_emp  e,s_emp  m
-                 where  e.manager_id(+) = m.id and e.manager_id is  null;
-</code></pre><h3 id="3、显示每个部门的名字-和-对应的地区的名字"><a href="#3、显示每个部门的名字-和-对应的地区的名字" class="headerlink" title="3、显示每个部门的名字 和 对应的地区的名字"></a>3、显示每个部门的名字 和 对应的地区的名字</h3><pre><code>   select d.name,r.name
-      from   s_dept d,s_region r
-             where  d.region_id = r.id;
+public class TestList {
 
-公司为了发展 增加了新的部门  
-insert  into  s_dept values(100,&apos;test100&apos;,null);
-commit; 
-----------------------------------------------------------------------
-显示每个部门的名字 和 对应的地区的名字   没有地区编号的部门也要显示
-    select d.name,r.name
-      from   s_dept d,s_region r
-             where  d.region_id = r.id(+);
-</code></pre><h3 id="4、显示每个员工的-first-name-salary-以及-工资对应的工资级别"><a href="#4、显示每个员工的-first-name-salary-以及-工资对应的工资级别" class="headerlink" title="4、显示每个员工的 first_name salary  以及 工资对应的工资级别"></a>4、显示每个员工的 first_name salary  以及 工资对应的工资级别</h3><pre><code>      select first_name,salary,grade    
-            from  s_emp,salgrade 
-                where  salary  between  losal  and hisal;
+    public static void main(String[] args) {
 
-    给 id  大于 23 的人涨工资   涨成 12500
-    update  s_emp  set salary=12500  where  id &gt; 23;
-      commit;
-----------------------------------------------------------------------
-    使用外连接  找回那些超出统计范围的员工
-    select first_name,salary,grade    
-            from  s_emp,salgrade 
-                    where  salary  between  losal(+)  and hisal(+); 
-</code></pre><h3 id="5、显示s-emp-表中所有的领导"><a href="#5、显示s-emp-表中所有的领导" class="headerlink" title="5、显示s_emp 表中所有的领导?"></a>5、显示s_emp 表中所有的领导?</h3><pre><code>    select  distinct m.id,m.first_name      
-        from  s_emp  e,s_emp m
-                where e.manager_id = m.id;
-----------------------------------------------------------------------
-显示s_emp  表中所有的普通员工
-     select  distinct m.id,m.first_name      
-           from  s_emp  e,s_emp m
-                 where e.manager_id(+) = m.id and  e.manager_id is null;
+        // 声明List接口的引用指向实现类的对象，形成多态
+        List l1 = new LinkedList();
 
-(+)  的意思  (+) 所在字段的表的对面的表的数据全部被匹配出来 
-本质上 数据是通过 null 记录进行的匹配
-</code></pre><h3 id="6、表连接的总结"><a href="#6、表连接的总结" class="headerlink" title="6、表连接的总结"></a>6、表连接的总结</h3><pre><code>内连接   符合连接条件的数据被选中 不符合的被过滤掉
-        等值连接     员工和对应的部门   部门和对应的地区 
-        非等值连接   工资 和工资级别
-        自连接         谁是领导
+        // 向集合中增加元素，没有指定下标位置时，默认都是插入到末尾
+        boolean b1 = l1.add(new Integer(1));
+        System.out.println(&quot;b1 = &quot; + b1); // true
+        System.out.println(&quot;l1 = &quot; + l1); // [1]
+        b1 = l1.add(new Integer(2));
+        System.out.println(&quot;b1 = &quot; + b1); // true
+        System.out.println(&quot;l1 = &quot; + l1); // [1, 2]
 
-外连接   外连接的结果集 等于 内连接的结果集 加上匹配不上的记录 
-        (+)  (+)所在的字段的表的对面的表的数据全部被匹配出来  本质上使用null 记录     
-        自连接     谁是普通员工
-        等值连接   找出新增的部门
-        非等值连接  找出超出工资统计范围的员工 
+        // 向下标为0的位置插入元素&quot;one&quot;
+        l1.add(0, new String(&quot;one&quot;));
+        System.out.println(&quot;l1 = &quot; + l1); // [one, 1, 2]
+        // 向下标为2的位置插入元素&quot;two&quot;
+        l1.add(2, new String(&quot;two&quot;));
+        System.out.println(&quot;l1 = &quot; + l1); // [one, 1, two, 2]
+        // 向下标为4的位置插入元素3
+        l1.add(4, new Integer(3));
+        System.out.println(&quot;l1 = &quot; + l1); // [one, 1, two, 2, 3]
+
+        System.out.println(&quot;---------------------------------------------&quot;);
+
+        //准备另外一个集合
+        List l2 = new LinkedList();
+
+        l2.add(&quot;three&quot;);
+        l2.add(4);
+        System.out.println(&quot;l2 = &quot; + l2); // [three, 4]
+        //将集合l2中的所有元素插入到集合l1中
+        l1.addAll(l2);
+        System.out.println(&quot;l1 = &quot; + l1); // [one, 1, two, 2, 3, three, 4]
+        System.out.println(&quot;l2 = &quot; + l2); // [three, 4]
+        //将集合l2中的所有元素插入到集合l1中下标为0的位置
+        l1.addAll(0, l2);
+        System.out.println(&quot;l1 = &quot; + l1); // [three, 4, one, 1, two, 2, 3, three, 4]
+        System.out.println(&quot;l2 = &quot; + l2); // [three, 4]
+
+        System.out.println(&quot;---------------------------------------------&quot;);
+
+        //实现集合中元素的修改
+        //将集合l1中的three 和 one 分别修改为 3 和 1
+        //由add()方法的提示可知：形参类型为Object类型，因此放入的每个元素本质上都是
+        //  看做Object类型处理，因此从集合中取出该元素时就是Object类型。
+        //引用类型之间的转换必须有父子类关系，当转换的目标类型不是该引用真正指向的
+        //   类型时，编译不报错，运行阶段产生类型转换异常。
+        String str = (String) l1.set(0, 3);
+        System.out.println(&quot;str = &quot; + str); //str = three
+        // [3, 4, one, 1, two, 2, 3, three, 4]
+        System.out.println(&quot;l1 = &quot; + l1); 
+
+        str = (String) l1.set(2, 1);
+        System.out.println(&quot;str = &quot; + str); //str = one
+        // [3, 4, 1, 1, two, 2, 3, three, 4]
+        System.out.println(&quot;l1 = &quot; + l1); 
+
+        //将集合l1中的4改为four
+        Integer it1 = (Integer) l1.set(1, &quot;four&quot;);
+        System.out.println(&quot;it1 = &quot; + it1); //4
+        // [3, four, 1, 1, two, 2, 3, three, 4]
+        System.out.println(&quot;l1 = &quot; + l1); 
+
+        System.out.println(&quot;---------------------------------------------&quot;);
+
+        //实现集合中元素的获取
+        //获取集合l1中下标为0的元素
+        it1 = (Integer) l1.get(0);
+        System.out.println(&quot;it1 = &quot; + it1); //3
+        // [3, four, 1, 1, two, 2, 3, three, 4]
+        System.out.println(&quot;l1 = &quot; + l1); 
+
+        //获取集合l1中下标为1的元素
+        str = (String) l1.get(1);
+        System.out.println(&quot;str = &quot; + str); //four
+        // [3, four, 1, 1, two, 2, 3, three, 4]  String类型的整体
+        System.out.println(&quot;l1 = &quot; + l1); 
+
+        System.out.println(&quot;---------------------------------------&quot;);
+        //练习：编程使用get()方法将集合l1中的所有元素一个一个取出来并打印
+        System.out.print(&quot;l1 = [&quot;);
+        for(int i = 0; i &lt; l1.size(); i++){
+            //当打印最后一个元素时，不打印, 而是打印]
+            if(i == l1.size()-1){
+                //get()返回Object类型的，返回每一个独立的元素
+                System.out.println(l1.get(i) + &quot;]&quot;);
+            }
+            else{
+                //打印除了最后一个元素之外的元素
+                System.out.print(l1.get(i) + &quot;, &quot;);
+            }
+        }
+        System.out.println();
+
+        System.out.println(&quot;---------------------------------------&quot;);
+        //编程实现集合l1中所有元素的删除
+        //l1.clear();
+        /*for(int i = l1.size()-1; i &gt;= 0; i--){
+            System.out.println(&quot;删除的元素是：&quot; + l1.remove(i));
+        }*/
+        System.out.println(&quot;l1 = &quot; + l1); //l1 = [啥也没有]
+
+        System.out.println(&quot;---------------------------------------&quot;);
+
+        //获取集合l1中的部分内容
+        List l3 = l1.subList(3, 8);
+        System.out.println(&quot;l3 = &quot; + l3); //[1, two, 2, 3, three]
+        //[3, four, 1, 1, two, 2, 3, three, 4]
+        System.out.println(&quot;l1 = &quot; + l1);
+
+        System.out.println(&quot;集合l3中删除的元素是：&quot; + l3.remove(0));
+        System.out.println(&quot;l3 = &quot; + l3); //[two, 2, 3, three]
+        //[3, four, 1, two, 2, 3, three, 4]
+        System.out.println(&quot;l1 = &quot; + l1);
+
+    }
+
+}
 </code></pre>
     </div>
     <footer>
         
+  
+  <div class="categories">
+    <a href="/categories/JAVA/">JAVA</a>
+  </div>
+
         
   
   <div class="tags">
-    <a href="/tags/Oracle/">Oracle</a>
+    <a href="/tags/集合/">集合</a>
   </div>
 
 		<div class="bdsharebuttonbox">
@@ -203,10 +280,8 @@ with(document)0[
 
  <nav id="pagination" >
     
-    <a href="/2017/11/02/9、表连接的SQL99-标准/" class="alignleft prev" title="9、表连接的SQL99 标准">9、表连接的SQL99 标准</a>
     
-    
-    <a href="/2017/11/02/7、Oracle多表查询/" class="alignright next" title="7、Oracle多表查询">7、Oracle多表查询</a>
+    <a href="/2018/09/17/Collection集合/" class="alignright next" title="Collection集合常用API">Collection集合常用API</a>
     
     <div class="clearfix"></div>
 </nav>
@@ -216,7 +291,7 @@ with(document)0[
 	
 	<section id="comment">
 		<!-- 多说评论框 start -->
-		<div class="ds-thread" data-thread-key="2017/11/02/8、Oracle的外连接/" data-title="8、Oracle的外连接" data-url="http://xyp-hf.github.io/2017/11/02/8、Oracle的外连接/"></div>
+		<div class="ds-thread" data-thread-key="2018/09/18/List集合之LinkedList集合常用API/" data-title="List集合之LinkedList集合常用API" data-url="http://xyp-hf.github.io/2018/09/18/List集合之LinkedList集合常用API/"></div>
 		<!-- 多说评论框 end -->
 		<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 		<script type="text/javascript">
