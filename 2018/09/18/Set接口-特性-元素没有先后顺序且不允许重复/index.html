@@ -1,0 +1,374 @@
+
+
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script type="text/javascript" src="http://tajs.qq.com/stats?sId=" charset="UTF-8"></script>
+  <script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+  
+  <title>Set接口 特性:元素没有先后顺序且不允许重复 | xyp-hf</title>
+  <meta name="author" content="xyp-hf">
+  
+  <meta name="description" content="HTML|CSS|HTML5|CSS3|JavaScript|JQuery|Angular.js|vue.js|React.js">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Set接口 特性:元素没有先后顺序且不允许重复"/>
+  <meta property="og:site_name" content="xyp-hf"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  <link href="/imgs/favicon.ico" rel="icon" type="image/x-ico">
+  <link rel="alternate" href="/atom.xml" title="xyp-hf" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <script src="//libs.baidu.com/jquery/1.8.0/jquery.min.js"></script>
+</head>
+
+
+<body>
+  <header><div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/imgs/logo.png" alt="xyp-hf" title="xyp-hf"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name">xyp-hf</h1>
+				<h2 class="blog-motto">全栈工程师</h2>
+			</div>
+			<nav class="animated">
+				<ul>
+					
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li> <a href="/atom.xml">RSS</a> </li>
+				</ul>
+			</nav>			
+</div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header class="article-info clearfix">
+  <h1 itemprop="name">
+	Set接口 特性:元素没有先后顺序且不允许重复
+  </h1>
+  <p class="article-author">By
+    
+      <a href="http://xyp-hf.github.io" title="xyp-hf">xyp-hf</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2018-09-18T15:26:19.000Z" itemprop="datePublished">2018-09-18</time>
+    Update date:<time datetime="2018-09-18T15:53:47.482Z" itemprop="dateModified">2018-09-18</time>
+    
+  </p>
+</header>
+    <div class="entry">
+		
+        <h1 id="Set接口-重点"><a href="#Set接口-重点" class="headerlink" title="Set接口(重点)"></a>Set接口(重点)</h1><p><strong>基本概念</strong></p>
+<p>   java.util.Set接口是Collection接口的子接口，元素<strong>没有先后放入次序</strong>，并且<strong>不允许重复</strong><br>   该接口的主要实现类有：<strong>HashSet类</strong> 和 <strong>TreeSet类</strong>。</p>
+<p>   其中HashSet类的底层是采用<strong>哈希表</strong>进行数据管理的。</p>
+<p>   其中TreeSet类的底层是采用<strong>二叉树</strong>进行数据管理的。</p>
+<h2 id="此类最大的作用是去重。"><a href="#此类最大的作用是去重。" class="headerlink" title="此类最大的作用是去重。"></a>此类最大的作用是去重。</h2><h2 id="Set接口的常用方法参考Collection接口即可。"><a href="#Set接口的常用方法参考Collection接口即可。" class="headerlink" title="Set接口的常用方法参考Collection接口即可。"></a>Set接口的常用方法参考Collection接口即可。</h2><pre><code>boolean add(E e) 
+          如果 set 中尚未存在指定的元素，则添加此元素（可选操作）。 
+
+boolean addAll(Collection&lt;? extends E&gt; c) 
+          如果 set 中没有指定 collection 中的所有元素，则将其添加到此 set 中（可选操作）。 
+
+ void clear() 
+          移除此 set 中的所有元素（可选操作）。 
+
+ boolean contains(Object o) 
+          如果 set 包含指定的元素，则返回 true。 
+
+ boolean containsAll(Collection&lt;?&gt; c) 
+          如果此 set 包含指定 collection 的所有元素，则返回 true。 
+
+ boolean equals(Object o) 
+          比较指定对象与此 set 的相等性。 
+
+ int hashCode() 
+          返回 set 的哈希码值。 
+
+ boolean isEmpty() 
+          如果 set 不包含元素，则返回 true。 
+
+ Iterator&lt;E&gt; iterator() 
+          返回在此 set 中的元素上进行迭代的迭代器。 
+
+ boolean remove(Object o) 
+          如果 set 中存在指定的元素，则将其移除（可选操作）。 
+
+ boolean removeAll(Collection&lt;?&gt; c) 
+          移除 set 中那些包含在指定 collection 中的元素（可选操作）。 
+
+ boolean retainAll(Collection&lt;?&gt; c) 
+          仅保留 set 中那些包含在指定 collection 中的元素（可选操作）。 
+
+ int size() 
+          返回 set 中的元素数（其容量）。 
+
+ Object[] toArray() 
+          返回一个包含 set 中所有元素的数组。 
+
+&lt;T&gt; T[] 
+ toArray(T[] a) 
+          返回一个包含此 set 中所有元素的数组；返回数组的运行时类型是指定数组的类型。 
+</code></pre><hr>
+<p><strong>Iterator<e> iterator()</e></strong> - 用于获取当前集合中的迭代器，用于迭代集合中的所有元素。</p>
+<p>迭代就是遍历/访问的意思，通俗来说，使用该方法的返回值可以访问集合任意元素</p>
+<ul>
+<li><strong>Iterator</strong>接口中的常用方法有：</li>
+</ul>
+<p><strong>boolean hasNext()</strong> - 用于判断当前集合中是否拥有可以访问的元素，如有返回true;</p>
+<p><strong>E next()</strong> - 获取一个元素返回后并指向下一个元素。</p>
+<p><strong>void remove()</strong> - 用于删除集合中刚刚获取到的元素。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.HashSet;</span><br><span class="line"><span class="keyword">import</span> java.util.Iterator;</span><br><span class="line"><span class="keyword">import</span> java.util.Set;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestSet</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 接口类型的引用指向实现类的对象，形成了多态</span></span><br><span class="line">		Set&lt;Integer&gt; s1 = <span class="keyword">new</span> HashSet&lt;Integer&gt;();</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 向Set集合中添加元素并打印集合中的所有元素</span></span><br><span class="line">		<span class="keyword">boolean</span> b1 = s1.add(<span class="keyword">new</span> Integer(<span class="number">2</span>));</span><br><span class="line">		System.out.println(<span class="string">"b1 = "</span> + b1); <span class="comment">// true</span></span><br><span class="line">		System.out.println(<span class="string">"s1 = "</span> + s1); <span class="comment">// [2]</span></span><br><span class="line"></span><br><span class="line">		<span class="comment">// 元素没有先后放入次序</span></span><br><span class="line">		b1 = s1.add(<span class="keyword">new</span> Integer(<span class="number">3</span>));</span><br><span class="line">		System.out.println(<span class="string">"b1 = "</span> + b1); <span class="comment">// true</span></span><br><span class="line">		System.out.println(<span class="string">"s1 = "</span> + s1); <span class="comment">// [2, 3]</span></span><br><span class="line"></span><br><span class="line">		b1 = s1.add(<span class="keyword">new</span> Integer(<span class="number">1</span>));</span><br><span class="line">		System.out.println(<span class="string">"b1 = "</span> + b1); <span class="comment">// true</span></span><br><span class="line">		System.out.println(<span class="string">"s1 = "</span> + s1); <span class="comment">// [1, 2, 3]</span></span><br><span class="line"></span><br><span class="line">		b1 = s1.add(<span class="keyword">new</span> Integer(<span class="number">2</span>));</span><br><span class="line">		System.out.println(<span class="string">"b1 = "</span> + b1); <span class="comment">// false</span></span><br><span class="line">		<span class="comment">// 自动调用toString()方法实现打印 String类型的整体</span></span><br><span class="line">		System.out.println(<span class="string">"s1 = "</span> + s1); <span class="comment">// [1, 2, 3]</span></span><br><span class="line"></span><br><span class="line">		System.out.println(<span class="string">"--------------------------------"</span>);</span><br><span class="line">		<span class="comment">// 使用迭代器来访问集合中的每一个元素</span></span><br><span class="line">		Iterator&lt;Integer&gt; it = s1.iterator();</span><br><span class="line">		</span><br><span class="line">		<span class="comment">/*// 判断当前集合中是否拥有可以访问的元素</span></span><br><span class="line"><span class="comment">		b1 = it.hasNext();</span></span><br><span class="line"><span class="comment">		System.out.println("b1 = " + b1); // true</span></span><br><span class="line"><span class="comment">		// 获取集合中的一个元素并指向下一个元素的位置</span></span><br><span class="line"><span class="comment">		Integer it1 = it.next();</span></span><br><span class="line"><span class="comment">		System.out.println("获取到的元素是：" + it1); // 1</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">		// 判断当前集合中是否拥有可以访问的元素</span></span><br><span class="line"><span class="comment">		b1 = it.hasNext();</span></span><br><span class="line"><span class="comment">		System.out.println("b1 = " + b1); // true</span></span><br><span class="line"><span class="comment">		// 获取集合中的一个元素并指向下一个元素的位置</span></span><br><span class="line"><span class="comment">		it1 = it.next();</span></span><br><span class="line"><span class="comment">		System.out.println("获取到的元素是：" + it1); // 2</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">		// 判断当前集合中是否拥有可以访问的元素</span></span><br><span class="line"><span class="comment">		b1 = it.hasNext();</span></span><br><span class="line"><span class="comment">		System.out.println("b1 = " + b1); // true</span></span><br><span class="line"><span class="comment">		// 获取集合中的一个元素并指向下一个元素的位置</span></span><br><span class="line"><span class="comment">		it1 = it.next();</span></span><br><span class="line"><span class="comment">		System.out.println("获取到的元素是：" + it1); // 3</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">		// 判断当前集合中是否拥有可以访问的元素</span></span><br><span class="line"><span class="comment">		b1 = it.hasNext();</span></span><br><span class="line"><span class="comment">		System.out.println("b1 = " + b1); // false</span></span><br><span class="line"><span class="comment">		// 获取集合中的一个元素并指向下一个元素的位置</span></span><br><span class="line"><span class="comment">		//it1 = it.next();  产生异常</span></span><br><span class="line"><span class="comment">		//System.out.println("获取到的元素是：" + it1);</span></span><br><span class="line"><span class="comment">*/</span>	</span><br><span class="line">	    <span class="keyword">while</span>(it.hasNext())&#123;</span><br><span class="line">	    	System.out.println(<span class="string">"获取到的元素是："</span> + it.next());</span><br><span class="line">	    &#125;	</span><br><span class="line">	    </span><br><span class="line">	    System.out.println(<span class="string">"--------------------------------"</span>);</span><br><span class="line">	    <span class="comment">//使用迭代器获取集合中的每一个元素并进行判断，若获取到的是2则删除该元素</span></span><br><span class="line">	    <span class="comment">//重新获取当前集合中的迭代器</span></span><br><span class="line">	    it = s1.iterator();</span><br><span class="line">	    System.out.println(it.hasNext()); <span class="comment">//false  true</span></span><br><span class="line">	    <span class="keyword">while</span>(it.hasNext())&#123;</span><br><span class="line">	    	<span class="comment">//System.out.println("我要看看你是否执行了！！！");</span></span><br><span class="line">	    	Integer it2 = it.next();</span><br><span class="line">	    	<span class="keyword">if</span>(it2.equals(<span class="number">2</span>))&#123;</span><br><span class="line">	    		it.remove(); <span class="comment">//调用迭代器自己的remove()方法把刚刚获取的元素删除</span></span><br><span class="line">	    		<span class="comment">//使用Set集合自己的remove()方法来删除元素2</span></span><br><span class="line">	    		<span class="comment">//s1.remove(it2); //产生并发修改异常</span></span><br><span class="line">	    	&#125;</span><br><span class="line">	    	<span class="keyword">else</span>&#123;</span><br><span class="line">	    		System.out.println(it2);</span><br><span class="line">	    	&#125;</span><br><span class="line">	    &#125;	</span><br><span class="line">	    </span><br><span class="line">	    System.out.println(<span class="string">"--------------------------------"</span>);</span><br><span class="line">	    <span class="comment">//打印删除元素之后集合中的所有元素</span></span><br><span class="line">	    System.out.println(s1); <span class="comment">//[1, 3]</span></span><br><span class="line">	    </span><br><span class="line">	    System.out.println(<span class="string">"--------------------------------"</span>);</span><br><span class="line">	    <span class="comment">//使用增强版的for循环/for each结构来访问集合中的所有元素</span></span><br><span class="line">	    <span class="keyword">for</span>(Integer it3 : s1)&#123;</span><br><span class="line">	    	System.out.println(it3);</span><br><span class="line">	    &#125;</span><br><span class="line">	    </span><br><span class="line">	    System.out.println(<span class="string">"--------------------------------"</span>);</span><br><span class="line">	    <span class="comment">//使用for each结构来访问数组中的每个元素</span></span><br><span class="line">	    <span class="keyword">int</span>[] arr = &#123;<span class="number">11</span>, <span class="number">22</span>, <span class="number">33</span>, <span class="number">44</span>, <span class="number">55</span>&#125;;</span><br><span class="line">	    <span class="keyword">for</span>(<span class="keyword">int</span> i : arr)&#123;</span><br><span class="line">	    	System.out.println(i);</span><br><span class="line">	    &#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+    <footer>
+        
+  
+  <div class="categories">
+    <a href="/categories/JAVA/">JAVA</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/集合/">集合</a>
+  </div>
+
+		<div class="bdsharebuttonbox">
+	<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+	<a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
+	<a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a>
+	<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="bds_more" data-cmd="more"></a>
+	<a href="#" class="bds_count" data-cmd="count"></a>
+</div>
+<script>
+window._bd_share_config=
+{
+	"common":{
+		"bdSnsKey":{},
+		"bdText":"",
+		"bdMini":"2",
+		"bdMiniList":false,
+		"bdPic":"",
+		"bdStyle":"0",
+		"bdSize":"24"
+	},
+	"share":{},
+	"image":{
+		"viewList":["qzone","tsina","tqq","renren","weixin","fbook","twi"],
+		"viewText":"分享到：",
+		"viewSize":"24"
+	},
+	"selectShare":{
+		"bdContainerClass":null,
+		"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin","fbook","twi"]
+	}
+};
+with(document)0[
+	(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)
+];
+</script>    
+        <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+ <nav id="pagination" >
+    
+    
+    <a href="/2018/09/18/Queue接口/" class="alignright next" title="Queue接口 特性：先进先出">Queue接口 特性：先进先出</a>
+    
+    <div class="clearfix"></div>
+</nav>
+
+
+
+	
+	<section id="comment">
+		<!-- 多说评论框 start -->
+		<div class="ds-thread" data-thread-key="2018/09/18/Set接口-特性-元素没有先后顺序且不允许重复/" data-title="Set接口 特性:元素没有先后顺序且不允许重复" data-url="http://xyp-hf.github.io/2018/09/18/Set接口-特性-元素没有先后顺序且不允许重复/"></div>
+		<!-- 多说评论框 end -->
+		<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+		<script type="text/javascript">
+		var duoshuoQuery = {short_name:""};
+		(function() {
+			var ds = document.createElement('script');
+			ds.type = 'text/javascript';ds.async = true;
+			ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+			ds.charset = 'UTF-8';
+			(document.getElementsByTagName('head')[0] 
+			 || document.getElementsByTagName('body')[0]).appendChild(ds);
+		})();
+		</script>
+		<!-- 多说公共JS代码 end -->
+	</section>
+	
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:xyp-hf.github.io">
+  </form>
+</div>
+
+  
+<div class="widget tag">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/JAVA/">JAVA</a><small>6</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tagcloud">
+  <h3 class="title">Tag Cloud</h3>
+  <div class="entry">
+    <a href="/tags/Js数组/" style="font-size: 10px;">Js数组</a> <a href="/tags/Oracle/" style="font-size: 20px;">Oracle</a> <a href="/tags/PLSQL/" style="font-size: 17.5px;">PLSQL</a> <a href="/tags/Vue-js/" style="font-size: 15px;">Vue.js</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/socket/" style="font-size: 10px;">socket</a> <a href="/tags/集合/" style="font-size: 12.5px;">集合</a>
+  </div>
+</div>
+
+
+  <iframe width="100%" height="140" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=1&speed=0&skin=1&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1811639345&verifier=6af5ad6a&colors=fafafa,fafafa,666666,0082cb,ecfbfd&dpc=1"></iframe>
+
+  <div class="widget tag">
+<h3 class="title">友情链接</h3>
+<ul class="entry">
+<li><a href="http://blog.csdn.net/xyphf" title="我的CSDN" target="_blank">我的CSDN</a></li>
+<li><a href="https://github.com/xyp-hf" title="我的Github" target="_blank">我的Github</a></li>
+<li><a href="http://blog.csdn.net/column/details/17503.html" title="Java全栈之路 技术专栏" target="_blank">Java全栈之路 技术专栏</a></li>
+</ul>
+</div>
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer"><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> 欢迎来到我的Github博客空间 <br/>
+			每天进步一点点, 星星之火可燎原</p>
+	</section>
+	 
+	<div class="social-font clearfix">
+		
+		<a href="http://weibo.com/gushi120" target="_blank" title="weibo"></a>
+		
+		
+		
+		<a href="https://github.com/xyp-hf" target="_blank" title="github"></a>
+		
+		
+		
+		
+		<a href="mailto:2766588380@qq.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/huangjunhui/concise" target="_blank" title="Concise">Concise</a> © 2018 
+		
+		<a href="http://xyp-hf.github.io/about" target="_blank" title="xyp-hf">xyp-hf</a>
+		
+		</p>
+</div>
+</footer>
+  <script src="//libs.baidu.com/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/counter.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+<div id="totop" style="position:fixed;bottom:100px;right:10px;cursor: pointer;">
+<a title="返回顶部"><img src="/imgs/scrollup.png"/></a>
+</div>
+<script src="/js/totop.js"></script>
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</body>
+</html>
+
+
