@@ -15,7 +15,7 @@
 	})();
 	</script>
   
-  <title>12、Oracle的子查询 | xyp-hf</title>
+  <title>Stack栈 | xyp-hf</title>
   <meta name="author" content="xyp-hf">
   
   <meta name="description" content="HTML|CSS|HTML5|CSS3|JavaScript|JQuery|Angular.js|vue.js|React.js">
@@ -23,7 +23,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="12、Oracle的子查询"/>
+  <meta property="og:title" content="Stack栈"/>
   <meta property="og:site_name" content="xyp-hf"/>
 
   
@@ -81,55 +81,51 @@
   <div class="post-content">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-	12、Oracle的子查询
+	Stack栈
   </h1>
   <p class="article-author">By
     
       <a href="http://xyp-hf.github.io" title="xyp-hf">xyp-hf</a>
     </p>
   <p class="article-time">
-    <time datetime="2017-11-01T23:39:39.000Z" itemprop="datePublished">2017-11-02</time>
-    Update date:<time datetime="2017-11-01T23:48:51.370Z" itemprop="dateModified">2017-11-02</time>
+    <time datetime="2018-09-18T14:38:59.000Z" itemprop="datePublished">2018-09-18</time>
+    Update date:<time datetime="2018-09-18T14:53:30.150Z" itemprop="dateModified">2018-09-18</time>
     
   </p>
 </header>
     <div class="entry">
 		
-        <h3 id="1、子查询的概念"><a href="#1、子查询的概念" class="headerlink" title="1、子查询的概念"></a>1、子查询的概念</h3><pre><code>把一个查询的结果 作为另一个查询的基础
-</code></pre><h3 id="2、子查询可以出现的位置"><a href="#2、子查询可以出现的位置" class="headerlink" title="2、子查询可以出现的位置"></a>2、子查询可以出现的位置</h3><pre><code>where 之后
-having 之后 
-from  之后 
-</code></pre><h3 id="3、"><a href="#3、" class="headerlink" title="3、"></a>3、</h3><pre><code>举例
-选出了所有的领导编号
-select distinct manager_id from s_emp;
+        <p>欢迎访问CSDN博客专栏<a href="http://blog.csdn.net/column/details/17503.html" target="_blank" rel="noopener">CSDN专栏 Java全栈之路</a>,<a href="https://github.com/xyp-hf" target="_blank" rel="noopener">Github主页</a>。</p>
+<p>Stack 类表示后进先出（LIFO）的对象堆栈。它通过五个操作对类 Vector 进行了扩展 ，允许将向量视为堆栈。它提供了通常的 push 和 pop 操作，以及取堆栈顶点的 peek 方法、测试堆栈是否为空的 empty 方法、在堆栈中查找项并确定到堆栈顶距离的 search 方法。 </p>
+<p>首次创建堆栈时，它不包含项。 </p>
+<p>Deque 接口及其实现提供了 LIFO 堆栈操作的更完整和更一致的 set，应该优先使用此 set，而非此类。例如： </p>
+<pre><code>Deque&lt;Integer&gt; stack = new ArrayDeque&lt;Integer&gt;();
+</code></pre><p>Stack栈堆，后进先出型,即最后放入的元素最先出来。</p>
+<h2 id="例如"><a href="#例如" class="headerlink" title="例如"></a>例如</h2><p>首先创建Stack类型的对象，分别将数据10 20 30 40 50依次进行压栈并打印，然后判断该栈是否为空并打印栈顶元素值，最后将栈中元素一个一个进行移除并打印。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Stack;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestStack</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">		</span><br><span class="line">		Stack&lt;Integer&gt; s1 = <span class="keyword">new</span> Stack&lt;Integer&gt;();</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//分别将10 20 30 40 50放入集合中并打印</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">5</span>; i++)&#123;</span><br><span class="line">			s1.push(<span class="keyword">new</span> Integer(i*<span class="number">10</span>));</span><br><span class="line">			System.out.println(s1); <span class="comment">//10 20 30 40 50</span></span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		System.out.println(<span class="string">"-------------------------------"</span>);</span><br><span class="line">		<span class="comment">//判断当前栈是否为空</span></span><br><span class="line">		System.out.println(s1.isEmpty()? <span class="string">"栈为空"</span>: <span class="string">"栈不为空"</span>); <span class="comment">//栈不为空</span></span><br><span class="line">		<span class="comment">//打印栈中栈顶元素值</span></span><br><span class="line">		System.out.println(<span class="string">"栈顶元素是："</span> + s1.peek()); <span class="comment">//50</span></span><br><span class="line">		</span><br><span class="line">		System.out.println(<span class="string">"-------------------------------"</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//移除栈中的每一个元素并打印</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++)&#123;</span><br><span class="line">			System.out.println(<span class="string">"移除的元素是："</span> + s1.pop());</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="构造方法摘要"><a href="#构造方法摘要" class="headerlink" title="构造方法摘要"></a>构造方法摘要</h3><pre><code>Stack() // 创建一个空堆栈。
+</code></pre><h3 id="方法摘要"><a href="#方法摘要" class="headerlink" title="方法摘要"></a>方法摘要</h3><pre><code>boolean empty()  // 测试堆栈是否为空。 
 
-只要让员工的id  出现在 领导编号这个列表中 则员工就是领导
-select id,first_name from s_emp where id in (select distinct manager_id from s_emp);
-</code></pre><h3 id="4、where-之后使用子查询"><a href="#4、where-之后使用子查询" class="headerlink" title="4、where 之后使用子查询"></a>4、where 之后使用子查询</h3><pre><code>查询 工资 大于 10号员工的工资的员工 显示  id  first_name  salary
+E peek() // 查看堆栈顶部的对象，但不从堆栈中移除它。 
 
-先求出 10号员工的工资
-select salary from  s_emp where  id = 10;
-在查询
-select  id,first_name,salary from s_emp where salary &gt; (select salary from  s_emp where  id = 10); 
-</code></pre><h3 id="5、having-之后使用子查询"><a href="#5、having-之后使用子查询" class="headerlink" title="5、having 之后使用子查询"></a>5、having 之后使用子查询</h3><pre><code>查询  平均工资 大于  42部门平均工资的部门  显示 部门编号 和  平均工资 
-先求出42部门平均工资
-select  avg(salary)  from  s_emp where dept_id=42;
-查询
-select dept_id,avg(salary) from s_emp  
-         group by dept_id having avg(salary) &gt;
-                (select  avg(salary)  from  s_emp where dept_id=42); 
-</code></pre><h3 id="6、from-之后使用子查询-数据分页"><a href="#6、from-之后使用子查询-数据分页" class="headerlink" title="6、from 之后使用子查询    数据分页"></a>6、from 之后使用子查询    数据分页</h3><pre><code>任何合法的select语句 都可以看成一张内存表 
-select  id, first_name name,salary  from s_emp; 
+E pop() // 移除堆栈顶部的对象，并作为此函数的值返回该对象。 
 
-select id,name from ( select  id, first_name name,salary  from s_emp) where salary &gt; 1000;
+E push(E item)  // 把项压入堆栈顶部。 
+
+int search(Object o)  //返回对象在堆栈中的位置，以 1 为基数。 
 </code></pre>
     </div>
     <footer>
         
+  
+  <div class="categories">
+    <a href="/categories/JAVA/">JAVA</a>
+  </div>
+
         
   
   <div class="tags">
-    <a href="/tags/Oracle/">Oracle</a>
+    <a href="/tags/集合/">集合</a>
   </div>
 
 		<div class="bdsharebuttonbox">
@@ -177,10 +173,10 @@ with(document)0[
 
  <nav id="pagination" >
     
-    <a href="/2017/11/02/13、Oracle的建表、删表、改表/" class="alignleft prev" title="13、Oracle的建表、删表、改表">13、Oracle的建表、删表、改表</a>
+    <a href="/2018/09/18/List集合之LinkedList集合常用API/" class="alignleft prev" title="List集合常用API">List集合常用API</a>
     
     
-    <a href="/2017/11/02/11、Oracle的分组/" class="alignright next" title="11、Oracle的分组">11、Oracle的分组</a>
+    <a href="/2018/09/18/Java的泛型机制/" class="alignright next" title="Java的泛型机制">Java的泛型机制</a>
     
     <div class="clearfix"></div>
 </nav>
@@ -190,7 +186,7 @@ with(document)0[
 	
 	<section id="comment">
 		<!-- 多说评论框 start -->
-		<div class="ds-thread" data-thread-key="2017/11/02/12、Oracle的子查询/" data-title="12、Oracle的子查询" data-url="http://xyp-hf.github.io/2017/11/02/12、Oracle的子查询/"></div>
+		<div class="ds-thread" data-thread-key="2018/09/18/Stack栈/" data-title="Stack栈" data-url="http://xyp-hf.github.io/2018/09/18/Stack栈/"></div>
 		<!-- 多说评论框 end -->
 		<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 		<script type="text/javascript">
