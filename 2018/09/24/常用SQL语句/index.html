@@ -89,331 +89,54 @@
     </p>
   <p class="article-time">
     <time datetime="2018-09-24T07:45:35.000Z" itemprop="datePublished">2018-09-24</time>
-    Update date:<time datetime="2018-09-24T07:48:28.079Z" itemprop="dateModified">2018-09-24</time>
+    Update date:<time datetime="2018-09-24T07:58:19.519Z" itemprop="dateModified">2018-09-24</time>
     
   </p>
 </header>
     <div class="entry">
 		
         <p>欢迎访问CSDN博客专栏<a href="http://blog.csdn.net/column/details/17503.html" target="_blank" rel="noopener">CSDN专栏 Java全栈之路</a>,<a href="https://github.com/xyp-hf" target="_blank" rel="noopener">Github主页</a>。</p>
-<h1 id="查询语句七大部分"><a href="#查询语句七大部分" class="headerlink" title="查询语句七大部分"></a>查询语句七大部分</h1><h2 id="1、-from-子句"><a href="#1、-from-子句" class="headerlink" title="1、 from 子句"></a>1、 from 子句</h2><pre><code>select   字段名   from  表名;
-
-sql 中的数学运算
-select    salary,salary*13  from  s_emp;
-字符串拼接
-select  first_name  || last_name  from s_emp; 
-NULL 值的处理
-select salary*12,salary*12+salary*12*nvl(commission_pct,0)/100  from s_emp;
-使用 排重关键字  distinct 就可以完成
-select  distinct  salary from s_emp;
-多字段排重   当多个字段的值都相同时 才进行去重
-select  distinct id,title,salary from s_emp;
-</code></pre><h2 id="2、-where-子句"><a href="#2、-where-子句" class="headerlink" title="2、 where 子句"></a>2、 where 子句</h2><pre><code>select  字段名  from  表名  where  条件;
-
-表达闭区间的运算符    [a,b]
-select  id,first_name,salary  from  s_emp where salary  between 1400 and 2500;
-表达一个字段的值 出现在某个列表内
-where  字段名  in  列表;
-列表的表达是    (值1,值2,值3)
-select  id,first_name,dept_id from s_emp where dept_id in(31,41,50);
-模糊查询运算符
-找出s_emp 表中 first_name 中带 a 字符的  显示   first_name
-select  first_name from s_emp where first_name like &apos;%a%&apos;;
-找出s_emp 表中 first_name 中 正数第二个字符是a 字符的  显示   first_name
-select  first_name from s_emp where first_name like &apos;_a%&apos;;
-逻辑运算符  (多条件连接)
-显示 s_emp 表中 每个员工的 id  first_name  salary  要求salary 在[1400,2500] 中 
-select  id,first_name,salary from  s_emp  where salary&gt;=1400 and  salary &lt;=2500;
-查询s_emp 表的员工 在 31部门 或者在 41部门   或者在 50  最终显示 id  first_name dept_id
-select id,first_name,dept_id from s_emp where  dept_id=31 or dept_id=41 or dept_id=50;
-   非     !      not 
-   对立面问题 
-   =                   !=   &lt;&gt;  ^=     
-   &gt;                   &lt;=
-   &lt;                   &gt;= 
-   between a and b             not  between  a  and  b 
-   in                  not  in     ( where  id  not in (1,3,5)   id!=1  and id!=3 and id!=5)
-   like               not  like    
-   is null           is  not null  
-
-   除了 is null  之外 其它的运算符 都要注意null 值问题 
-</code></pre><h2 id="3、-order-by-子句-排序"><a href="#3、-order-by-子句-排序" class="headerlink" title="3、 order by 子句 排序"></a>3、 order by 子句 排序</h2><pre><code>select  字段   from  表名  where 条件  order by 排序标准  排序方式;
-</code></pre><h2 id="4、-单行函数"><a href="#4、-单行函数" class="headerlink" title="4、 单行函数"></a>4、 单行函数</h2><pre><code>单行函数:
-        针对sql语句影响的每一行 都做处理 并且针对每一行都返回一个结果。
-        sql语句影响多少行就返回多少个结果
-upper(par1)    变大写
-lower(par1)    变小写
-initcap(par1)  每个单词首字母变大写
-length(par1)   求长度    
-concat(par1,par2)  连接两个字符串
-nvl(par1,par2)   nvl 可以处理任何类型  要求par1 和 par2 类型保持一致
-
-substr(par1,par2,par3)
-par1  要处理的字符串或者字段 
-par2  截取的位置   编号从  1 开始      可以是负数  -1 代表最后一个字符  
-par3  截取的长度 
-
-replace(par1,par2,par3)
-par1 要处理的字符串  par2  被替换的内容    par3 替换成什么
-
-组函数:
-        针对sql语句影响的所有行 只返回一个结果。
-        无论sql影响多少行  只返回一个结果。
-round(par1,par2)    四舍五入函数
-par1  要处理的数字     par2 处理的精度  默认是 0 可以省略
-trunc(par1,par2)   截取函数 
-par1  要处理的数字     par2 处理的精度  默认是 0 可以省略
-</code></pre><h2 id="5、-多表查询"><a href="#5、-多表查询" class="headerlink" title="5、 多表查询"></a>5、 多表查询</h2><pre><code>select 表1别名.字段1，表2别名.字段2 from 表1 表1别名,表2 表2别名 where 表1别名.id=表2别名.id;
-
- 等值连接:
-        使用等号作为表的连接条件 叫等值连接
- 非等值连接:
-       不使用等号作为表的连接条件  叫非等值连接 
-grade     工资级别
-     losal    级别对应的低工资
-     hisal       级别对应的高工资
-     显示每个员工的 id   salary  和 对应的工资级别  
-select id,salary,grade
-      from  s_emp , salgrade 
-              where  salary   between losal  and hisal;
-自连接
-找出所有的领导
-select  distinct  m.id,m.first_name   
-         from  s_emp  e,s_emp  m
-                 where  e.manager_id = m.id;
-内连接的特点 符合连接条件的数据 被选中   不符合连接条件的数据被过滤掉
-select distinct  m.id,m.first_name
-     from  s_emp  e,s_emp  m
-             where  e.manager_id(+) = m.id and e.manager_id is  null;
-
-SQL99标准
-sql99 的内连接标准
-from  a表  join  b 表  on  表的连接条件  where  过滤条件;
-from  a表   inner join  b 表  on  表的连接条件  where  过滤条件;
-select   d.name,r.name         
-          from s_dept d,s_region  r  
-                  where  d.region_id =  r.id;
-select   d.name,r.name         
-          from s_dept d  join  s_region  r  
-                 on  d.region_id =  r.id;
-select   d.name,r.name         
-          from s_dept d  inner  join  s_region  r  
-                 on  d.region_id =  r.id;
-sql99 外连接标准
-a 表   left outer join  b 表   on  连接条件  where  过滤条件;
-a 表   right outer join b表  on   连接条件  where  过滤条件;
-a 表   full   outer  join  b表   on 连接条件  where 过滤条件;    把一个函数的返回值  作为另一个函数参数 
-
-左外连接
-a 表   left outer join  b 表 的意思就是  a 表发起连接,
-a表发起连接就代表a表全部被匹配出来。
-显示每个部门的名字 和 对应的地区的名字  没有地区编号的部门也要显示
-select  d.name,r.name            
-     from    s_dept d,s_region r  
-              where d.region_id = r.id(+);
-
-select  d.name,r.name            
-     from    s_dept d  left outer join  s_region r  
-             on d.region_id = r.id;
-
-组函数
-  count(par1)  统计数据的个数
-  max(par1)    统计最大值
-  min(par1)    统计最小值 
-  avg(par1)     统计平均值
-  sum(par1)    统计和
-
-分组
-按照一定的标准  把数据分成若干部分
-select  字段       
-       from  表名 
-               where  条件  
-                       group  by  分组标准    having   组函数的过滤条件
-                               order  by  排序标准 排序方式;
-按照部门编号分组 统计每个部门的工资和部门的名字   显示工资和大于3000的部门
- select     dept_id,sum(salary),max(name)
-         from  s_emp,s_dept where dept_id = s_dept.id  
-                 group by  dept_id   having  sum(salary) &gt; 3000; 
-</code></pre><h1 id="DDL-data-define-language-数据定义语言"><a href="#DDL-data-define-language-数据定义语言" class="headerlink" title="DDL (data define language 数据定义语言)"></a>DDL (data define language 数据定义语言)</h1><h2 id="1、建表"><a href="#1、建表" class="headerlink" title="1、建表"></a>1、建表</h2><pre><code>create table 表名(
-    字段名1  类型,
-    字段名2  类型,
-    字段名3  类型
-);
-
-类型: 
-number 数字类型
-varchar2(n) 变长字符串类型
-char(n) 定长字符串
-data 日期类型
-</code></pre><h2 id="2、删表"><a href="#2、删表" class="headerlink" title="2、删表"></a>2、删表</h2><pre><code>drop table 表名;
-</code></pre><h2 id="3、改表-Oracle不加column-）"><a href="#3、改表-Oracle不加column-）" class="headerlink" title="3、改表(Oracle不加column,）"></a>3、改表(Oracle不加column,）</h2><h3 id="删除某个字段"><a href="#删除某个字段" class="headerlink" title="删除某个字段"></a>删除某个字段</h3><pre><code>alter table 表名 drop column 字段名;
-</code></pre><h3 id="增加一个字段"><a href="#增加一个字段" class="headerlink" title="增加一个字段"></a>增加一个字段</h3><pre><code>alter table 表名 add column 字段名 类型;
-</code></pre><h1 id="1、DML-data-manipulation-language-数据库操作语言"><a href="#1、DML-data-manipulation-language-数据库操作语言" class="headerlink" title="1、DML(data manipulation language 数据库操作语言)"></a>1、DML(data manipulation language 数据库操作语言)</h1><h2 id="1-1-插入语句-insert-into"><a href="#1-1-插入语句-insert-into" class="headerlink" title="1.1 插入语句 insert into"></a>1.1 插入语句 insert into</h2><h3 id="1-1-1-全字段插入-插入数据的顺序和-desc表名之后的顺序相同"><a href="#1-1-1-全字段插入-插入数据的顺序和-desc表名之后的顺序相同" class="headerlink" title="1.1.1 全字段插入 插入数据的顺序和 desc表名之后的顺序相同"></a>1.1.1 全字段插入 插入数据的顺序和 desc表名之后的顺序相同</h3><pre><code>insert into 表名 values(值1,值2,值3);
-注意: 数字类型可以直接写 字符串类型的值应该使用单引号 值如果可以为null 则可以使用null
-insert into sstudent100 values(1,&apos;zhangsan&apos;,&apos;201700011&apos;,null);
-commit;
-</code></pre><h3 id="1-1-2-选择部分字段插入"><a href="#1-1-2-选择部分字段插入" class="headerlink" title="1.1.2 选择部分字段插入"></a>1.1.2 选择部分字段插入</h3><pre><code>没有选择的字段 默认为null 这就要求大家必须包含所有的非空字段
-insert into 表名(字段名1,字段名3) values(值1,值3);
-commit;
-</code></pre><h2 id="1-2-删除语法"><a href="#1-2-删除语法" class="headerlink" title="1.2 删除语法"></a>1.2 删除语法</h2><pre><code>delete from 表名 where 条件;
-commit;
-</code></pre><h2 id="1-3-修改数据"><a href="#1-3-修改数据" class="headerlink" title="1.3 修改数据"></a>1.3 修改数据</h2><pre><code>update 表名 set 字段名=值 where 条件;
-update 表名 set 字段名=值,字段名2=值2 where 条件;
-commit;
-</code></pre><h1 id="2、TCL-transaction-control-language-事务控制语句"><a href="#2、TCL-transaction-control-language-事务控制语句" class="headerlink" title="2、TCL(transaction control language 事务控制语句)"></a>2、TCL(transaction control language 事务控制语句)</h1><h2 id="2-1-事务的概念"><a href="#2-1-事务的概念" class="headerlink" title="2.1 事务的概念"></a>2.1 事务的概念</h2><pre><code>事务又叫交易 开发中希望把多个sql操作 看成一个逻辑整体 这些sql要求同时成功或者同时失败.
+<h1 id="查询语句七大部分"><a href="#查询语句七大部分" class="headerlink" title="查询语句七大部分"></a>查询语句七大部分</h1><h2 id="1、-from-子句"><a href="#1、-from-子句" class="headerlink" title="1、 from 子句"></a>1、 from 子句</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">select   字段名   from  表名;</span><br><span class="line"></span><br><span class="line">sql 中的数学运算</span><br><span class="line">select    salary,salary*<span class="number">13</span>  from  s_emp;</span><br><span class="line">字符串拼接</span><br><span class="line">select  first_name  || last_name  from s_emp; </span><br><span class="line">NULL 值的处理</span><br><span class="line">select salary*<span class="number">12</span>,salary*<span class="number">12</span>+salary*<span class="number">12</span>*nvl(commission_pct,<span class="number">0</span>)/<span class="number">100</span>  from s_emp;</span><br><span class="line">使用 排重关键字  distinct 就可以完成</span><br><span class="line">select  distinct  salary from s_emp;</span><br><span class="line">多字段排重   当多个字段的值都相同时 才进行去重</span><br><span class="line">select  distinct id,title,salary from s_emp;</span><br></pre></td></tr></table></figure>
+<h2 id="2、-where-子句"><a href="#2、-where-子句" class="headerlink" title="2、 where 子句"></a>2、 where 子句</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">select  字段名  from  表名  where  条件;</span><br><span class="line"></span><br><span class="line">表达闭区间的运算符    [a,b]</span><br><span class="line">select  id,first_name,salary  from  s_emp where salary  between <span class="number">1400</span> and <span class="number">2500</span>;</span><br><span class="line">表达一个字段的值 出现在某个列表内</span><br><span class="line">where  字段名  in  列表;</span><br><span class="line">   列表的表达是    (值<span class="number">1</span>,值<span class="number">2</span>,值<span class="number">3</span>)</span><br><span class="line">select  id,first_name,<span class="function">dept_id from s_emp where dept_id <span class="title">in</span><span class="params">(<span class="number">31</span>,<span class="number">41</span>,<span class="number">50</span>)</span></span>;</span><br><span class="line">模糊查询运算符</span><br><span class="line">找出s_emp 表中 first_name 中带 a 字符的  显示   first_name</span><br><span class="line">select  first_name from s_emp where first_name like <span class="string">'%a%'</span>;</span><br><span class="line">找出s_emp 表中 first_name 中 正数第二个字符是a 字符的  显示   first_name</span><br><span class="line">select  first_name from s_emp where first_name like <span class="string">'_a%'</span>;</span><br><span class="line">逻辑运算符  (多条件连接)</span><br><span class="line">显示 s_emp 表中 每个员工的 id  first_name  salary  要求salary 在[<span class="number">1400</span>,<span class="number">2500</span>] 中 </span><br><span class="line">   select  id,first_name,salary from  s_emp  where salary&gt;=<span class="number">1400</span> and  salary &lt;=<span class="number">2500</span>;</span><br><span class="line">查询s_emp 表的员工 在 <span class="number">31</span>部门 或者在 <span class="number">41</span>部门   或者在 <span class="number">50</span>  最终显示 id  first_name dept_id</span><br><span class="line">   select id,first_name,dept_id from s_emp where  dept_id=<span class="number">31</span> or dept_id=<span class="number">41</span> or dept_id=<span class="number">50</span>;</span><br><span class="line">   非     !      not </span><br><span class="line">   对立面问题 </span><br><span class="line">   =                   !=   &lt;&gt;  ^=     </span><br><span class="line">   &gt;                   &lt;=</span><br><span class="line">   &lt;                   &gt;= </span><br><span class="line">   between a and b             not  between  a  and  b </span><br><span class="line">   <span class="function">in                  not  <span class="title">in</span>     <span class="params">( where  id  not in (<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>)</span>   id!</span>=<span class="number">1</span>  and id!=<span class="number">3</span> and id!=<span class="number">5</span>)</span><br><span class="line">   like               not  like    </span><br><span class="line">   is <span class="keyword">null</span>           is  not <span class="keyword">null</span>  </span><br><span class="line">   </span><br><span class="line">   除了 is <span class="keyword">null</span>  之外 其它的运算符 都要注意<span class="keyword">null</span> 值问题</span><br></pre></td></tr></table></figure>
+<h2 id="3、-order-by-子句-排序"><a href="#3、-order-by-子句-排序" class="headerlink" title="3、 order by 子句 排序"></a>3、 order by 子句 排序</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select  字段   from  表名  where 条件  order by 排序标准  排序方式;</span><br></pre></td></tr></table></figure>
+<h2 id="4、-单行函数"><a href="#4、-单行函数" class="headerlink" title="4、 单行函数"></a>4、 单行函数</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br></pre></td><td class="code"><pre><span class="line">	单行函数:</span><br><span class="line">            针对sql语句影响的每一行 都做处理 并且针对每一行都返回一个结果。</span><br><span class="line">            sql语句影响多少行就返回多少个结果</span><br><span class="line">	upper(par1)    变大写</span><br><span class="line">	lower(par1)    变小写</span><br><span class="line">	initcap(par1)  每个单词首字母变大写</span><br><span class="line">	length(par1)   求长度	</span><br><span class="line">	concat(par1,par2)  连接两个字符串</span><br><span class="line">	nvl(par1,par2)   nvl 可以处理任何类型  要求par1 和 par2 类型保持一致</span><br><span class="line">	</span><br><span class="line">	substr(par1,par2,par3)</span><br><span class="line">    par1  要处理的字符串或者字段 </span><br><span class="line">    par2  截取的位置   编号从  <span class="number">1</span> 开始      可以是负数  -<span class="number">1</span> 代表最后一个字符  </span><br><span class="line">    par3  截取的长度 </span><br><span class="line">	</span><br><span class="line">	replace(par1,par2,par3)</span><br><span class="line">    par1 要处理的字符串  par2  被替换的内容    par3 替换成什么</span><br><span class="line"></span><br><span class="line">	组函数:</span><br><span class="line">            针对sql语句影响的所有行 只返回一个结果。</span><br><span class="line">            无论sql影响多少行  只返回一个结果。</span><br><span class="line">	round(par1,par2)    四舍五入函数</span><br><span class="line">    par1  要处理的数字     par2 处理的精度  默认是 <span class="number">0</span> 可以省略</span><br><span class="line">	trunc(par1,par2)   截取函数 </span><br><span class="line">    par1  要处理的数字     par2 处理的精度  默认是 <span class="number">0</span> 可以省略</span><br><span class="line">```	</span><br><span class="line"></span><br><span class="line">## 5、 多表查询</span><br><span class="line">```java</span><br><span class="line">	select 表<span class="number">1</span>别名.字段<span class="number">1</span>，表<span class="number">2</span>别名.字段<span class="number">2</span> from 表<span class="number">1</span> 表<span class="number">1</span>别名,表<span class="number">2</span> 表<span class="number">2</span>别名 where 表<span class="number">1</span>别名.id=表<span class="number">2</span>别名.id;</span><br><span class="line">	</span><br><span class="line">     等值连接:</span><br><span class="line">            使用等号作为表的连接条件 叫等值连接</span><br><span class="line">     非等值连接:</span><br><span class="line">           不使用等号作为表的连接条件  叫非等值连接 </span><br><span class="line">	grade     工资级别</span><br><span class="line">         losal    级别对应的低工资</span><br><span class="line">         hisal       级别对应的高工资</span><br><span class="line">         显示每个员工的 id   salary  和 对应的工资级别  </span><br><span class="line">    select id,salary,grade</span><br><span class="line">          from  s_emp , salgrade </span><br><span class="line">                  where  salary   between losal  and hisal;</span><br><span class="line">	自连接</span><br><span class="line">	找出所有的领导</span><br><span class="line">	select  distinct  m.id,m.first_name   </span><br><span class="line">             from  s_emp  e,s_emp  m</span><br><span class="line">                     where  e.manager_id = m.id;</span><br><span class="line">	内连接的特点 符合连接条件的数据 被选中   不符合连接条件的数据被过滤掉</span><br><span class="line">	select distinct  m.id,m.first_name</span><br><span class="line">         from  s_emp  e,s_emp  m</span><br><span class="line">                 where  e.manager_id(+) = m.id and e.manager_id is  <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">	SQL99标准</span><br><span class="line">	sql99 的内连接标准</span><br><span class="line">	from  a表  join  b 表  on  表的连接条件  where  过滤条件;</span><br><span class="line">	from  a表   inner join  b 表  on  表的连接条件  where  过滤条件;</span><br><span class="line">	select   d.name,r.name         </span><br><span class="line">	          from s_dept d,s_region  r  </span><br><span class="line">	                  where  d.region_id =  r.id;</span><br><span class="line">	select   d.name,r.name         </span><br><span class="line">	          from s_dept d  join  s_region  r  </span><br><span class="line">	                 on  d.region_id =  r.id;</span><br><span class="line">	select   d.name,r.name         </span><br><span class="line">	          from s_dept d  inner  join  s_region  r  </span><br><span class="line">	                 on  d.region_id =  r.id;</span><br><span class="line">	sql99 外连接标准</span><br><span class="line">	a 表   left outer join  b 表   on  连接条件  where  过滤条件;</span><br><span class="line">    a 表   right outer join b表  on   连接条件  where  过滤条件;</span><br><span class="line">    a 表   full   outer  join  b表   on 连接条件  where 过滤条件;	把一个函数的返回值  作为另一个函数参数 </span><br><span class="line">		</span><br><span class="line">	左外连接</span><br><span class="line">    a 表   left outer join  b 表 的意思就是  a 表发起连接,</span><br><span class="line">    a表发起连接就代表a表全部被匹配出来。</span><br><span class="line">	显示每个部门的名字 和 对应的地区的名字  没有地区编号的部门也要显示</span><br><span class="line">	select  d.name,r.name            </span><br><span class="line">	     from    s_dept d,s_region r  </span><br><span class="line">	              where d.region_id = r.id(+);</span><br><span class="line">	</span><br><span class="line">	select  d.name,r.name            </span><br><span class="line">	     from    s_dept d  left outer join  s_region r  </span><br><span class="line">	             on d.region_id = r.id;</span><br><span class="line">	</span><br><span class="line">	组函数</span><br><span class="line">      count(par1)  统计数据的个数</span><br><span class="line">      max(par1)    统计最大值</span><br><span class="line">      min(par1)    统计最小值 </span><br><span class="line">      avg(par1)     统计平均值</span><br><span class="line">      sum(par1)    统计和</span><br><span class="line"></span><br><span class="line">	分组</span><br><span class="line">	按照一定的标准  把数据分成若干部分</span><br><span class="line">    select  字段       </span><br><span class="line">           from  表名 </span><br><span class="line">                   where  条件  </span><br><span class="line">                           group  by  分组标准    having   组函数的过滤条件</span><br><span class="line">                                   order  by  排序标准 排序方式;</span><br><span class="line">	按照部门编号分组 统计每个部门的工资和部门的名字   显示工资和大于<span class="number">3000</span>的部门</span><br><span class="line">     select     dept_id,sum(salary),max(name)</span><br><span class="line">             from  s_emp,s_dept where dept_id = s_dept.id  </span><br><span class="line">                     <span class="function">group by  dept_id   having  <span class="title">sum</span><span class="params">(salary)</span> &gt; 3000</span>;</span><br></pre></td></tr></table></figure>
+<h1 id="DDL-data-define-language-数据定义语言"><a href="#DDL-data-define-language-数据定义语言" class="headerlink" title="DDL (data define language 数据定义语言)"></a>DDL (data define language 数据定义语言)</h1><h2 id="1、建表"><a href="#1、建表" class="headerlink" title="1、建表"></a>1、建表</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">create table 表名(</span><br><span class="line">	字段名<span class="number">1</span>  类型,</span><br><span class="line">	字段名<span class="number">2</span>  类型,</span><br><span class="line">	字段名<span class="number">3</span>  类型</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">类型: </span><br><span class="line">number 数字类型</span><br><span class="line">varchar2(n) 变长字符串类型</span><br><span class="line"><span class="keyword">char</span>(n) 定长字符串</span><br><span class="line">data 日期类型</span><br></pre></td></tr></table></figure>
+<h2 id="2、删表"><a href="#2、删表" class="headerlink" title="2、删表"></a>2、删表</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">drop table 表名;</span><br></pre></td></tr></table></figure>
+<h2 id="3、改表-Oracle不加column-）"><a href="#3、改表-Oracle不加column-）" class="headerlink" title="3、改表(Oracle不加column,）"></a>3、改表(Oracle不加column,）</h2><h3 id="删除某个字段"><a href="#删除某个字段" class="headerlink" title="删除某个字段"></a>删除某个字段</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alter table 表名 drop column 字段名;</span><br></pre></td></tr></table></figure>
+<h3 id="增加一个字段"><a href="#增加一个字段" class="headerlink" title="增加一个字段"></a>增加一个字段</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alter table 表名 add column 字段名 类型;</span><br></pre></td></tr></table></figure>
+<h1 id="1、DML-data-manipulation-language-数据库操作语言"><a href="#1、DML-data-manipulation-language-数据库操作语言" class="headerlink" title="1、DML(data manipulation language 数据库操作语言)"></a>1、DML(data manipulation language 数据库操作语言)</h1><h2 id="1-1-插入语句-insert-into"><a href="#1-1-插入语句-insert-into" class="headerlink" title="1.1 插入语句 insert into"></a>1.1 插入语句 insert into</h2><h3 id="1-1-1-全字段插入-插入数据的顺序和-desc表名之后的顺序相同"><a href="#1-1-1-全字段插入-插入数据的顺序和-desc表名之后的顺序相同" class="headerlink" title="1.1.1 全字段插入 插入数据的顺序和 desc表名之后的顺序相同"></a>1.1.1 全字段插入 插入数据的顺序和 desc表名之后的顺序相同</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">insert into 表名 values(值<span class="number">1</span>,值<span class="number">2</span>,值<span class="number">3</span>);</span><br><span class="line">注意: 数字类型可以直接写 字符串类型的值应该使用单引号 值如果可以为<span class="keyword">null</span> 则可以使用<span class="keyword">null</span></span><br><span class="line"><span class="function">insert into sstudent100 <span class="title">values</span><span class="params">(<span class="number">1</span>,<span class="string">'zhangsan'</span>,<span class="string">'201700011'</span>,<span class="keyword">null</span>)</span></span>;</span><br><span class="line">commit;</span><br></pre></td></tr></table></figure>
+<h3 id="1-1-2-选择部分字段插入"><a href="#1-1-2-选择部分字段插入" class="headerlink" title="1.1.2 选择部分字段插入"></a>1.1.2 选择部分字段插入</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">没有选择的字段 默认为<span class="keyword">null</span> 这就要求大家必须包含所有的非空字段</span><br><span class="line">insert into 表名(字段名<span class="number">1</span>,字段名<span class="number">3</span>) values(值<span class="number">1</span>,值<span class="number">3</span>);</span><br><span class="line">commit;</span><br></pre></td></tr></table></figure>
+<h2 id="1-2-删除语法"><a href="#1-2-删除语法" class="headerlink" title="1.2 删除语法"></a>1.2 删除语法</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">delete from 表名 where 条件;</span><br><span class="line">commit;</span><br></pre></td></tr></table></figure>
+<h2 id="1-3-修改数据"><a href="#1-3-修改数据" class="headerlink" title="1.3 修改数据"></a>1.3 修改数据</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">update 表名 set 字段名=值 where 条件;</span><br><span class="line">update 表名 set 字段名=值,字段名<span class="number">2</span>=值<span class="number">2</span> where 条件;</span><br><span class="line">commit;</span><br></pre></td></tr></table></figure>
+<h1 id="2、TCL-transaction-control-language-事务控制语句"><a href="#2、TCL-transaction-control-language-事务控制语句" class="headerlink" title="2、TCL(transaction control language 事务控制语句)"></a>2、TCL(transaction control language 事务控制语句)</h1><h2 id="2-1-事务的概念"><a href="#2-1-事务的概念" class="headerlink" title="2.1 事务的概念"></a>2.1 事务的概念</h2><pre><code>事务又叫交易 开发中希望把多个sql操作 看成一个逻辑整体 这些sql要求同时成功或者同时失败.
 </code></pre><h2 id="2-2-举例"><a href="#2-2-举例" class="headerlink" title="2.2 举例"></a>2.2 举例</h2><p>银行转账</p>
-<h2 id="2-3-可以完成一个事务的语句"><a href="#2-3-可以完成一个事务的语句" class="headerlink" title="2.3 可以完成一个事务的语句"></a>2.3 可以完成一个事务的语句</h2><pre><code>commit; 提交 确认
-rollback; 回滚 撤销
-</code></pre><h2 id="2-4-事务四大特性"><a href="#2-4-事务四大特性" class="headerlink" title="2.4 事务四大特性"></a>2.4 事务四大特性</h2><pre><code>原子性 事务中的语句是一个逻辑整体不可分割
+<h2 id="2-3-可以完成一个事务的语句"><a href="#2-3-可以完成一个事务的语句" class="headerlink" title="2.3 可以完成一个事务的语句"></a>2.3 可以完成一个事务的语句</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">commit; 提交 确认</span><br><span class="line">rollback; 回滚 撤销</span><br></pre></td></tr></table></figure>
+<h2 id="2-4-事务四大特性"><a href="#2-4-事务四大特性" class="headerlink" title="2.4 事务四大特性"></a>2.4 事务四大特性</h2><pre><code>原子性 事务中的语句是一个逻辑整体不可分割
 一致性 同时成功 同时失败 状态要保持一致
 隔离性 一个事务中的操作 在没有提交之前 数据的变化 对另外一个事务而言不可见。
 持久性 状态的持久
 </code></pre><h2 id="2-5-保存点"><a href="#2-5-保存点" class="headerlink" title="2.5 保存点"></a>2.5 保存点</h2><pre><code>引入它就是为了打破事务的原子性
-insert into student100 values(1,&apos;test1&apos;,&apos;111&apos;,&apos;sysdate&apos;);
-savepoint a;
-insert into student100 values(2,&apos;test2&apos;,&apos;222&apos;,&apos;sysdate&apos;);
-savepoint b;
-insert into student100 values(3,&apos;test3&apos;,&apos;333&apos;,&apos;sysdate&apos;);
-rollback to b;
-commit;
-</code></pre><h1 id="3、日期类型-date"><a href="#3、日期类型-date" class="headerlink" title="3、日期类型 date"></a>3、日期类型 date</h1><h2 id="3-1-默认的日期类型"><a href="#3-1-默认的日期类型" class="headerlink" title="3.1 默认的日期类型"></a>3.1 默认的日期类型</h2><pre><code> dd-MON-yy
+</code></pre><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">insert into student100 <span class="title">values</span><span class="params">(<span class="number">1</span>,<span class="string">'test1'</span>,<span class="string">'111'</span>,<span class="string">'sysdate'</span>)</span></span>;</span><br><span class="line">savepoint a;</span><br><span class="line"><span class="function">insert into student100 <span class="title">values</span><span class="params">(<span class="number">2</span>,<span class="string">'test2'</span>,<span class="string">'222'</span>,<span class="string">'sysdate'</span>)</span></span>;</span><br><span class="line">savepoint b;</span><br><span class="line"><span class="function">insert into student100 <span class="title">values</span><span class="params">(<span class="number">3</span>,<span class="string">'test3'</span>,<span class="string">'333'</span>,<span class="string">'sysdate'</span>)</span></span>;</span><br><span class="line">rollback to b;</span><br><span class="line">commit;</span><br></pre></td></tr></table></figure>
+<h1 id="3、日期类型-date"><a href="#3、日期类型-date" class="headerlink" title="3、日期类型 date"></a>3、日期类型 date</h1><h2 id="3-1-默认的日期类型"><a href="#3-1-默认的日期类型" class="headerlink" title="3.1 默认的日期类型"></a>3.1 默认的日期类型</h2><pre><code> dd-MON-yy
 表现默认是两位年 实际上存储了 四位
-</code></pre><h2 id="3-2-显示-s-emp表中的数据-按照入职日期排序-显示id-first-name-start-date"><a href="#3-2-显示-s-emp表中的数据-按照入职日期排序-显示id-first-name-start-date" class="headerlink" title="3.2 显示 s_emp表中的数据 按照入职日期排序 显示id first_name start_date"></a>3.2 显示 s_emp表中的数据 按照入职日期排序 显示id first_name start_date</h2><pre><code>select id,first_name,start_date from s_emp order by start_date;
-</code></pre><h2 id="3-3-如何按照指定格式-显示日期"><a href="#3-3-如何按照指定格式-显示日期" class="headerlink" title="3.3 如何按照指定格式 显示日期"></a>3.3 如何按照指定格式 显示日期</h2><pre><code>par2 日期格式 日期格式
-yyyy 四位年 mm 月 dd日
-hh 12小时制 hh24 24小时制 mi 分钟  ss 秒
-day 星期几 MON 英文月的缩写 month 英文月的全写
-
-select   id,first_name,to_char(start_date,&apos;yyyy-mm-dd hh24:mi:ss&apos;)  start_date from s_emp  order by start_date;
-</code></pre><h2 id="3-4-如何插入一个日期"><a href="#3-4-如何插入一个日期" class="headerlink" title="3.4 如何插入一个日期"></a>3.4 如何插入一个日期</h2><pre><code>之前学过 null 和 sysdate sysdate 代表系统时间
-如何插入未来的时间 或者 过去的时间点
-2008-08-08 20:08:10
-insert into student100(id,sdate) values(3,&apos;08_AUG-08&apos;);
-默认只能放入 年 月 日，时分秒信息是 0
-如果需要时分秒信息 则使用 to_date就可以了
-to_date(par1,par2) par1是一个日期字符串 par2 是日期的格式
-insert into student100(id,sdate) values(4,to_date(&apos;2008-08-08 20:08:08&apos;,&apos;yyyy=mm-dd hh24:mi:ss&apos;));
-2012-12-22 23:59:59
-</code></pre><h2 id="3-5-日期的调整"><a href="#3-5-日期的调整" class="headerlink" title="3.5 日期的调整"></a>3.5 日期的调整</h2><pre><code>select to_char(sysdate,&apos;yyyy=mm-dd hh24:mi:ss&apos;) from dual;
-调整一天 默认按照天为单位
-select to_char(sysdate,&apos;yyyy-mm-dd hh24:mi:ss&apos;),
-        to_char(sysdate+1,&apos;yyyy-mm-dd hh24:mi:ss&apos;) from dual;
-
-调整一个小时的一半(半个小时) 默认按照天为单位
-select to_char(sysdate,&apos;yyyy-mm-dd hh24:mi:ss&apos;),
-        to_char(sysdate+1/(24*2),&apos;yyyy-mm-dd hh24:mi:ss&apos;) from dual;
-将时间向前调半个小时
-select to_char(sysdate,&apos;yyyy-mm-dd hh24:mi:ss&apos;)
-        to_char(sysdate-1/(24*2),&apos;yyyy-mm-dd hh24:mi:ss&apos;) from dual;
-</code></pre><p>`</p>
-<h2 id="3-6-特俗的单位调整"><a href="#3-6-特俗的单位调整" class="headerlink" title="3.6 特俗的单位调整"></a>3.6 特俗的单位调整</h2><pre><code>按照月为单位调整
-add_months(par1,par2) par1 要调整的日期 par2 调整的月数 可以是负数
-
-select  to_char(sysdate,&apos;yyyy-mm-dd hh24:mi:ss&apos;),
-                 to_char(add_months(sysdate,1),&apos;yyyy-mm-dd hh24:mi:ss&apos;) from dual;                                      
-select  to_char(sysdate,&apos;yyyy-mm-dd hh24:mi:ss&apos;),
-                 to_char(add_months(sysdate,-1),&apos;yyyy-mm-dd hh24:mi:ss&apos;) from dual;
-
-对日期进行 截取
-select  to_char(sysdate,&apos;yyyy-mm-dd hh24:mi:ss&apos;),
-                 to_char(trunc(sysdate),&apos;yyyy-mm-dd hh24:mi:ss&apos;) from dual;  
-select  to_char(sysdate,&apos;yyyy-mm-dd hh24:mi:ss&apos;),
-                 to_char(round(sysdate),&apos;yyyy-mm-dd hh24:mi:ss&apos;) from dual;  
-select  to_char(sysdate,&apos;yyyy-mm-dd hh24:mi:ss&apos;),
-                 to_char(trunc(sysdate,&apos;hh&apos;),&apos;yyyy-mm-dd hh24:mi:ss&apos;) from dual; 
-select  to_char(sysdate,&apos;yyyy-mm-dd hh24:mi:ss&apos;),
-                 to_char(trunc(sysdate,&apos;mm&apos;),&apos;yyyy-mm-dd hh24:mi:ss&apos;) from dual; 
-select  to_char(sysdate,&apos;yyyy-mm-dd hh24:mi:ss&apos;),
-                 to_char(trunc(sysdate,&apos;yy&apos;),&apos;yyyy-mm-dd hh24:mi:ss&apos;) from dual; 
-</code></pre><h2 id="3-7-给你一个时间-获取到这个时间对应的月的最后一天的最后一秒对应的时间点"><a href="#3-7-给你一个时间-获取到这个时间对应的月的最后一天的最后一秒对应的时间点" class="headerlink" title="3.7 给你一个时间 获取到这个时间对应的月的最后一天的最后一秒对应的时间点"></a>3.7 给你一个时间 获取到这个时间对应的月的最后一天的最后一秒对应的时间点</h2><pre><code>select to_char(add_months(trunc(sysdate,&apos;mm&apos;),1)-1/(24*60*60),&apos;yyyy-mm-dd hh24:mi:ss&apos;) from dual;
-</code></pre><h1 id="4、约束"><a href="#4、约束" class="headerlink" title="4、约束"></a>4、约束</h1><h2 id="4-1-概念"><a href="#4-1-概念" class="headerlink" title="4.1 概念"></a>4.1 概念</h2><pre><code>约束是 对数据库表中字段加的限制,有了约束之后 可以让我们的数据更加准确 和 完整。
-</code></pre><h2 id="4-2-约束种类"><a href="#4-2-约束种类" class="headerlink" title="4.2 约束种类"></a>4.2 约束种类</h2><pre><code>主键约束 primary key pk
-如果给表的某个字段加了约束 则这个字段的值 不能重复,并且字段的值不能位null.一张表只能有一个主键.
-
-唯一性约束 unique uk
-如果给表的字段加了唯一性约束 则 这个字段的值不能重复
-注意 唯一性约束 无法区分两个 null 值
-
-非空约束 not null nn
-如果给表的字段增加了 非空约束 则这个字段的值不能是 null 值
-
-检查约束 check ck
-如果给表的字段增加了 检查约束 则这个字段必须符合检查条件 符合检查条件的数据 才能进入数据库.
-
-外键约束 references  foreign key
-</code></pre><h2 id="4-3-约束的实现"><a href="#4-3-约束的实现" class="headerlink" title="4.3 约束的实现"></a>4.3 约束的实现</h2><pre><code>列级约束: 在定义表的某一列时 直接在这一列的后面加约束限制叫列级约束.
+</code></pre><h2 id="3-2-显示-s-emp表中的数据-按照入职日期排序-显示id-first-name-start-date"><a href="#3-2-显示-s-emp表中的数据-按照入职日期排序-显示id-first-name-start-date" class="headerlink" title="3.2 显示 s_emp表中的数据 按照入职日期排序 显示id first_name start_date"></a>3.2 显示 s_emp表中的数据 按照入职日期排序 显示id first_name start_date</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select id,first_name,start_date from s_emp order by start_date;</span><br></pre></td></tr></table></figure>
+<h2 id="3-3-如何按照指定格式-显示日期"><a href="#3-3-如何按照指定格式-显示日期" class="headerlink" title="3.3 如何按照指定格式 显示日期"></a>3.3 如何按照指定格式 显示日期</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">par2 日期格式 日期格式</span><br><span class="line">yyyy 四位年 mm 月 dd日</span><br><span class="line">hh <span class="number">12</span>小时制 hh24 <span class="number">24</span>小时制 mi 分钟  ss 秒</span><br><span class="line">day 星期几 MON 英文月的缩写 month 英文月的全写</span><br><span class="line"></span><br><span class="line">select   id,first_name,to_char(start_date,<span class="string">'yyyy-mm-dd hh24:mi:ss'</span>)  start_date from s_emp  order by start_date;</span><br></pre></td></tr></table></figure>
+<h2 id="3-4-如何插入一个日期"><a href="#3-4-如何插入一个日期" class="headerlink" title="3.4 如何插入一个日期"></a>3.4 如何插入一个日期</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">之前学过 <span class="keyword">null</span> 和 sysdate sysdate 代表系统时间</span><br><span class="line">如何插入未来的时间 或者 过去的时间点</span><br><span class="line"><span class="number">2008</span>-<span class="number">08</span>-<span class="number">08</span> <span class="number">20</span>:<span class="number">08</span>:<span class="number">10</span></span><br><span class="line"><span class="function">insert into <span class="title">student100</span><span class="params">(id,sdate)</span> <span class="title">values</span><span class="params">(<span class="number">3</span>,<span class="string">'08_AUG-08'</span>)</span></span>;</span><br><span class="line">默认只能放入 年 月 日，时分秒信息是 <span class="number">0</span></span><br><span class="line">如果需要时分秒信息 则使用 to_date就可以了</span><br><span class="line">to_date(par1,par2) par1是一个日期字符串 par2 是日期的格式</span><br><span class="line"><span class="function">insert into <span class="title">student100</span><span class="params">(id,sdate)</span> <span class="title">values</span><span class="params">(<span class="number">4</span>,to_date(<span class="string">'2008-08-08 20:08:08'</span>,<span class="string">'yyyy=mm-dd hh24:mi:ss'</span>)</span>)</span>;</span><br><span class="line"><span class="number">2012</span>-<span class="number">12</span>-<span class="number">22</span> <span class="number">23</span>:<span class="number">59</span>:<span class="number">59</span></span><br></pre></td></tr></table></figure>
+<h2 id="3-5-日期的调整"><a href="#3-5-日期的调整" class="headerlink" title="3.5 日期的调整"></a>3.5 日期的调整</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">select <span class="title">to_char</span><span class="params">(sysdate,<span class="string">'yyyy=mm-dd hh24:mi:ss'</span>)</span> from dual</span>;</span><br><span class="line">调整一天 默认按照天为单位</span><br><span class="line"><span class="function">select <span class="title">to_char</span><span class="params">(sysdate,<span class="string">'yyyy-mm-dd hh24:mi:ss'</span>)</span>,</span></span><br><span class="line"><span class="function">		<span class="title">to_char</span><span class="params">(sysdate+<span class="number">1</span>,<span class="string">'yyyy-mm-dd hh24:mi:ss'</span>)</span> from dual</span>;</span><br><span class="line"></span><br><span class="line">调整一个小时的一半(半个小时) 默认按照天为单位</span><br><span class="line"><span class="function">select <span class="title">to_char</span><span class="params">(sysdate,<span class="string">'yyyy-mm-dd hh24:mi:ss'</span>)</span>,</span></span><br><span class="line"><span class="function">	    <span class="title">to_char</span><span class="params">(sysdate+<span class="number">1</span>/(<span class="number">24</span>*<span class="number">2</span>)</span>,'yyyy-mm-dd hh24:mi:ss') from dual</span>;</span><br><span class="line">将时间向前调半个小时</span><br><span class="line"><span class="function">select <span class="title">to_char</span><span class="params">(sysdate,<span class="string">'yyyy-mm-dd hh24:mi:ss'</span>)</span></span></span><br><span class="line"><span class="function">		<span class="title">to_char</span><span class="params">(sysdate<span class="number">-1</span>/(<span class="number">24</span>*<span class="number">2</span>)</span>,'yyyy-mm-dd hh24:mi:ss') from dual</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="3-6-特殊的单位调整"><a href="#3-6-特殊的单位调整" class="headerlink" title="3.6 特殊的单位调整"></a>3.6 特殊的单位调整</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">按照月为单位调整</span><br><span class="line">add_months(par1,par2) par1 要调整的日期 par2 调整的月数 可以是负数</span><br><span class="line"></span><br><span class="line"><span class="function">select  <span class="title">to_char</span><span class="params">(sysdate,<span class="string">'yyyy-mm-dd hh24:mi:ss'</span>)</span>,</span></span><br><span class="line"><span class="function">                    <span class="title">to_char</span><span class="params">(add_months(sysdate,<span class="number">1</span>)</span>,'yyyy-mm-dd hh24:mi:ss') from dual</span>;                                      </span><br><span class="line"><span class="function">select  <span class="title">to_char</span><span class="params">(sysdate,<span class="string">'yyyy-mm-dd hh24:mi:ss'</span>)</span>,</span></span><br><span class="line"><span class="function">                    <span class="title">to_char</span><span class="params">(add_months(sysdate,<span class="number">-1</span>)</span>,'yyyy-mm-dd hh24:mi:ss') from dual</span>;</span><br><span class="line"></span><br><span class="line">对日期进行 截取</span><br><span class="line">   <span class="function">select  <span class="title">to_char</span><span class="params">(sysdate,<span class="string">'yyyy-mm-dd hh24:mi:ss'</span>)</span>,</span></span><br><span class="line"><span class="function">                    <span class="title">to_char</span><span class="params">(trunc(sysdate)</span>,'yyyy-mm-dd hh24:mi:ss') from dual</span>;  </span><br><span class="line">   <span class="function">select  <span class="title">to_char</span><span class="params">(sysdate,<span class="string">'yyyy-mm-dd hh24:mi:ss'</span>)</span>,</span></span><br><span class="line"><span class="function">                    <span class="title">to_char</span><span class="params">(round(sysdate)</span>,'yyyy-mm-dd hh24:mi:ss') from dual</span>;  </span><br><span class="line">   <span class="function">select  <span class="title">to_char</span><span class="params">(sysdate,<span class="string">'yyyy-mm-dd hh24:mi:ss'</span>)</span>,</span></span><br><span class="line"><span class="function">                    <span class="title">to_char</span><span class="params">(trunc(sysdate,<span class="string">'hh'</span>)</span>,'yyyy-mm-dd hh24:mi:ss') from dual</span>; </span><br><span class="line">   <span class="function">select  <span class="title">to_char</span><span class="params">(sysdate,<span class="string">'yyyy-mm-dd hh24:mi:ss'</span>)</span>,</span></span><br><span class="line"><span class="function">                    <span class="title">to_char</span><span class="params">(trunc(sysdate,<span class="string">'mm'</span>)</span>,'yyyy-mm-dd hh24:mi:ss') from dual</span>; </span><br><span class="line">   <span class="function">select  <span class="title">to_char</span><span class="params">(sysdate,<span class="string">'yyyy-mm-dd hh24:mi:ss'</span>)</span>,</span></span><br><span class="line"><span class="function">                    <span class="title">to_char</span><span class="params">(trunc(sysdate,<span class="string">'yy'</span>)</span>,'yyyy-mm-dd hh24:mi:ss') from dual</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="3-7-给你一个时间-获取到这个时间对应的月的最后一天的最后一秒对应的时间点"><a href="#3-7-给你一个时间-获取到这个时间对应的月的最后一天的最后一秒对应的时间点" class="headerlink" title="3.7 给你一个时间 获取到这个时间对应的月的最后一天的最后一秒对应的时间点"></a>3.7 给你一个时间 获取到这个时间对应的月的最后一天的最后一秒对应的时间点</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">select <span class="title">to_char</span><span class="params">(add_months(trunc(sysdate,<span class="string">'mm'</span>)</span>,1)-1/<span class="params">(<span class="number">24</span>*<span class="number">60</span>*<span class="number">60</span>)</span>,'yyyy-mm-dd hh24:mi:ss') from dual</span>;</span><br></pre></td></tr></table></figure>
+<h1 id="4、约束"><a href="#4、约束" class="headerlink" title="4、约束"></a>4、约束</h1><h2 id="4-1-概念"><a href="#4-1-概念" class="headerlink" title="4.1 概念"></a>4.1 概念</h2><pre><code>约束是 对数据库表中字段加的限制,有了约束之后 可以让我们的数据更加准确 和 完整。
+</code></pre><h2 id="4-2-约束种类"><a href="#4-2-约束种类" class="headerlink" title="4.2 约束种类"></a>4.2 约束种类</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">主键约束 primary key pk</span><br><span class="line">如果给表的某个字段加了约束 则这个字段的值 不能重复,并且字段的值不能位<span class="keyword">null</span>.一张表只能有一个主键.</span><br><span class="line"></span><br><span class="line">唯一性约束 unique uk</span><br><span class="line">如果给表的字段加了唯一性约束 则 这个字段的值不能重复</span><br><span class="line">注意 唯一性约束 无法区分两个 <span class="keyword">null</span> 值</span><br><span class="line"></span><br><span class="line">非空约束 not <span class="keyword">null</span> nn</span><br><span class="line">如果给表的字段增加了 非空约束 则这个字段的值不能是 <span class="keyword">null</span> 值</span><br><span class="line"></span><br><span class="line">检查约束 check ck</span><br><span class="line">如果给表的字段增加了 检查约束 则这个字段必须符合检查条件 符合检查条件的数据 才能进入数据库.</span><br><span class="line"></span><br><span class="line">外键约束 references  foreign key</span><br></pre></td></tr></table></figure>
+<h2 id="4-3-约束的实现"><a href="#4-3-约束的实现" class="headerlink" title="4.3 约束的实现"></a>4.3 约束的实现</h2><pre><code>列级约束: 在定义表的某一列时 直接在这一列的后面加约束限制叫列级约束.
 表级约束: 在定义完美的所有列之后 再选择某些列加约束限制.
-</code></pre><h2 id="4-4-主键的列级约束实现"><a href="#4-4-主键的列级约束实现" class="headerlink" title="4.4 主键的列级约束实现"></a>4.4 主键的列级约束实现</h2><pre><code>id number pk
-oname varchar2(30)
-create table myorder(
-    id number primary key,
-    name varchar2(30)
-);    
-
-如果不给约束起名字 则系统会自动给约束进行一个命名 保证约束的名字不重复
+</code></pre><h2 id="4-4-主键的列级约束实现"><a href="#4-4-主键的列级约束实现" class="headerlink" title="4.4 主键的列级约束实现"></a>4.4 主键的列级约束实现</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">id number pk</span><br><span class="line"><span class="function">oname <span class="title">varchar2</span><span class="params">(<span class="number">30</span>)</span></span></span><br><span class="line"><span class="function">create table <span class="title">myorder</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">	id number primary key,</span></span></span><br><span class="line"><span class="function"><span class="params">	name varchar2(<span class="number">30</span>)</span></span></span><br><span class="line"><span class="function">)</span>;</span><br></pre></td></tr></table></figure>
+<pre><code>如果不给约束起名字 则系统会自动给约束进行一个命名 保证约束的名字不重复
 但是这个名字 不方便记忆 并且 不方便排错 以及以后的约束管理。
-</code></pre><h2 id="4-5-如何给约束命名"><a href="#4-5-如何给约束命名" class="headerlink" title="4.5 如何给约束命名"></a>4.5 如何给约束命名</h2><pre><code>constraint 约束的名字 约束对应的英文
-约束的名字构成: 表名_字段名_约束简写
-
-drop table myorder;
-create table myorder(
-    id number constraint myorder_id_pk primary key,
-    name varchar2(30)
-);
-insert into myorder values(1,&apos;test1&apos;);
-insert into myorder values(1,&apos;test1&apos;);
-  *
- ERROR at line 1:
- ORA-00001: unique constraint (SYSTEM.MYORDER_ID_PK) violated
-</code></pre><h2 id="4-6-练习"><a href="#4-6-练习" class="headerlink" title="4.6 练习"></a>4.6 练习</h2><pre><code>建立一张 订单表 叫order100
-id number pk
-ono varchar2(30) uk
-odate date nn
-create table order100(
-    id number constraint order100_id_pk primary key,
-    ono varchar2(30) constraint order100_ono_uk unique,
-    odate date constraint order100_odate_nn not null
-);
-insert into order100 values(1,null,sysdate);
-insert into order100 values(2,null,sysdate);
-</code></pre><h2 id="检查约束"><a href="#检查约束" class="headerlink" title="检查约束"></a>检查约束</h2><pre><code>在上面的基础上 加一个字段 omoney number 要求omoney 大于35
-drop   table    order100;
-create  table  order100(
-        id     number  constraint  order100_id_pk  primary key,
-        ono  varchar2(30)  constraint  order100_ono_uk  unique,
-        odate  date   constraint  order100_odate_nn  not null,
-           omoney number constraint order100_omoney_ck check(omoney&gt;35)     
- );
-</code></pre><h2 id="4-8-主键的表级约约束实现"><a href="#4-8-主键的表级约约束实现" class="headerlink" title="4.8 主键的表级约约束实现"></a>4.8 主键的表级约约束实现</h2><pre><code>create table order200(
-    id number,
-    ono varchar2(30),
-    odate date,
-    omoney number,constraint order200_id_pk primary key(id)
-);
-
-联合主键,表级约束最大的优势就是可以做联合约束(主键)
-create table order300(
-    id number,
-    ono varchar2(30),
-    odate date,
-    omoney number,constraint order300_idono_pk primary key(id,pno)
-);
-</code></pre><h2 id="4-9-练习"><a href="#4-9-练习" class="headerlink" title="4.9 练习"></a>4.9 练习</h2><pre><code>建立一张表 订单表 叫order1001
-id number pk
-ono varchar2(30) uk
-odate date nn 列级约束(因为不支持表级)
-除了odate 之外 其他的字段需要使用 表级约束
-
-create odate order1001(
-    id number,
-    ono varchar2(30),
-    odate date not null,
-    omoney number,
-        constraint order1001_id_pk primary key(id),
-        constraint order1001_ono_uk unique(ono),
-        constraint order1001_omoney_ck check(omoney&gt;35)
-);
-</code></pre>
+</code></pre><h2 id="4-5-如何给约束命名"><a href="#4-5-如何给约束命名" class="headerlink" title="4.5 如何给约束命名"></a>4.5 如何给约束命名</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">constraint 约束的名字 约束对应的英文</span><br><span class="line">约束的名字构成: 表名_字段名_约束简写</span><br><span class="line"></span><br><span class="line">drop table myorder;</span><br><span class="line"><span class="function">create table <span class="title">myorder</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">	id number constraint myorder_id_pk primary key,</span></span></span><br><span class="line"><span class="function"><span class="params">	name varchar2(<span class="number">30</span>)</span></span></span><br><span class="line"><span class="function">)</span>;</span><br><span class="line"><span class="function">insert into myorder <span class="title">values</span><span class="params">(<span class="number">1</span>,<span class="string">'test1'</span>)</span></span>;</span><br><span class="line"><span class="function">insert into myorder <span class="title">values</span><span class="params">(<span class="number">1</span>,<span class="string">'test1'</span>)</span></span>;</span><br><span class="line">     *</span><br><span class="line">    ERROR at line <span class="number">1</span>:</span><br><span class="line">    ORA-<span class="number">00001</span>: <span class="function">unique <span class="title">constraint</span> <span class="params">(SYSTEM.MYORDER_ID_PK)</span> violated</span></span><br></pre></td></tr></table></figure>
+<h2 id="4-6-练习"><a href="#4-6-练习" class="headerlink" title="4.6 练习"></a>4.6 练习</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">建立一张 订单表 叫order100</span><br><span class="line">id number pk</span><br><span class="line"><span class="function">ono <span class="title">varchar2</span><span class="params">(<span class="number">30</span>)</span> uk</span></span><br><span class="line"><span class="function">odate date nn</span></span><br><span class="line"><span class="function">create table <span class="title">order100</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">	id number constraint order100_id_pk primary key,</span></span></span><br><span class="line"><span class="function"><span class="params">	ono varchar2(<span class="number">30</span>)</span> constraint order100_ono_uk unique,</span></span><br><span class="line"><span class="function">	odate date constraint order100_odate_nn not <span class="keyword">null</span></span></span><br><span class="line"><span class="function">)</span>;</span><br><span class="line"><span class="function">insert into order100 <span class="title">values</span><span class="params">(<span class="number">1</span>,<span class="keyword">null</span>,sysdate)</span></span>;</span><br><span class="line"><span class="function">insert into order100 <span class="title">values</span><span class="params">(<span class="number">2</span>,<span class="keyword">null</span>,sysdate)</span></span>;</span><br></pre></td></tr></table></figure>
+<h2 id="检查约束"><a href="#检查约束" class="headerlink" title="检查约束"></a>检查约束</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">在上面的基础上 加一个字段 omoney number 要求omoney 大于<span class="number">35</span></span><br><span class="line">drop   table    order100;</span><br><span class="line">   <span class="function">create  table  <span class="title">order100</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">           id     number  constraint  order100_id_pk  primary key,</span></span></span><br><span class="line"><span class="function"><span class="params">           ono  varchar2(<span class="number">30</span>)</span>  constraint  order100_ono_uk  unique,</span></span><br><span class="line"><span class="function">           odate  date   constraint  order100_odate_nn  not <span class="keyword">null</span>,</span></span><br><span class="line"><span class="function">      		omoney number constraint order100_omoney_ck <span class="title">check</span><span class="params">(omoney&gt;<span class="number">35</span>)</span>     </span></span><br><span class="line"><span class="function">    )</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="4-8-主键的表级约约束实现"><a href="#4-8-主键的表级约约束实现" class="headerlink" title="4.8 主键的表级约约束实现"></a>4.8 主键的表级约约束实现</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">create table <span class="title">order200</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">	id number,</span></span></span><br><span class="line"><span class="function"><span class="params">	ono varchar2(<span class="number">30</span>)</span>,</span></span><br><span class="line"><span class="function">	odate date,</span></span><br><span class="line"><span class="function">	omoney number,constraint order200_id_pk primary <span class="title">key</span><span class="params">(id)</span></span></span><br><span class="line"><span class="function">)</span>;</span><br><span class="line"></span><br><span class="line">联合主键,表级约束最大的优势就是可以做联合约束(主键)</span><br><span class="line"><span class="function">create table <span class="title">order300</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">	id number,</span></span></span><br><span class="line"><span class="function"><span class="params">	ono varchar2(<span class="number">30</span>)</span>,</span></span><br><span class="line"><span class="function">	odate date,</span></span><br><span class="line"><span class="function">	omoney number,constraint order300_idono_pk primary <span class="title">key</span><span class="params">(id,pno)</span></span></span><br><span class="line"><span class="function">)</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="4-9-练习"><a href="#4-9-练习" class="headerlink" title="4.9 练习"></a>4.9 练习</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">建立一张表 订单表 叫order1001</span><br><span class="line">id number pk</span><br><span class="line"><span class="function">ono <span class="title">varchar2</span><span class="params">(<span class="number">30</span>)</span> uk</span></span><br><span class="line"><span class="function">odate date nn 列级约束<span class="params">(因为不支持表级)</span></span></span><br><span class="line"><span class="function">除了odate 之外 其他的字段需要使用 表级约束</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">create odate <span class="title">order1001</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">	id number,</span></span></span><br><span class="line"><span class="function"><span class="params">	ono varchar2(<span class="number">30</span>)</span>,</span></span><br><span class="line"><span class="function">	odate date not <span class="keyword">null</span>,</span></span><br><span class="line"><span class="function">	omoney number,</span></span><br><span class="line"><span class="function">		constraint order1001_id_pk primary <span class="title">key</span><span class="params">(id)</span>,</span></span><br><span class="line"><span class="function">		constraint order1001_ono_uk <span class="title">unique</span><span class="params">(ono)</span>,</span></span><br><span class="line"><span class="function">		constraint order1001_omoney_ck <span class="title">check</span><span class="params">(omoney&gt;<span class="number">35</span>)</span></span></span><br><span class="line"><span class="function">)</span>;</span><br></pre></td></tr></table></figure>
     </div>
     <footer>
         
